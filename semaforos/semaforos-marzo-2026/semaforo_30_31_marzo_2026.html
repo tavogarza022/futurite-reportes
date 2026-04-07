@@ -970,7 +970,7 @@
     <div class="hallazgos">
       <div class="hallazgo amarillo">
         <div class="hallazgo-simbolo">△</div>
-        <div class="hallazgo-cuerpo"><strong>18 colaboradores asisten pero no tienen tareas registradas</strong> en el sistema durante el período. Se recomienda revisar si realizan trabajo no capturado.</div>
+        <div class="hallazgo-cuerpo"><strong>Discrepancia entre sistemas resuelta:</strong> La diferencia de nombres entre el biométrico y el sistema de tareas generaba una cifra incorrecta. Los 18 colaboradores sin tareas aparentes corresponden a: 5 con nombres distintos entre sistemas (Adrián Magallanes, Ángel González, Diego Carrión, Erwin Montes y Paola Espinosa), 10 con roles que no registran tareas propias (directivos, RRHH, contabilidad, courier, intendencia, facturación y atención a cliente) y 1 baja procesada (Regina López). <strong>Acción pendiente: homologar nombres en ambos sistemas para eliminar esta inconsistencia de forma permanente.</strong></div>
         <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
       </div>
     </div>
@@ -1262,6 +1262,54 @@
     Distribución: Dirección General
   </div>
 </footer>
+
+
+<!-- ═══════════════ BOTÓN REGRESAR ═══════════════ -->
+<style>
+  .btn-regresar {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .btn-regresar:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    transform: translateX(-3px);
+  }
+  .btn-regresar svg {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .btn-regresar:hover svg {
+    transform: translateX(-2px);
+  }
+</style>
+<a class="btn-regresar" href="../../index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 12H5M12 5l-7 7 7 7"/>
+  </svg>
+  Reportes
+</a>
 
 </body>
 </html>
