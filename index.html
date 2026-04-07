@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futurite — Reportes Operativos</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #090909;
+    --surface:      #111113;
+    --surface2:     #18181c;
+    --surface3:     #202026;
+    --border:       rgba(255,255,255,0.06);
+    --border2:      rgba(255,255,255,0.10);
+    --text:         #eeedf4;
+    --text-sub:     #9998aa;
+    --text-muted:   #5c5b6e;
+    --verde:        #1fd68a;
+    --verde-dim:    rgba(31,214,138,0.10);
+    --verde-line:   rgba(31,214,138,0.22);
+    --amarillo:     #f0b429;
+    --amarillo-dim: rgba(240,180,41,0.10);
+    --amarillo-line:rgba(240,180,41,0.22);
+    --rojo:         #f05454;
+    --rojo-dim:     rgba(240,84,84,0.10);
+    --rojo-line:    rgba(240,84,84,0.22);
+    --accent:       #6c5ce7;
+    --accent-dim:   rgba(108,92,231,0.12);
+    --accent-line:  rgba(108,92,231,0.30);
+    --accent-soft:  #9b8ef4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── CABECERA ── */
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border2);
+    animation: entrada 0.5s ease both;
+  }
+  .cabecera-etiqueta {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera-etiqueta::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 1px;
+    background: var(--accent-soft);
+  }
+  .cabecera h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+  .cabecera h1 em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+  .cabecera-meta {
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* ── SECCIÓN MES ── */
+  .mes-seccion {
+    margin-bottom: 36px;
+    animation: entrada 0.5s ease both;
+  }
+  .mes-seccion:nth-child(2) { animation-delay: 0.08s; }
+  .mes-seccion:nth-child(3) { animation-delay: 0.14s; }
+
+  .mes-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .mes-pastilla {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .mes-pastilla.marzo {
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border-color: var(--accent-line);
+  }
+  .mes-pastilla.abril {
+    background: var(--amarillo-dim);
+    color: var(--amarillo);
+    border-color: var(--amarillo-line);
+  }
+  .mes-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .mes-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+  .mes-count {
+    margin-left: auto;
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+
+  /* ── GRILLA DE REPORTES ── */
+  .reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+
+  /* ── TARJETA REPORTE ── */
+  .reporte-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .reporte-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .reporte-card:hover {
+    border-color: var(--accent-line);
+    transform: translateY(-2px);
+  }
+  .reporte-card.disponible { border-left: 2px solid var(--verde); }
+  .reporte-card.proximo    { border-left: 2px solid var(--border2); opacity: 0.5; pointer-events: none; }
+
+  .reporte-tipo {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    align-self: flex-start;
+  }
+  .reporte-tipo.semanal {
+    background: var(--verde-dim);
+    color: var(--verde);
+    border: 1px solid var(--verde-line);
+  }
+  .reporte-tipo.proximo-tag {
+    background: var(--surface2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .reporte-periodo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .reporte-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .reporte-meta-fila {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .reporte-meta-fila .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--verde);
+    flex-shrink: 0;
+  }
+  .reporte-meta-fila .dot.gris { background: var(--text-muted); }
+
+  .reporte-arrow {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+  .reporte-arrow::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+  .reporte-card:hover .reporte-arrow::after {
+    transform: translateX(4px);
+  }
+
+  /* ── PIE ── */
+  .pie {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: entrada 0.5s 0.3s ease both;
+  }
+  .pie-izquierda {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .pie-derecha {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: right;
+  }
+
+  @keyframes entrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── CABECERA ── -->
+<header class="cabecera">
+  <div>
+    <div class="cabecera-etiqueta">Futurite · Reportes Internos · PM Operativo</div>
+    <h1>Reportes <em>Operativos</em></h1>
+  </div>
+  <div class="cabecera-meta">
+    Agencia Futurite · 2026<br>
+    Distribución: Dirección General
+  </div>
+</header>
+
+<!-- ── MARZO 2026 ── -->
+<section class="mes-seccion">
+  <div class="mes-encabezado">
+    <span class="mes-pastilla marzo">Marzo 2026</span>
+    <span class="mes-titulo">Semáforos <em>semanales</em></span>
+    <span class="mes-count">2 reportes disponibles</span>
+  </div>
+
+  <div class="reportes-grid">
+
+    <a class="reporte-card disponible" href="semaforos/semaforos-marzo-2026/semaforo_23_27_marzo_2026.html">
+      <span class="reporte-tipo semanal">Semáforo semanal</span>
+      <div class="reporte-periodo">23 – 27 de Marzo</div>
+      <div class="reporte-meta">
+        <div class="reporte-meta-fila"><span class="dot"></span>5 días hábiles · 34 colaboradores operativos</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 92.4% · 33 retardos</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Pico de retardos: jueves (27.3%)</div>
+      </div>
+      <span class="reporte-arrow">Ver reporte</span>
+    </a>
+
+    <a class="reporte-card disponible" href="semaforos/semaforos-marzo-2026/semaforo_30_31_marzo_2026.html">
+      <span class="reporte-tipo semanal">Semáforo semanal</span>
+      <div class="reporte-periodo">30 – 31 de Marzo</div>
+      <div class="reporte-meta">
+        <div class="reporte-meta-fila"><span class="dot"></span>2 días hábiles · semana corta por feriados</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 96.7% · 4 retardos</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Mejor semana del mes en puntualidad</div>
+      </div>
+      <span class="reporte-arrow">Ver reporte</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── ABRIL 2026 ── -->
+<section class="mes-seccion">
+  <div class="mes-encabezado">
+    <span class="mes-pastilla abril">Abril 2026</span>
+    <span class="mes-titulo">Semáforos <em>semanales</em></span>
+    <span class="mes-count">Próximamente</span>
+  </div>
+
+  <div class="reportes-grid">
+
+    <div class="reporte-card proximo">
+      <span class="reporte-tipo proximo-tag">Próximo</span>
+      <div class="reporte-periodo">1 – 10 de Abril</div>
+      <div class="reporte-meta">
+        <div class="reporte-meta-fila"><span class="dot gris"></span>6 días hábiles · 1 y 6–10 de Abril</div>
+        <div class="reporte-meta-fila"><span class="dot gris"></span>Feriados: 2 y 3 de Abril (Jueves y Viernes Santo)</div>
+        <div class="reporte-meta-fila"><span class="dot gris"></span>Reporte en preparación</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PIE ── -->
+<footer class="pie">
+  <div class="pie-izquierda">
+    Futurite Agencia · Reportes internos de operación<br>
+    Generado por el área de Project Management
+  </div>
+  <div class="pie-derecha">
+    Distribución: Dirección General<br>
+    Uso interno — confidencial
+  </div>
+</footer>
+
+</body>
+</html>
