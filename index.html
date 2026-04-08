@@ -14,8 +14,8 @@
     --border:       rgba(255,255,255,0.06);
     --border2:      rgba(255,255,255,0.10);
     --text:         #eeedf4;
-    --text-sub:     #9998aa;
-    --text-muted:   #5c5b6e;
+    --text-sub:     #bcbccc;
+    --text-muted:   #8e8da0;
     --verde:        #1fd68a;
     --verde-dim:    rgba(31,214,138,0.10);
     --verde-line:   rgba(31,214,138,0.22);
@@ -261,6 +261,126 @@
     text-align: right;
   }
 
+
+  /* ── SECCIÓN REPORTES QUINCENALES ── */
+  .quincenal-seccion {
+    margin-bottom: 36px;
+    animation: entrada 0.5s 0.20s ease both;
+  }
+  .quincenal-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .quincenal-pastilla {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+    background: var(--rojo-dim);
+    color: var(--rojo);
+    border-color: var(--rojo-line);
+  }
+  .descarga-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--amarillo);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    max-width: 620px;
+  }
+  .descarga-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .descarga-card:hover {
+    border-color: var(--amarillo-line);
+    transform: translateY(-2px);
+  }
+  .descarga-icono {
+    width: 44px; height: 44px;
+    background: var(--amarillo-dim);
+    border: 1px solid var(--amarillo-line);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .descarga-info { flex: 1; }
+  .descarga-tipo {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    align-self: flex-start;
+    display: inline-block;
+    margin-bottom: 8px;
+    background: var(--amarillo-dim);
+    color: var(--amarillo);
+    border: 1px solid var(--amarillo-line);
+  }
+  .descarga-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .descarga-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .descarga-meta-fila {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .descarga-meta-fila .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--amarillo);
+    flex-shrink: 0;
+  }
+  .descarga-btn {
+    font-size: 11px;
+    color: var(--amarillo);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 8px 16px;
+    border: 1px solid var(--amarillo-line);
+    border-radius: 8px;
+    background: var(--amarillo-dim);
+    transition: background 0.2s;
+  }
+  .descarga-card:hover .descarga-btn {
+    background: rgba(240,180,41,0.20);
+  }
+
   @keyframes entrada {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -298,7 +418,7 @@
         <div class="reporte-meta-fila"><span class="dot"></span>5 días hábiles · 34 colaboradores operativos</div>
         <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 92.4% · 33 retardos</div>
         <div class="reporte-meta-fila"><span class="dot"></span>Pico de retardos: jueves (27.3%)</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad ajustada: 32.6% · Línea base</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 18% · Ajustada: 32.6% · Línea base</div>
       </div>
       <span class="reporte-arrow">Ver reporte</span>
     </a>
@@ -310,7 +430,7 @@
         <div class="reporte-meta-fila"><span class="dot"></span>2 días hábiles · semana corta por feriados</div>
         <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 96.7% · 4 retardos</div>
         <div class="reporte-meta-fila"><span class="dot"></span>Mejor semana del mes en puntualidad</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad ajustada: 32.6% · Línea base</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 18% · Ajustada: 32.6% · Línea base</div>
       </div>
       <span class="reporte-arrow">Ver reporte</span>
     </a>
@@ -339,6 +459,33 @@
     </div>
 
   </div>
+</section>
+
+
+<!-- ── REPORTES QUINCENALES ── -->
+<section class="quincenal-seccion">
+  <div class="quincenal-encabezado">
+    <span class="quincenal-pastilla">Reportes Quincenales</span>
+    <span class="mes-titulo">Reportes <em>quincenales</em></span>
+    <span class="mes-count">1 reporte disponible</span>
+  </div>
+
+  <a class="descarga-card" href="reportes/Reporte_Quincenal_2a_Quincena_Marzo_2026_v3.xlsx" download>
+    <div class="descarga-icono">📊</div>
+    <div class="descarga-info">
+      <span class="descarga-tipo">Reporte quincenal · Excel</span>
+      <div class="descarga-titulo">2ª Quincena de Marzo 2026</div>
+      <div class="descarga-meta">
+        <div class="descarga-meta-fila"><span class="dot"></span>16 – 31 de Marzo · 12 días hábiles · 47 colaboradores</div>
+        <div class="descarga-meta-fila"><span class="dot"></span>67 clientes activos · 1,306.93 hrs de servicio en Marzo</div>
+        <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+      </div>
+    </div>
+    <div class="descarga-btn">
+      ⬇ Descargar
+    </div>
+  </a>
+
 </section>
 
 <!-- ── PIE ── -->
