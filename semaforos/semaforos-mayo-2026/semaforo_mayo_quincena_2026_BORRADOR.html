@@ -1,0 +1,3735 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semáforo Operativo — 1ª Quincena Abril 2026 — Futurite</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #090909;
+    --surface:      #111113;
+    --surface2:     #18181c;
+    --surface3:     #202026;
+    --border:       rgba(255,255,255,0.06);
+    --border2:      rgba(255,255,255,0.10);
+    --text:         #eeedf4;
+    --text-sub:     #bcbccc;
+    --text-muted:   #8e8da0;
+
+    --verde:        #1fd68a;
+    --verde-dim:    rgba(31,214,138,0.10);
+    --verde-line:   rgba(31,214,138,0.22);
+
+    --amarillo:     #f0b429;
+    --amarillo-dim: rgba(240,180,41,0.10);
+    --amarillo-line:rgba(240,180,41,0.22);
+
+    --rojo:         #f05454;
+    --rojo-dim:     rgba(240,84,84,0.10);
+    --rojo-line:    rgba(240,84,84,0.22);
+
+    --accent:       #6c5ce7;
+    --accent-dim:   rgba(108,92,231,0.12);
+    --accent-line:  rgba(108,92,231,0.30);
+    --accent-soft:  #9b8ef4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ══════════════════════════════════════
+     CABECERA
+  ══════════════════════════════════════ */
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border2);
+    animation: entrada 0.5s ease both;
+  }
+  .cabecera-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera-etiqueta::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--accent-soft);
+  }
+  .cabecera h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .cabecera h1 em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+  .cabecera-meta {
+    text-align: right;
+  }
+  .cabecera-periodo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 5px;
+  }
+  .cabecera-gen {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ══════════════════════════════════════
+     BARRA DE ESTADO GLOBAL
+  ══════════════════════════════════════ */
+  .estado-global {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: entrada 0.5s 0.06s ease both;
+  }
+  .estado-bloque {
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .estado-bloque::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .estado-bloque.verde  { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .estado-bloque.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .estado-bloque.rojo   { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .estado-indicador {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .verde  .estado-indicador { background: var(--verde);    box-shadow: 0 0 0 3px rgba(31,214,138,0.20), 0 0 14px rgba(31,214,138,0.35); }
+  .amarillo .estado-indicador { background: var(--amarillo); box-shadow: 0 0 0 3px rgba(240,180,41,0.20), 0 0 14px rgba(240,180,41,0.35); }
+  .rojo   .estado-indicador { background: var(--rojo);     box-shadow: 0 0 0 3px rgba(240,84,84,0.20),  0 0 14px rgba(240,84,84,0.35); }
+
+  .estado-texto { flex: 1; }
+  .estado-label {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+  .estado-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .verde  .estado-valor { color: var(--verde); }
+  .amarillo .estado-valor { color: var(--amarillo); }
+  .rojo   .estado-valor { color: var(--rojo); }
+
+  /* ══════════════════════════════════════
+     CUADRÍCULA DE TARJETAS
+  ══════════════════════════════════════ */
+  .cuadricula {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* ══════════════════════════════════════
+     TARJETA BASE
+  ══════════════════════════════════════ */
+  .tarjeta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s ease both;
+  }
+  .tarjeta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .tarjeta:nth-child(1) { animation-delay: 0.10s; }
+  .tarjeta:nth-child(2) { animation-delay: 0.15s; }
+  .tarjeta:nth-child(3) { animation-delay: 0.20s; }
+  .tarjeta:nth-child(4) { animation-delay: 0.25s; }
+
+  /* Acento lateral de color por estado */
+  .tarjeta.acento-verde    { border-left: 2px solid var(--verde); }
+  .tarjeta.acento-amarillo { border-left: 2px solid var(--amarillo); }
+  .tarjeta.acento-rojo     { border-left: 2px solid var(--rojo); }
+
+  /* ── Encabezado de tarjeta ── */
+  .tarjeta-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tarjeta-titulo-grupo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tarjeta-icono {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .tarjeta-titulo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+  .insignia {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .insignia-verde    { color: var(--verde);    background: var(--verde-dim);    border-color: var(--verde-line); }
+  .insignia-amarillo { color: var(--amarillo); background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .insignia-rojo     { color: var(--rojo);     background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  /* ── Métricas ── */
+  .metricas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .metrica-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .metrica-valor.verde    { color: var(--verde); }
+  .metrica-valor.amarillo { color: var(--amarillo); }
+  .metrica-valor.rojo     { color: var(--rojo); }
+  .metrica-valor.neutro   { color: var(--text); }
+  .metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  /* ── Separador fino ── */
+  .separador {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Barras de progreso ── */
+  .barras { display: flex; flex-direction: column; gap: 9px; }
+  .barra-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 10px;
+  }
+  .barra-nombre {
+    font-size: 11px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+  .barra-pista {
+    height: 4px;
+    background: var(--surface3);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .barra-relleno {
+    height: 100%;
+    border-radius: 99px;
+  }
+  .barra-dato {
+    font-family: 'Lato', sans-serif;
+    font-size: 10.5px;
+    color: var(--text-sub);
+    text-align: right;
+  }
+
+  /* ── Hallazgos (lista de items) ── */
+  .hallazgos { display: flex; flex-direction: column; gap: 8px; }
+  .hallazgo {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hallazgo.verde    { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .hallazgo.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .hallazgo.rojo     { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .hallazgo-simbolo {
+    font-size: 11px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .verde    .hallazgo-simbolo { background: rgba(31,214,138,0.18);  color: var(--verde); }
+  .amarillo .hallazgo-simbolo { background: rgba(240,180,41,0.18);  color: var(--amarillo); }
+  .rojo     .hallazgo-simbolo { background: rgba(240,84,84,0.18);   color: var(--rojo); }
+
+  .hallazgo-cuerpo { flex: 1; }
+  .hallazgo-cuerpo strong { color: var(--text); font-weight: 600; }
+
+  .hallazgo-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+  .etiqueta-cliente  { background: rgba(108,92,231,0.18); color: var(--accent-soft); }
+  .etiqueta-equipo   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .etiqueta-proceso  { background: rgba(240,180,41,0.12);  color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     TARJETA ACCIONES DIRECCIÓN
+  ══════════════════════════════════════ */
+  .accion-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .accion-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  }
+  .accion-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(108,92,231,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .accion-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .accion-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .accion-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .accion-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+
+  .accion-lista { display: flex; flex-direction: column; gap: 10px; }
+  .accion-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    transition: border-color 0.2s;
+  }
+  .accion-item:hover {
+    border-color: var(--accent-line);
+  }
+  .accion-numero {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--accent-soft);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-line);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .accion-contenido { flex: 1; }
+  .accion-contenido strong {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+  .accion-contenido span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     PIE DE PÁGINA
+  ══════════════════════════════════════ */
+  .pie {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .pie-izquierda {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .pie-derecha {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: right;
+  }
+
+  /* ══════════════════════════════════════
+     IMPACTO ECONÓMICO
+  ══════════════════════════════════════ */
+  .impacto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.28s ease both;
+  }
+  .impacto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,84,84,0.3), transparent);
+  }
+  .impacto-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(240,84,84,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .impacto-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .impacto-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--rojo-dim);
+    color: var(--rojo);
+    border: 1px solid var(--rojo-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .impacto-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .impacto-titulo em {
+    font-style: italic;
+    color: var(--rojo);
+  }
+  .impacto-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  .impacto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .impacto-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .impacto-bloque.alerta {
+    border-color: var(--rojo-line);
+    background: var(--rojo-dim);
+  }
+  .impacto-bloque.atencion {
+    border-color: var(--amarillo-line);
+    background: var(--amarillo-dim);
+  }
+  .impacto-bloque.referencia {
+    border-color: var(--border2);
+    background: var(--surface2);
+  }
+  .impacto-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .alerta    .impacto-etiqueta { color: var(--rojo); }
+  .atencion  .impacto-etiqueta { color: var(--amarillo); }
+  .referencia .impacto-etiqueta { color: var(--text-muted); }
+
+  .impacto-monto {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .alerta    .impacto-monto { color: var(--rojo); }
+  .atencion  .impacto-monto { color: var(--amarillo); }
+  .referencia .impacto-monto { color: var(--text); }
+
+  .impacto-desc {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-sub);
+  }
+
+  .impacto-desglose {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .desglose-titulo {
+    padding: 12px 18px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .desglose-fila {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .desglose-fila:last-child { border-bottom: none; }
+  .desglose-fila.total {
+    background: rgba(255,255,255,0.02);
+    font-weight: 600;
+  }
+  .desglose-nombre { color: var(--text-sub); }
+  .desglose-nombre strong { color: var(--text); font-weight: 500; }
+  .desglose-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .desglose-valor {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    min-width: 110px;
+  }
+  .desglose-fila.alerta .desglose-valor   { color: var(--rojo); }
+  .desglose-fila.atencion .desglose-valor { color: var(--amarillo); }
+  .desglose-fila.total .desglose-valor    { color: var(--text); }
+
+  .impacto-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .impacto-disclaimer span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     ACTIVIDAD RECIENTE
+  ══════════════════════════════════════ */
+  .reciente-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.32s ease both;
+  }
+  .reciente-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(31,214,138,0.3), transparent);
+  }
+  .reciente-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(31,214,138,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .reciente-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .reciente-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--verde-dim);
+    color: var(--verde);
+    border: 1px solid var(--verde-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .reciente-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .reciente-titulo em {
+    font-style: italic;
+    color: var(--verde);
+  }
+  .reciente-subtitulo {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .reciente-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .reciente-metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .reciente-metrica.destacado {
+    border-color: var(--verde-line);
+    background: var(--verde-dim);
+  }
+  .reciente-metrica-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .reciente-metrica.destacado .reciente-metrica-val { color: var(--verde); }
+  .reciente-metrica-val.neutro { color: var(--text); }
+  .reciente-metrica-val.amarillo { color: var(--amarillo); }
+  .reciente-metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .reciente-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .reciente-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .reciente-bloque-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reciente-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    gap: 10px;
+  }
+  .reciente-fila:last-child { border-bottom: none; }
+  .reciente-fila-nombre { color: var(--text-sub); flex: 1; }
+  .reciente-fila-nombre strong { color: var(--text); font-weight: 500; }
+  .reciente-fila-cat {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .reciente-fila-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--verde);
+    min-width: 55px;
+    text-align: right;
+  }
+  .reciente-fila-hrs.amarillo { color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     ANIMACIÓN
+  ══════════════════════════════════════ */
+  @keyframes entrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 22%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 8%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 7.5%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 7%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 8%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 6.5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 8%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 9%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 8%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-etq strong { color: var(--text-sub); margin-right: 4px; }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === AVISO REPORTE MENSUAL === */
+  .aviso-reporte {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: entrada 0.6s ease both;
+  }
+  .aviso-icono {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+  .aviso-contenido { flex: 1; }
+  .aviso-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .aviso-cuerpo {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .aviso-cuerpo strong { color: var(--text); }
+  .aviso-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    transition: all 0.2s;
+  }
+  .aviso-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+/* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 22%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 8%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 7.5%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 7%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 8%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 6.5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 8%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 9%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 8%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    padding: 18px 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-etq-titulo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .cl-leyenda-etq-grupos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 32px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .cl-leyenda-etq-grupos { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .cl-leyenda-etq-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cl-leyenda-etq-grupo-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .cl-leyenda-etq-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
+  .cl-leyenda-etq-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .cl-leyenda-etq-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .cl-leyenda-etq-nota {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === FILTROS Y BÚSQUEDA DEL DETALLE === */
+  .cl-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .cl-filtros-grupo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .cl-filtros-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .cl-filtros-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .cl-filtro-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .cl-filtro-pill:hover {
+    border-color: var(--accent-line);
+    color: var(--text);
+  }
+  .cl-filtro-pill.activo {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .cl-filtro-count {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--surface3);
+    border-radius: 8px;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .cl-filtro-pill.activo .cl-filtro-count {
+    background: rgba(255,255,255,0.08);
+    color: var(--accent-soft);
+  }
+  .cl-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+  .cl-busqueda input {
+    flex: 1;
+    max-width: 280px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .cl-busqueda input:focus {
+    border-color: var(--accent-line);
+  }
+  .cl-busqueda input::placeholder {
+    color: var(--text-muted);
+  }
+  .cl-busqueda-info {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* === ENCABEZADOS SORTABLES === */
+  .cl-tabla thead th.th-sortable,
+  .cl-tabla thead th.th-cliente {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  .cl-tabla thead th.th-sortable:hover,
+  .cl-tabla thead th.th-cliente:hover {
+    color: var(--accent-soft);
+  }
+  .sort-ind {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    opacity: 0.4;
+    transition: opacity 0.15s;
+  }
+  .cl-tabla thead th.sort-asc .sort-ind::after { content: '▲'; opacity: 1; }
+  .cl-tabla thead th.sort-desc .sort-ind::after { content: '▼'; opacity: 1; }
+  .cl-tabla thead th.th-sortable:not(.sort-asc):not(.sort-desc) .sort-ind::after,
+  .cl-tabla thead th.th-cliente:not(.sort-asc):not(.sort-desc) .sort-ind::after {
+    content: '⇅';
+    opacity: 0.4;
+  }
+
+  tr.cl-hidden { display: none !important; }
+
+
+  .cl-leyenda-nota {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-left: 2px solid var(--border2);
+    border-radius: 4px;
+    margin-top: -8px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-nota strong {
+    color: var(--text-sub);
+    font-weight: 600;
+  }
+
+
+
+  .cl-deptos-placeholder {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    align-items: center;
+  }
+  .placeholder-icono {
+    font-size: 32px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .placeholder-texto {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .placeholder-texto strong { color: var(--text-sub); }
+  .placeholder-texto em { color: var(--accent-soft); font-style: normal; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ CABECERA ═══════════════ -->
+<header class="cabecera">
+  <div>
+    <div class="cabecera-etiqueta">⚠ BORRADOR · Futurite · Reporte Interno · PM Operativo</div>
+    <h1>Semáforo <em>Mayo Quincena</em></h1>
+  </div>
+  <div class="cabecera-meta">
+    <div class="cabecera-periodo">4 – 15 de Mayo 2026  ·  1ª Quincena  ·  10 días hábiles (1 May feriado · 9-10 fin de semana)</div>
+    <div class="cabecera-gen">Borrador del 14 de Mayo · Datos parciales al 12 May (asistencia 7/10 días) · Cierre y datos completos esperados lunes 18 May</div>
+</header>
+
+<!-- ═══════════════ ESTADO GLOBAL ═══════════════ -->
+<div class="estado-global">
+  <div class="estado-bloque verde">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Indicadores en orden</div>
+      <div class="estado-valor">5</div>
+    </div>
+  </div>
+  <div class="estado-bloque amarillo">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Requieren atención</div>
+      <div class="estado-valor">3</div>
+    </div>
+  </div>
+  <div class="estado-bloque rojo">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Alertas críticas</div>
+      <div class="estado-valor">2</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CUADRÍCULA PRINCIPAL ═══════════════ -->
+<div class="cuadricula">
+
+  <!-- ── TARJETA 1: ASISTENCIA ── -->
+  <div class="tarjeta acento-amarillo">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">🕐</div>
+        <span class="tarjeta-titulo">Asistencia y Puntualidad</span>
+      </div>
+      <span class="insignia insignia-amarillo">⚠ Atención</span>
+    </div>
+
+    <div class="metricas">
+      <div class="metrica">
+        <div class="metrica-valor amarillo">78.6%</div>
+        <div class="metrica-etiqueta">Asistencia promedio del equipo · datos al 12 May</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor rojo">62</div>
+        <div class="metrica-etiqueta">Retardos registrados al 12 May · tasa 29.7%</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor amarillo">7:54</div>
+        <div class="metrica-etiqueta">Jornada promedio (mediana) en días con marcaje completo</div>
+      </div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Líderes en puntualidad del período al 12 May:</strong> Petra Medrano (08:01), Alejandro Vargas Méndez (08:20), Jorge Valente (08:21), Israel Obregón (08:31) y Verónica Picón (08:32) registraron las entradas más tempranas en los 7 días hábiles disponibles. 100 marcajes con entrada en o antes de las 9:00 hrs. <em>(Datos parciales · pendiente integrar 13-15 May)</em></div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>Picos de retardos al 12 May:</strong> Miércoles 6, lunes 11 y martes 12 con 10 retardos cada uno (33% del personal). El regreso de fin de semana (lunes 11) muestra el patrón típico de transición. <em>(Datos parciales · pendiente integrar 13-15 May)</em></div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Patrón</span>
+      </div>
+      <div class="hallazgo rojo">
+        <div class="hallazgo-simbolo">✕</div>
+        <div class="hallazgo-cuerpo"><strong>Retardos elevados al 12 May:</strong> 62 retardos en 7 días hábiles · tasa de 29.7% sobre asistencias registradas (vs 23.8% en 1-10 Abr). Top 4 con mayor incidencia: Angel González (7), Abel Salazar / Claudia Moya / Williana Cuellar (6 c/u), Adrián Magallanes (5). <em>(Datos parciales · pendiente integrar 13-15 May)</em></div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 2: PRODUCTIVIDAD ── -->
+  <div class="tarjeta acento-verde">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">⚡</div>
+        <span class="tarjeta-titulo">Productividad del Equipo</span>
+      </div>
+      <span class="insignia insignia-verde">✓ Estable</span>
+    </div>
+
+    <div class="metricas">
+      <div class="metrica">
+        <div class="metrica-valor verde">205*</div>
+        <div class="metrica-etiqueta">Tareas registradas al 12 de Mayo (parcial · derivado)</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor neutro">327.67*</div>
+        <div class="metrica-etiqueta">Horas de servicio registradas por colaboradores al 12 de Mayo (derivado)</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor verde">17</div>
+        <div class="metrica-etiqueta">Colaboradores con tareas registradas al 12 de Mayo</div>
+      </div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="barras">
+      <div class="barra-fila">
+        <span class="barra-nombre">Diseño</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:100%;background:var(--verde)"></div></div>
+        <span class="barra-dato" style="color:var(--verde)">63 tareas · 167.92 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Tráfico</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:41%;background:var(--verde)"></div></div>
+        <span class="barra-dato" style="color:var(--verde)">59 tareas · 68.92 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Contenido</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:36%;background:var(--verde)"></div></div>
+        <span class="barra-dato" style="color:var(--verde)">47 tareas · 59.67 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">TI</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:8%;background:var(--amarillo)"></div></div>
+        <span class="barra-dato" style="color:var(--amarillo)">19 tareas · 13.66 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">SEO</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:6%;background:var(--rojo)"></div></div>
+        <span class="barra-dato" style="color:var(--rojo)">8 tareas · 9.42 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Marketing</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:5%;background:var(--rojo)"></div></div>
+        <span class="barra-dato" style="color:var(--rojo)">9 tareas · 8.08 hrs</span>
+      </div>
+    </div>
+
+    <div class="hallazgos">
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>⚠ Datos derivados — pendiente reporte oficial:</strong> Las cifras marcadas con asterisco (*) son <em>derivadas</em> restando el acumulado Abril-Mayo menos Abril. El reporte_horas_colaborador específico de Mayo se recibirá el lunes 18 May con el corte del 15 May. Diseño lidera con 167.92 hrs (51.2%) y 63 tareas, seguido de Tráfico con 68.92 hrs (21.0%). Las cifras finales podrían variar ligeramente al integrar los datos del 13, 14 y 15 de Mayo.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 3: SALUD DE CLIENTES ── -->
+  <div class="tarjeta acento-rojo">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <a href="#salud-detalle" class="salud-link-detalle" style="text-decoration:none;display:flex;align-items:center;gap:14px;">
+          <div class="tarjeta-icono">🏢</div>
+          <span class="tarjeta-titulo">Salud de Clientes</span>
+        </a>
+      </div>
+      <span class="insignia insignia-amarillo">⚠ Atención</span>
+    </div>
+
+    <div class="metricas">
+      <div class="metrica">
+        <div class="metrica-valor verde">47</div>
+        <div class="metrica-etiqueta">Clientes activos al 13 de Mayo (parcial)</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor amarillo">31</div>
+        <div class="metrica-etiqueta"><a href="#salud-detalle" class="salud-link-detalle">Cuentas activas sin actividad en Mayo a la fecha — ver detalle</a></div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor verde">338.60 h</div>
+        <div class="metrica-etiqueta">Horas de servicio registradas al 13 de Mayo (parcial)</div>
+      </div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Top 5 cuentas al 13 May:</strong> ARCA CC (47.50 hrs · PYIAAA · fusionado YOMP+ARCA CC), Hospitales MAC (45.25 hrs · AAA), TRYPHE (15.83 hrs · A), AutoTracking (15.08 hrs · PYAA), DURATEX (14.67 hrs · A). Diseño concentra el 38% de las horas con 129.93h.</div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>31 cuentas activas sin actividad en Mayo — <a href="#salud-detalle" class="salud-link-detalle">ver detalle completo</a>:</strong> Cuentas registradas como activas en CUENTAS_ACTIVAS_MAYO que no han facturado horas al 13 May. <em>El conteo es esperado que disminuya al integrar los datos 13-15 May.</em></div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+      <div class="hallazgo rojo">
+        <div class="hallazgo-simbolo">✕</div>
+        <div class="hallazgo-cuerpo"><strong>Distribución por departamento al 13 May:</strong> Diseño 129.93h (38%), Tráfico 69.51h (21%), Contenido 59.17h (18%), TI 15.16h (5%), SEO 8.92h (3%), Marketing 8.08h (2%). Diseño lidera consistentemente la carga operativa.</div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 4: ALERTAS DE PROCESOS ── -->
+  <div class="tarjeta acento-amarillo">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">⚙️</div>
+        <span class="tarjeta-titulo">Alertas de Procesos</span>
+      </div>
+      <span class="insignia insignia-amarillo">⚠ Atención</span>
+    </div>
+
+    <div class="metricas">
+      <div class="metrica">
+        <div class="metrica-valor amarillo">10.93 h*</div>
+        <div class="metrica-etiqueta">Brecha estimada cliente (B) vs colaboradores (A) · derivado</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor verde">0.00 h</div>
+        <div class="metrica-etiqueta">Diferencia entre fuente clientes y departamentos · Candado B==C</div>
+      </div>
+      <div class="metrica">
+        <div class="metrica-valor amarillo">2 / 3</div>
+        <div class="metrica-etiqueta">Candados de validación · A vs B pendiente cierre</div>
+      </div>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Candado B==C en ✅ perfecto:</strong> Las horas de servicio por cliente (338.60 hrs) y el desglose por departamento (338.60 hrs) cuadran con diferencia de cero al 13 May. La trazabilidad de Mayo a la fecha es óptima en este eje.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>Brecha A vs B estimada en 10.93 hrs:</strong> Diferencia entre horas de colaboradores derivadas (327.67 hrs*) y horas de clientes (338.60 hrs). <em>El dato definitivo se actualizará el lunes 18 May al recibir el reporte_horas_colaborador específico de Mayo.</em></div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+      <div class="hallazgo rojo">
+        <div class="hallazgo-simbolo">✕</div>
+        <div class="hallazgo-cuerpo"><strong>Inconsistencias en marcaje detectadas:</strong> Patrón continúa en Mayo. Se recomienda mantener el refuerzo del protocolo de checada de entrada y salida con los líderes de área. Cifra exacta se calcula al cierre de la quincena.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cuadrícula -->
+
+<!-- ═══════════════ ACTIVIDAD RECIENTE ═══════════════ -->
+<div class="reciente-card">
+  <div class="reciente-encabezado">
+    <span class="reciente-pastilla">Actividad Reciente · 1 – 10 Abr 2026</span>
+    <span class="reciente-titulo">Cierre de <em>período</em> y nuevas incorporaciones</span>
+    <span class="reciente-subtitulo">Corte al 10 de abril de 2026 · Fuente: CRM Futurite</span>
+  </div>
+
+  <!-- MÉTRICAS GENERALES -->
+  <div class="reciente-grid">
+    <div class="reciente-metrica destacado">
+      <div class="reciente-metrica-val">1,208</div>
+      <div class="reciente-metrica-etiqueta">Horas de servicio registradas en el período</div>
+    </div>
+    <div class="reciente-metrica">
+      <div class="reciente-metrica-val neutro">64</div>
+      <div class="reciente-metrica-etiqueta">Cuentas activas con horas registradas</div>
+    </div>
+    <div class="reciente-metrica">
+      <div class="reciente-metrica-val amarillo">31</div>
+      <div class="reciente-metrica-etiqueta">Cuentas nuevas incorporadas al período</div>
+    </div>
+    <div class="reciente-metrica destacado">
+      <div class="reciente-metrica-val">3</div>
+      <div class="reciente-metrica-etiqueta">Cuentas previamente en riesgo reactivadas</div>
+    </div>
+  </div>
+
+  <div class="reciente-columnas">
+
+    <!-- CUENTAS REACTIVADAS -->
+    <div class="reciente-bloque">
+      <div class="reciente-bloque-titulo">
+        ✓ Cuentas reactivadas — antes sin actividad en Marzo
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Suplify</strong></span>
+        <span class="reciente-fila-cat">PY</span>
+        <span class="reciente-fila-hrs">52.75 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Gobarsa</strong></span>
+        <span class="reciente-fila-cat">B</span>
+        <span class="reciente-fila-hrs">5.58 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Office Class</strong></span>
+        <span class="reciente-fila-cat">AA</span>
+        <span class="reciente-fila-hrs">0.50 hrs</span>
+      </div>
+    </div>
+
+    <!-- TOP CUENTAS NUEVAS -->
+    <div class="reciente-bloque">
+      <div class="reciente-bloque-titulo">
+        ★ Principales cuentas nuevas incorporadas
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>DURATEX</strong></span>
+        <span class="reciente-fila-cat">B</span>
+        <span class="reciente-fila-hrs">51.33 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Petrovim</strong></span>
+        <span class="reciente-fila-cat">B</span>
+        <span class="reciente-fila-hrs">23.58 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>CBN</strong></span>
+        <span class="reciente-fila-cat">A</span>
+        <span class="reciente-fila-hrs">18.42 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>VAG Inmobiliaria</strong></span>
+        <span class="reciente-fila-cat">B</span>
+        <span class="reciente-fila-hrs">18.25 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Hospital San Vicente</strong></span>
+        <span class="reciente-fila-cat">B</span>
+        <span class="reciente-fila-hrs">18.08 hrs</span>
+      </div>
+      <div class="reciente-fila">
+        <span class="reciente-fila-nombre"><strong>Elizondo</strong> · y 26 más</span>
+        <span class="reciente-fila-cat">AAA</span>
+        <span class="reciente-fila-hrs amarillo">+279 hrs</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ IMPACTO ECONÓMICO ═══════════════ -->
+<div class="impacto-card">
+  <div class="impacto-encabezado">
+    <span class="impacto-pastilla">Impacto Económico · Estimado</span>
+    <span class="impacto-titulo">Valor operativo e <em>indicadores financieros</em></span>
+    <span class="impacto-nota">Basado en costos mensuales por servicio · MXN</span>
+  </div>
+
+  <!-- TRES BLOQUES PRINCIPALES -->
+  <div class="impacto-grid">
+    <div class="impacto-bloque alerta">
+      <div class="impacto-etiqueta">Techo de horas no trazables · Valor estimado</div>
+      <div class="impacto-monto">$1,760*</div>
+      <div class="impacto-desc">Estimado monetario de las 10.93 horas de brecha derivada entre colaboradores y clientes al 12 May. Calculado con costo promedio de facturas ($161/hr). <em>Cifra definitiva al cierre del 15 May.</em></div>
+    </div>
+    <div class="impacto-bloque atencion">
+      <div class="impacto-etiqueta">Horas de servicio generadas</div>
+      <div class="impacto-monto">$54,515</div>
+      <div class="impacto-desc">Estimado monetario de las 338.60 horas de servicio registradas al 13 de Mayo (7 días hábiles disponibles). El cierre de quincena puede modificar significativamente esta cifra.</div>
+    </div>
+    <div class="impacto-bloque referencia">
+      <div class="impacto-etiqueta">Comparativa vs. Abril completo</div>
+      <div class="impacto-monto" style="color:var(--verde)">$146,996</div>
+      <div class="impacto-desc">Estimado monetario de Abril 2026 completo (913.02 hrs × $161/hr) como referencia comparativa. Mayo a la fecha lleva 37% del total de Abril.</div>
+    </div>
+  </div>
+
+  <!-- RECUPERACIÓN DE CARTERA -->
+  <div class="impacto-desglose">
+    <div class="desglose-titulo">Cuentas destacadas al 13 de Mayo</div>
+
+    <div class="desglose-fila" style="background:var(--amarillo-dim); border-color:var(--amarillo-line)">
+      <span class="desglose-nombre"><strong>ARCA CC</strong> · Categoría PYIAAA · Mayor carga del período <span style="display:inline-block;margin-left:8px;padding:2px 8px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:10px;color:#a5b4fc;font-weight:600;">Cuenta interna · YOMP consolidado en ARCA CC</span></span>
+      <span class="desglose-hrs">Referencia Marzo: activo</span>
+      <span class="desglose-valor" style="color:var(--amarillo)">32.50 hrs en el período</span>
+    </div>
+    <div class="desglose-fila" style="background:var(--verde-dim); border-color:var(--verde-line)">
+      <span class="desglose-nombre"><strong>PHS</strong> · Categoría AAA · Segunda cuenta del período</span>
+      <span class="desglose-hrs">Referencia Marzo: activo</span>
+      <span class="desglose-valor" style="color:var(--verde)">24.00 hrs en el período</span>
+    </div>
+    <div class="desglose-fila" style="background:var(--verde-dim); border-color:var(--verde-line)">
+      <span class="desglose-nombre"><strong>COBERLUM</strong> · Categoría AA · Tercer lugar del período</span>
+      <span class="desglose-hrs">Referencia Marzo: 49.03 hrs</span>
+      <span class="desglose-valor" style="color:var(--verde)">15.00 hrs en el período</span>
+    </div>
+    <div class="desglose-fila total">
+      <span class="desglose-nombre"><strong>Total horas top 3 cuentas</strong></span>
+      <span class="desglose-hrs">71.5 hrs · $11,512 MXN estimados</span>
+      <span class="desglose-valor" style="color:var(--verde)">3 cuentas activas</span>
+    </div>
+  </div>
+
+  <div class="impacto-disclaimer">
+    <span>Metodología:</span> El costo por hora de servicio se estima dividiendo el precio mensual de cada servicio entre las horas registradas en el período. Costo promedio ponderado utilizado: <strong style="color:var(--text-sub)">$161 MXN por hora</strong> (RRSS: $58/hr · SEO: $224/hr · Google Ads: $202/hr). Las cifras son estimaciones basadas en datos del CRM y el sistema de tareas. Los valores están sujetos a ajuste según el mix de servicios por cliente. Los costos de servicios fueron proporcionados por el área de operaciones y pueden variar según el requerimiento del cliente.
+  </div>
+</div>
+
+
+<!-- ═══════════════ VISIBILIDAD OPERATIVA ═══════════════ -->
+<style>
+  .vis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.29s ease both;
+  }
+  .vis-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent);
+  }
+  .vis-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(108,92,231,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .vis-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .vis-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .vis-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .vis-titulo em { font-style: italic; color: var(--accent-soft); }
+  .vis-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .vis-bloques {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .vis-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .vis-bloque-label {
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .vis-bloque-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .vis-bloque-sub {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .vis-stack {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .vis-stack-titulo {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .vis-stack-barra {
+    display: flex;
+    height: 10px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    gap: 2px;
+  }
+  .vis-stack-seg {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  .vis-stack-leyenda {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .vis-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .vis-stack-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .vis-deptos {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .vis-deptos-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .vis-depto-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 55px 100px;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .vis-depto-fila:last-child { border-bottom: none; }
+  .vis-depto-nombre { color: var(--text-sub); font-weight: 500; }
+  .vis-depto-barra-wrap .barra-pista { height: 5px; }
+  .vis-depto-tasa { text-align: right; font-weight: 600; font-size: 11px; }
+  .vis-depto-hrs { color: var(--text-muted); text-align: right; font-size: 10.5px; }
+  .vis-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .vis-disclaimer span { color: var(--text-sub); }
+</style>
+
+<div class="vis-card">
+  <div class="vis-encabezado">
+    <span class="vis-pastilla">⚠ BORRADOR · Visibilidad Operativa Mayo Quincena</span>
+    <span class="vis-titulo">Facturabilidad y <em>trazabilidad</em> del equipo</span>
+    <span class="vis-nota">Biométrico al 12 May + OnGoing al 13 May · Cifras finales esperadas 18 May</span>
+  </div>
+
+  <!-- TRES BLOQUES -->
+  <div class="vis-bloques">
+    <div class="vis-bloque" style="border-color:var(--verde-line);background:var(--verde-dim)">
+      <div class="vis-bloque-label">Horas registradas en OnGoing</div>
+      <div class="vis-bloque-valor" style="color:var(--verde)">338.6 hrs</div>
+      <div class="vis-bloque-sub">Trabajo directo facturable a cliente · 21.5% de la capacidad instalada · datos al 13 May</div>
+    </div>
+    <div class="vis-bloque" style="border-color:var(--accent-line);background:var(--accent-dim)">
+      <div class="vis-bloque-label">Trabajo interno estimado</div>
+      <div class="vis-bloque-valor" style="color:var(--accent-soft)">230.3 hrs</div>
+      <div class="vis-bloque-sub">47 clientes × 3.5 hrs/semana × 7 días equivalente · No capturado en OnGoing</div>
+    </div>
+    <div class="vis-bloque" style="border-color:var(--rojo-line);background:var(--rojo-dim)">
+      <div class="vis-bloque-label">Brecha no trazable</div>
+      <div class="vis-bloque-valor" style="color:var(--rojo)">1007.1 hrs</div>
+      <div class="vis-bloque-sub">63.9% del tiempo presencia sin registro en ningún sistema · Ver nota metodológica</div>
+    </div>
+  </div>
+
+  <!-- BARRA APILADA -->
+  <div class="vis-stack">
+    <div class="vis-stack-titulo">Distribución de la capacidad instalada · 1,576 hrs reales del biométrico al 12 May</div>
+    <div class="vis-stack-barra">
+      <div class="vis-stack-seg" style="width:21.5%;background:var(--verde)"></div>
+      <div class="vis-stack-seg" style="width:14.6%;background:var(--accent)"></div>
+      <div class="vis-stack-seg" style="width:63.9%;background:var(--surface3)"></div>
+    </div>
+    <div class="vis-stack-leyenda">
+      <div class="vis-stack-item"><span class="vis-stack-dot" style="background:var(--verde)"></span>Facturable directo 21.5%</div>
+      <div class="vis-stack-item"><span class="vis-stack-dot" style="background:var(--accent)"></span>Interno estimado 14.6%</div>
+      <div class="vis-stack-item"><span class="vis-stack-dot" style="background:var(--surface3)"></span>No trazable 63.9%</div>
+    </div>
+  </div>
+
+  <!-- DESGLOSE POR DEPARTAMENTO -->
+  <div class="vis-deptos">
+    <div class="vis-deptos-titulo">Tasa de facturabilidad ajustada por departamento · (Carga directa + interna estimada) ÷ Capacidad</div>
+    
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">Diseño</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:56.8%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">56.8%</span>
+          <span class="vis-depto-hrs">35.5 / 62.5 hrs</span>
+        </div>
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">Contenido</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:48.4%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">48.4%</span>
+          <span class="vis-depto-hrs">27.3 / 56.4 hrs</span>
+        </div>
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">TI</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:27.5%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">27.5%</span>
+          <span class="vis-depto-hrs">21.2 / 77.2 hrs</span>
+        </div>
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">Tráfico</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:38.5%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">38.5%</span>
+          <span class="vis-depto-hrs">15.7 / 40.8 hrs</span>
+        </div>
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">SEO</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:57.1%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">57.1%</span>
+          <span class="vis-depto-hrs">8.4 / 14.7 hrs</span>
+        </div>
+        <div class="vis-depto-fila">
+          <span class="vis-depto-nombre">Marketing</span>
+          <div class="vis-depto-barra-wrap">
+            <div class="barra-pista">
+              <div class="barra-relleno" style="width:20.4%;background:var(--rojo)"></div>
+            </div>
+          </div>
+          <span class="vis-depto-tasa" style="color:var(--rojo)">20.4%</span>
+          <span class="vis-depto-hrs">13.7 / 67.2 hrs</span>
+        </div>
+  </div>
+
+  <div class="vis-disclaimer">
+    <span>Metodología:</span> Capacidad instalada = 1,576 hrs de presencia real del biométrico al 12 May (209 días-asistencia × 7.54 hrs jornada mediana). Carga directa = 338.6 hrs registradas en OnGoing al 13 May. Carga interna estimada = 47 clientes activos × 3.5 hrs/semana × ratio de 7 días disponibles. La tasa de facturabilidad ajustada del <strong style="color:var(--text-sub)">36.1%</strong> representa la visibilidad actual (21.5% directo + 14.6% interno estimado). El 63.9% restante no tiene registro en ningún sistema. <em>(Datos parciales · cifras finales al cierre del 15 May)</em>. <strong style="color:var(--text-sub)">¿Por qué no usamos tasa de utilización?</strong> Porque OnGoing solo captura horas de cliente, no trabajo interno. Sin ese registro completo no existe un denominador confiable para medir utilización real. La tasa de utilización completa sería posible activando el registro de trabajo interno en OnGoing — funcionalidad que ya existe pero no se usa de forma consistente. Con los precios reales por cliente y la nómina por departamento, esta sección evolucionará a un modelo de rentabilidad completo.
+  </div>
+</div>
+
+<!-- ═══════════════ ACCIÓN REQUERIDA ═══════════════ -->
+<div class="accion-card">
+  <div class="accion-encabezado">
+    <span class="accion-pastilla">Acción requerida · Dirección General</span>
+    <span class="accion-titulo">Decisiones <em>pendientes</em> esta semana</span>
+  </div>
+  <div class="accion-lista">
+    <div class="accion-item">
+      <div class="accion-numero">1</div>
+      <div class="accion-contenido">
+        <strong>¿Se verifica el estatus de las 20 cuentas activas en Mayo sin actividad en Abril?</strong>
+        <span>Las cuentas más relevantes sin actividad son Gobierno del Estado de Coahuila (155 hrs contratadas), Elizondo (82 hrs), Pedrera San Ángel (77 hrs) y Manolo Jiménez Saltillo (46 hrs). Antes de marcarlas como inactivas, se recomienda confirmar con el equipo comercial si están en pausa acordada o en riesgo real de baja.</span>
+      </div>
+    </div>
+    <div class="accion-item">
+      <div class="accion-numero">2</div>
+      <div class="accion-contenido">
+        <strong>¿Se da seguimiento al patrón de Williana Cuéllar tras dos semanas consecutivas de retardo?</strong>
+        <span>Williana Cuéllar registró retardo en 4 de 5 días la semana pasada y en los 2 días de esta semana. Es el único caso con retardo sistemático confirmado en ambos períodos. Se recomienda que Recursos Humanos o el área responsable realice una conversación formal antes de que cierre el mes.</span>
+      </div>
+    </div>
+    <div class="accion-item">
+      <div class="accion-numero">3</div>
+      <div class="accion-contenido">
+        <strong>¿Se impulsa la adopción del registro de trabajo interno en OnGoing?</strong>
+        <span>El 62% del tiempo de presencia del equipo no tiene registro en ningún sistema. OnGoing ya cuenta con la funcionalidad para capturar trabajo interno, pero no se usa de forma consistente. Implementar este registro permitiría subir la tasa de facturabilidad del 18% actual y eventualmente calcular la utilización real del equipo. Se recomienda definir un protocolo simple de captura con los líderes de área.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PIE DE PÁGINA ═══════════════ -->
+
+
+
+
+<!-- ═══════════════════════════ BLOQUE 2 — DETALLE OPERATIVO ═══════════════════════════ -->
+
+<!-- ═══════════════ SECCIÓN A — DETALLE POR CLIENTE ═══════════════ -->
+<div class="detalle-card" id="detalle-clientes">
+  <div class="detalle-encabezado">
+    <span class="detalle-pastilla">⚠ BORRADOR · Detalle Operativo Mayo Quincena · Datos al 13 May</span>
+    <span class="detalle-titulo">Horas por <em>cliente</em>, departamento y uso de contrato</span>
+    <span class="detalle-subtitulo">47 cuentas con actividad · 338.60 hrs trabajadas al 13 May · Etiquetas según CUENTAS_ACTIVAS_MAYO · Catálogo OnGoing Abril corregido</span>
+  </div>
+
+  <div class="cl-filtros">
+    <div class="cl-filtros-grupo">
+      <span class="cl-filtros-label">Filtrar por etiqueta:</span>
+      <div class="cl-filtros-pills" id="filtros-etiqueta">
+                <button class="cl-filtro-pill activo" data-filtro="ALL">Todas <span class="cl-filtro-count">47</span></button>
+        <button class="cl-filtro-pill" data-filtro="AAA">AAA <span class="cl-filtro-count">6</span></button>
+        <button class="cl-filtro-pill" data-filtro="AA">AA <span class="cl-filtro-count">14</span></button>
+        <button class="cl-filtro-pill" data-filtro="A">A <span class="cl-filtro-count">11</span></button>
+        <button class="cl-filtro-pill" data-filtro="B">B <span class="cl-filtro-count">6</span></button>
+        <button class="cl-filtro-pill" data-filtro="PY">PY <span class="cl-filtro-count">3</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYAA">PYAA <span class="cl-filtro-count">2</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYI">PYI <span class="cl-filtro-count">4</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYIAAA">PYIAAA <span class="cl-filtro-count">1</span></button>
+      </div>
+    </div>
+    <div class="cl-filtros-grupo">
+      <div class="cl-busqueda">
+        <input type="text" id="cl-buscar" placeholder="Buscar cliente..." />
+        <span class="cl-busqueda-info" id="cl-resultados">47 de 47 cuentas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-tabla-wrap">
+    <table class="cl-tabla">
+      <thead>
+        <tr>
+          <th class="th-cliente" data-sort="cliente" data-type="text">Cliente <span class="sort-ind"></span></th>
+          <th>Etiqueta</th>
+          <th class="th-sortable" data-sort="total" data-type="num">Total <span class="sort-ind"></span></th>
+          <th>Tráfico</th>
+          <th>Marketing</th>
+          <th>TI</th>
+          <th>Contenido</th>
+          <th>Diseño</th>
+          <th>SEO</th>
+          <th class="th-sortable" data-sort="contratadas" data-type="num">Contratadas <span class="sort-ind"></span></th>
+          <th class="th-sortable" data-sort="pct" data-type="num">% Uso <span class="sort-ind"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-etiqueta="A" data-cliente="tryphe" data-total="15.83" data-contratadas="17.0" data-pct="93.11764705882352">
+        <td class="cl-cliente">TRYPHE</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">15.83</td>
+        <td class="cl-num">0.83</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">15.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">17</td>
+        <td class="cl-num cl-pct cl-verde">93%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="duratex" data-total="14.67" data-contratadas="18.0" data-pct="81.5">
+        <td class="cl-cliente">DURATEX</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">14.67</td>
+        <td class="cl-num">3.00</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">2.50</td>
+        <td class="cl-num">8.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">18</td>
+        <td class="cl-num cl-pct cl-verde">82%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="pinturas philadelphia" data-total="9.17" data-contratadas="13.0" data-pct="70.53846153846153">
+        <td class="cl-cliente">Pinturas Philadelphia</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">9.17</td>
+        <td class="cl-num">1.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">4.92</td>
+        <td class="cl-num">2.75</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">13</td>
+        <td class="cl-num cl-pct cl-verde">71%</td>
+      </tr>
+      <tr data-etiqueta="PYAA" data-cliente="autotracking" data-total="15.08" data-contratadas="28.0" data-pct="53.85714285714286">
+        <td class="cl-cliente">AutoTracking</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PYAA</span></td>
+        <td class="cl-num cl-total">15.08</td>
+        <td class="cl-num">1.33</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">3.33</td>
+        <td class="cl-num">3.50</td>
+        <td class="cl-num">4.92</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">28</td>
+        <td class="cl-num cl-pct cl-amarillo">54%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="paxcon by line-x" data-total="9.33" data-contratadas="23.0" data-pct="40.56521739130435">
+        <td class="cl-cliente">Paxcon by Line-X</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">9.33</td>
+        <td class="cl-num">2.83</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.50</td>
+        <td class="cl-num">5.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">23</td>
+        <td class="cl-num cl-pct cl-amarillo">41%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="materia" data-total="9.08" data-contratadas="27.0" data-pct="33.62962962962963">
+        <td class="cl-cliente">Materia</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">9.08</td>
+        <td class="cl-num">1.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.67</td>
+        <td class="cl-num">5.50</td>
+        <td class="cl-num">1.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">27</td>
+        <td class="cl-num cl-pct cl-amarillo">34%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="nicholas plastics de mexico" data-total="7.42" data-contratadas="13.0" data-pct="57.07692307692308">
+        <td class="cl-cliente">Nicholas plastics de Mexico</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">7.42</td>
+        <td class="cl-num">7.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">13</td>
+        <td class="cl-num cl-pct cl-amarillo">57%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="coberlum" data-total="6.67" data-contratadas="19.0" data-pct="35.10526315789473">
+        <td class="cl-cliente">COBERLUM</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">6.67</td>
+        <td class="cl-num">1.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">3.50</td>
+        <td class="cl-num">0.08</td>
+        <td class="cl-num">1.67</td>
+        <td class="cl-num cl-contr">19</td>
+        <td class="cl-num cl-pct cl-amarillo">35%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="infiniti monterrey" data-total="5.5" data-contratadas="18.0" data-pct="30.555555555555557">
+        <td class="cl-cliente">INFINITI Monterrey</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">5.50</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">2.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">18</td>
+        <td class="cl-num cl-pct cl-amarillo">31%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="kanan servicios" data-total="4.92" data-contratadas="10.0" data-pct="49.2">
+        <td class="cl-cliente">kanan Servicios</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">4.92</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">2.92</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">10</td>
+        <td class="cl-num cl-pct cl-amarillo">49%</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="grupo corda arquitectos" data-total="4.75" data-contratadas="7.0" data-pct="67.85714285714286">
+        <td class="cl-cliente">Grupo Corda Arquitectos</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">4.75</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">2.75</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">7</td>
+        <td class="cl-num cl-pct cl-amarillo">68%</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="leuman gmb" data-total="4.0" data-contratadas="10.0" data-pct="40.0">
+        <td class="cl-cliente">Leuman GMB</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">4.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">4.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">10</td>
+        <td class="cl-num cl-pct cl-amarillo">40%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="petrovim" data-total="3.92" data-contratadas="13.0" data-pct="30.153846153846153">
+        <td class="cl-cliente">Petrovim</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">3.92</td>
+        <td class="cl-num">1.33</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">0.58</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">13</td>
+        <td class="cl-num cl-pct cl-amarillo">30%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="hospitales mac" data-total="45.25" data-contratadas="260.0" data-pct="17.403846153846153">
+        <td class="cl-cliente">Hospitales MAC</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">45.25</td>
+        <td class="cl-num">7.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">3.50</td>
+        <td class="cl-num">32.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">260</td>
+        <td class="cl-num cl-pct cl-amarillo">17%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="elizondo" data-total="12.08" data-contratadas="94.0" data-pct="12.851063829787234">
+        <td class="cl-cliente">Elizondo</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">12.08</td>
+        <td class="cl-num">10.58</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">94</td>
+        <td class="cl-num cl-pct cl-amarillo">13%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="inversión educativa tec" data-total="9.5" data-contratadas="36.0" data-pct="26.38888888888889">
+        <td class="cl-cliente">Inversión Educativa TEC</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">9.50</td>
+        <td class="cl-num">3.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">6.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">36</td>
+        <td class="cl-num cl-pct cl-amarillo">26%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="tle" data-total="8.33" data-contratadas="37.0" data-pct="22.513513513513512">
+        <td class="cl-cliente">TLE</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">8.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.08</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">8.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">37</td>
+        <td class="cl-num cl-pct cl-amarillo">23%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="monarca residencial" data-total="7.08" data-contratadas="27.0" data-pct="26.222222222222225">
+        <td class="cl-cliente">Monarca Residencial</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">7.08</td>
+        <td class="cl-num">0.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">3.50</td>
+        <td class="cl-num">3.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">27</td>
+        <td class="cl-num cl-pct cl-amarillo">26%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="invercap" data-total="6.42" data-contratadas="157.0" data-pct="4.089171974522293">
+        <td class="cl-cliente">InverCap</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">6.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">5.42</td>
+        <td class="cl-num cl-contr">157</td>
+        <td class="cl-num cl-pct cl-amarillo">4%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="crea soluciones - estudios de mercado" data-total="6.25" data-contratadas="24.0" data-pct="26.041666666666668">
+        <td class="cl-cliente">Crea Soluciones - Estudios de mercado</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">6.25</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.50</td>
+        <td class="cl-num">2.50</td>
+        <td class="cl-num">2.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">24</td>
+        <td class="cl-num cl-pct cl-amarillo">26%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="inmedi-k" data-total="5.25" data-contratadas="25.0" data-pct="21.0">
+        <td class="cl-cliente">INMEDI-K</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">5.25</td>
+        <td class="cl-num">2.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">3.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">25</td>
+        <td class="cl-num cl-pct cl-amarillo">21%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="anaerobia" data-total="4.0" data-contratadas="40.0" data-pct="10.0">
+        <td class="cl-cliente">Anaerobia</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">4.00</td>
+        <td class="cl-num">0.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.50</td>
+        <td class="cl-num">1.58</td>
+        <td class="cl-num">0.75</td>
+        <td class="cl-num cl-contr">40</td>
+        <td class="cl-num cl-pct cl-amarillo">10%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="phs" data-total="3.83" data-contratadas="38.0" data-pct="10.078947368421053">
+        <td class="cl-cliente">PHS</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">3.83</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.33</td>
+        <td class="cl-num">3.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">38</td>
+        <td class="cl-num cl-pct cl-amarillo">10%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="bark & co." data-total="3.0" data-contratadas="20.0" data-pct="15.0">
+        <td class="cl-cliente">Bark & Co.</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">3.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">3.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">20</td>
+        <td class="cl-num cl-pct cl-amarillo">15%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="gama music" data-total="2.58" data-contratadas="29.0" data-pct="8.89655172413793">
+        <td class="cl-cliente">Gama Music</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">2.58</td>
+        <td class="cl-num">0.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.08</td>
+        <td class="cl-num cl-contr">29</td>
+        <td class="cl-num cl-pct cl-amarillo">9%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="cbn" data-total="2.42" data-contratadas="17.0" data-pct="14.235294117647058">
+        <td class="cl-cliente">CBN</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">2.42</td>
+        <td class="cl-num">1.42</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">17</td>
+        <td class="cl-num cl-pct cl-amarillo">14%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="terza" data-total="2.33" data-contratadas="40.0" data-pct="5.825">
+        <td class="cl-cliente">TERZA</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">2.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">2.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">40</td>
+        <td class="cl-num cl-pct cl-amarillo">6%</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="grupo sar" data-total="1.0" data-contratadas="10.0" data-pct="10.0">
+        <td class="cl-cliente">Grupo SAR</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">1.00</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">10</td>
+        <td class="cl-num cl-pct cl-amarillo">10%</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="vag inmobiliaria (remate bancario)" data-total="1.0" data-contratadas="15.0" data-pct="6.666666666666667">
+        <td class="cl-cliente">VAG INMOBILIARIA (Remate bancario)</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">15</td>
+        <td class="cl-num cl-pct cl-amarillo">7%</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="autos dieck" data-total="1.0" data-contratadas="12.0" data-pct="8.333333333333332">
+        <td class="cl-cliente">Autos Dieck</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">1.00</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">12</td>
+        <td class="cl-num cl-pct cl-amarillo">8%</td>
+      </tr>
+      <tr data-etiqueta="PY" data-cliente="lucerna energy" data-total="0.75" data-contratadas="31" data-pct="2.4">
+        <td class="cl-cliente">Lucerna Energy</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">0.75</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.75</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">31</td>
+        <td class="cl-num cl-pct cl-amarillo">2%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="hospital san vicente" data-total="0.5" data-contratadas="32.0" data-pct="1.5625">
+        <td class="cl-cliente">Hospital San Vicente</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">32</td>
+        <td class="cl-num cl-pct cl-amarillo">2%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="suminregios industriales" data-total="0.42" data-contratadas="12.0" data-pct="3.4999999999999996">
+        <td class="cl-cliente">SUMINREGIOS INDUSTRIALES</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.42</td>
+        <td class="cl-num">0.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">12</td>
+        <td class="cl-num cl-pct cl-amarillo">3%</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="it element" data-total="0.42" data-contratadas="15.0" data-pct="2.8000000000000003">
+        <td class="cl-cliente">IT ELEMENT</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.42</td>
+        <td class="cl-num">0.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">15</td>
+        <td class="cl-num cl-pct cl-amarillo">3%</td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="financiera mexi" data-total="0.17" data-contratadas="36.0" data-pct="0.4722222222222222">
+        <td class="cl-cliente">Financiera MEXI</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">36</td>
+        <td class="cl-num cl-pct cl-amarillo">0%</td>
+      </tr>
+      <tr data-etiqueta="PYIAAA" data-cliente="arca cc" data-total="47.5" data-contratadas="0" data-pct="-1">
+        <td class="cl-cliente">ARCA CC</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYIAAA</span></td>
+        <td class="cl-num cl-total">47.50</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="propuestas comerciales - futurite" data-total="11.42" data-contratadas="0.0" data-pct="-1">
+        <td class="cl-cliente">Propuestas Comerciales - Futurite</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">11.42</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.50</td>
+        <td class="cl-num">9.92</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="family meet market" data-total="10.17" data-contratadas="15" data-pct="67.8">
+        <td class="cl-cliente">Family Meet Market</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">10.17</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">4.50</td>
+        <td class="cl-num">3.67</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">15</td>
+        <td class="cl-num cl-pct cl-amarillo">68%</td>
+      </tr>
+      <tr data-etiqueta="PYAA" data-cliente="marimar arroyo" data-total="10.0" data-contratadas="0.0" data-pct="-1">
+        <td class="cl-cliente">Marimar Arroyo</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PYAA</span></td>
+        <td class="cl-num cl-total">10.00</td>
+        <td class="cl-num">10.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="PY" data-cliente="colegio maranatha" data-total="8.25" data-contratadas="0.0" data-pct="-1">
+        <td class="cl-cliente">Colegio Maranatha</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">8.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">8.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="PY" data-cliente="paileria, maquinados y productos industriales sa" data-total="6.17" data-contratadas="0.0" data-pct="-1">
+        <td class="cl-cliente">Paileria, Maquinados y productos Industriales SA</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">6.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.50</td>
+        <td class="cl-num">5.67</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="bullseyes mexico" data-total="4.17" data-contratadas="13" data-pct="32.1">
+        <td class="cl-cliente">Bullseyes Mexico</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">4.17</td>
+        <td class="cl-num">3.17</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">13</td>
+        <td class="cl-num cl-pct cl-amarillo">32%</td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="muguerza sur" data-total="2.17" data-contratadas="48" data-pct="4.5">
+        <td class="cl-cliente">MUGUERZA SUR</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">2.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">1.17</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">48</td>
+        <td class="cl-num cl-pct cl-amarillo">5%</td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="corven" data-total="2.0" data-contratadas="0" data-pct="-1">
+        <td class="cl-cliente">Corven</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">2.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">2.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="tubos y valvulas ml" data-total="1.25" data-contratadas="0" data-pct="-1">
+        <td class="cl-cliente">TUBOS Y VALVULAS ML</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">1.25</td>
+        <td class="cl-num">1.00</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">0.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="futurite" data-total="1.25" data-contratadas="0.0" data-pct="-1">
+        <td class="cl-cliente">Futurite</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">1.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">1.25</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="pasa" data-total="0.33" data-contratadas="0" data-pct="-1">
+        <td class="cl-cliente">PASA</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num cl-contr">—</td>
+        <td class="cl-num cl-pct cl-gris">—</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cl-leyenda">
+    <span class="cl-leyenda-item"><span class="cl-dot cl-rojo"></span>Sobre-utilización (&gt;100%) · 0 cuentas</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-verde"></span>Uso óptimo (70-100%) · 3 cuentas</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-amarillo"></span>Uso normal/bajo · 35 cuentas</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-gris"></span>Sin contrato registrado · 9 cuentas</span>
+  </div>
+  <div class="cl-leyenda-nota">
+    <strong>Sin contrato registrado:</strong> cuentas activas con actividad facturable en Mayo pero sin horas contratadas asignadas en el catálogo OnGoing. Se resuelve actualizando las horas contratadas en OnGoing por parte del equipo responsable.
+  </div>
+
+  <div class="cl-leyenda-etq">
+    <div class="cl-leyenda-etq-titulo">Etiquetas</div>
+    <div class="cl-leyenda-etq-grupos">
+      <div class="cl-leyenda-etq-grupo">
+        <div class="cl-leyenda-etq-grupo-label">Categorías de cuenta</div>
+        <div class="cl-leyenda-etq-items">
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-aaa">AAA</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-aa">AA</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-a">A</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-b">B</span></span>
+        </div>
+      </div>
+      <div class="cl-leyenda-etq-grupo">
+        <div class="cl-leyenda-etq-grupo-label">Tipos especiales</div>
+        <div class="cl-leyenda-etq-items">
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-py">PY*</span><span class="cl-leyenda-etq-desc">Proyecto</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-pyi">PYI*</span><span class="cl-leyenda-etq-desc">Proyecto interno</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-hst">HST</span><span class="cl-leyenda-etq-desc">Hosting</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-vacio">—</span><span class="cl-leyenda-etq-desc">Pendiente de etiquetar</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="cl-leyenda-etq-nota">El asterisco (*) en PY* y PYI* indica que pueden combinarse con la categoría de cuenta (ej. PYAAA, PYAA, PYA, PYB, PYIAAA).</div>
+  </div>
+
+  <div class="cl-deptos">
+    <div class="cl-deptos-titulo">⏳ Tasa de uso global desglosada por departamento</div>
+    <div class="cl-deptos-placeholder">
+      <div class="placeholder-icono">📥</div>
+      <div class="placeholder-texto">
+        <strong>Pendiente:</strong> El desglose por colaborador por departamento se actualizará cuando se reciba el <em>reporte_horas_colaborador</em> filtrado solo para Mayo (esperado el lunes 18 de Mayo con el corte del 15 May).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECCIÓN B — SALUD DE CLIENTES ═══════════════ -->
+<div class="salud-card" id="salud-detalle">
+  <div class="salud-encabezado">
+    <span class="salud-pastilla">⚠ BORRADOR · Salud de Clientes Mayo · Datos al 13 May</span>
+    <span class="salud-titulo">31 cuentas activas <em>sin actividad</em> en Mayo a la fecha</span>
+    <span class="salud-subtitulo">Cuentas registradas como activas en CUENTAS_ACTIVAS_MAYO sin actividad facturable hasta el 13 May (datos parciales, faltan 13-15 May). Verificación de status con equipo comercial.</span>
+  </div>
+
+  <div class="salud-grupos">
+
+    <div class="salud-grupo grupo-rojo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🔴 Cuentas prioritarias sin movimiento</span>
+        <span class="salud-grupo-total">4 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Etiquetas AAA y AA — máxima prioridad comercial.</div>
+      <div class="salud-lista">
+        <div class="salud-item">
+          <span class="salud-cliente">FAMAPER</span>
+          <span class="etq-pill etq-aa">AA</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">GOBIERNO DE COAHUILA</span>
+          <span class="etq-pill etq-aaa">AAA</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">HAMER EMPAQUES</span>
+          <span class="etq-pill etq-aa">AA</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">MANOLO JIMENEZ</span>
+          <span class="etq-pill etq-aa">AA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="salud-grupo grupo-amarillo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🟡 Cuentas regulares sin movimiento</span>
+        <span class="salud-grupo-total">14 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Etiquetas A y B — seguimiento normal.</div>
+      <div class="salud-lista">
+        <div class="salud-item">
+          <span class="salud-cliente">ARGO</span>
+          <span class="etq-pill etq-a">A</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">CIA NEUMATICA INTERNACIONAL</span>
+          <span class="etq-pill etq-a">A</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">COVACSA</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">DR. CHRISTOPHER MANRIQUE</span>
+          <span class="etq-pill etq-a">A</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">GOBARSA - DECOROCA</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">ICCE RENTAS Y SERVICIOS</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">MAXIRENT</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">PEDRERAS SAN ANGEL</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">RADIOLOGY ADVANCE</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">RAELSA</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">ROMA HERRAMIENTAS DE CORTE</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">SOLUCIONES POP</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">TAVILSA</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">THE PALETAS</span>
+          <span class="etq-pill etq-b">B</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="salud-grupo grupo-naranja">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🟠 Proyectos y cuentas internas sin movimiento</span>
+        <span class="salud-grupo-total">6 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Proyectos (PY*) y cuentas internas (PYI*).</div>
+      <div class="salud-lista">
+        <div class="salud-item">
+          <span class="salud-cliente">CONVERSIA</span>
+          <span class="etq-pill etq-pyi">PYI</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">HOMLINE</span>
+          <span class="etq-pill etq-pyi">PYI</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">MACERO</span>
+          <span class="etq-pill etq-pyi">PYI</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">MAXICARGAS (2:2)</span>
+          <span class="etq-pill etq-py">PY</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">ONGOING</span>
+          <span class="etq-pill etq-pyi">PYI</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">THE RESIDENCES</span>
+          <span class="etq-pill etq-pyi">PYIAAA</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="salud-grupo grupo-gris">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">⚪ Hosting</span>
+        <span class="salud-grupo-total">2 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Cuentas tipo HOSTING.</div>
+      <div class="salud-lista">
+        <div class="salud-item">
+          <span class="salud-cliente">CARFY</span>
+          <span class="etq-pill etq-hst">HST</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">RYOGA</span>
+          <span class="etq-pill etq-hst">HST</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="salud-grupo grupo-pendiente">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">⚠ Cuentas pendientes de etiquetar</span>
+        <span class="salud-grupo-total">5 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Cuentas listadas como activas pero sin etiqueta asignada en el sistema.</div>
+      <div class="salud-lista">
+        <div class="salud-item">
+          <span class="salud-cliente">ALIMENTRO</span>
+          <span class="etq-pill etq-vacio">—</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">APETIT</span>
+          <span class="etq-pill etq-vacio">—</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">AQUA TERRA</span>
+          <span class="etq-pill etq-vacio">—</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">DISA JR</span>
+          <span class="etq-pill etq-vacio">—</span>
+        </div>
+        <div class="salud-item">
+          <span class="salud-cliente">STEEL WAREHOUSE</span>
+          <span class="etq-pill etq-vacio">—</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════ SECCIÓN C — ALERTAS DE PROCESOS ═══════════════ -->
+<div class="alertas-card" id="alertas-procesos">
+  <div class="alertas-encabezado">
+    <span class="alertas-pastilla">⚠ BORRADOR · Alertas de Procesos Mayo · Datos al 13 May</span>
+    <span class="alertas-titulo">Discrepancias detectadas en el <em>catálogo de servicios</em></span>
+  </div>
+
+  <div class="alerta-bloque alerta-amarillo" style="opacity:0.6;">
+    <div class="alerta-titulo">✓ Todas las cuentas con actividad en Mayo cuentan con etiqueta asignada</div>
+    <div class="alerta-meta">Resultado del proceso de etiquetado realizado el 15 May: 47/47 cuentas con actividad facturable tienen su clasificación correspondiente en el sistema. Las 5 cuentas pendientes (ALIMENTRO, APETIT, AQUA TERRA, DISA JR, STEEL WAREHOUSE) no presentaron actividad en Mayo.</div>
+  </div>
+
+
+  <div class="alerta-bloque alerta-amarillo" style="opacity:0.6;">
+    <div class="alerta-titulo">✓ Sin sobre-utilización detectada a la fecha</div>
+    <div class="alerta-meta">Ninguna cuenta supera el 100% de su contrato al 13 May. Esta métrica se reevaluará al cierre de la quincena (15 May).</div>
+  </div>
+
+</div>
+
+
+<footer class="pie">
+  <div class="pie-izquierda">
+    Fuentes de datos: Biométrico · OnGoing · CUENTAS_ACTIVAS_MAYO · Horas_Servicios_Mayo<br>
+    Período Quincena Mayo: 4 – 15 de Mayo 2026 · 10 días hábiles · 1 May feriado · 9-10 May fin de semana<br>
+    <strong style="color:var(--amarillo)">⚠ BORRADOR:</strong> Datos parciales al 12 May (asistencia 7/10 días, servicios al 13 May). Cierre quincena: lunes 18 May.
+  </div>
+  <div class="pie-derecha">
+    Elaborado por el área de Project Management<br>
+    Distribución: Dirección General
+  </div>
+</footer>
+
+
+<!-- ═══════════════ BOTÓN REGRESAR ═══════════════ -->
+<style>
+  .btn-regresar {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .btn-regresar:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    transform: translateX(-3px);
+  }
+  .btn-regresar svg {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .btn-regresar:hover svg {
+    transform: translateX(-2px);
+  }
+</style>
+<a class="btn-regresar" href="../../../index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 12H5M12 5l-7 7 7 7"/>
+  </svg>
+  Reportes
+</a>
+
+
+<script>
+(function() {
+  const tabla = document.querySelector('.cl-tabla');
+  if (!tabla) return;
+  const tbody = tabla.querySelector('tbody');
+  const filas = Array.from(tbody.querySelectorAll('tr'));
+  const filtrosPills = document.querySelectorAll('#filtros-etiqueta .cl-filtro-pill');
+  const buscarInput = document.getElementById('cl-buscar');
+  const infoSpan = document.getElementById('cl-resultados');
+  const total = filas.length;
+
+  let estado = { etiqueta: 'ALL', busqueda: '', sortCol: null, sortDir: 'desc' };
+
+  function aplicar() {
+    let visibles = 0;
+    filas.forEach(tr => {
+      const et = tr.dataset.etiqueta;
+      const cli = tr.dataset.cliente;
+      const okEt = estado.etiqueta === 'ALL' || et === estado.etiqueta;
+      const okBus = !estado.busqueda || cli.includes(estado.busqueda);
+      if (okEt && okBus) {
+        tr.classList.remove('cl-hidden');
+        visibles++;
+      } else {
+        tr.classList.add('cl-hidden');
+      }
+    });
+    infoSpan.textContent = `${visibles} de ${total} cuentas`;
+
+    if (estado.sortCol) {
+      const sortable = filas.slice().filter(tr => !tr.classList.contains('cl-hidden'));
+      sortable.sort((a, b) => {
+        let va, vb;
+        if (estado.sortCol === 'cliente') {
+          va = a.dataset.cliente; vb = b.dataset.cliente;
+        } else {
+          va = parseFloat(a.dataset[estado.sortCol]) || 0;
+          vb = parseFloat(b.dataset[estado.sortCol]) || 0;
+        }
+        if (va < vb) return estado.sortDir === 'asc' ? -1 : 1;
+        if (va > vb) return estado.sortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
+      sortable.forEach(tr => tbody.appendChild(tr));
+      filas.filter(tr => tr.classList.contains('cl-hidden')).forEach(tr => tbody.appendChild(tr));
+    }
+  }
+
+  filtrosPills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filtrosPills.forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+      estado.etiqueta = btn.dataset.filtro;
+      aplicar();
+    });
+  });
+
+  buscarInput.addEventListener('input', e => {
+    estado.busqueda = e.target.value.toLowerCase().trim();
+    aplicar();
+  });
+
+  document.querySelectorAll('.cl-tabla thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (estado.sortCol === col) {
+        estado.sortDir = estado.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        estado.sortCol = col;
+        estado.sortDir = col === 'cliente' ? 'asc' : 'desc';
+      }
+      document.querySelectorAll('.cl-tabla thead th').forEach(t => {
+        t.classList.remove('sort-asc', 'sort-desc');
+      });
+      th.classList.add(estado.sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+      aplicar();
+    });
+  });
+
+  aplicar();
+})();
+</script>
+
+</body>
+</html>
