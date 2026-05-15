@@ -29,6 +29,9 @@
     --accent-dim:   rgba(108,92,231,0.12);
     --accent-line:  rgba(108,92,231,0.30);
     --accent-soft:  #9b8ef4;
+    --azul:         #4cc2ff;
+    --azul-dim:     rgba(76,194,255,0.10);
+    --azul-line:    rgba(76,194,255,0.22);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -96,6 +99,7 @@
   }
   .mes-seccion:nth-child(2) { animation-delay: 0.08s; }
   .mes-seccion:nth-child(3) { animation-delay: 0.14s; }
+  .mes-seccion:nth-child(4) { animation-delay: 0.20s; }
 
   .mes-encabezado {
     display: flex;
@@ -121,6 +125,11 @@
     background: var(--amarillo-dim);
     color: var(--amarillo);
     border-color: var(--amarillo-line);
+  }
+  .mes-pastilla.mayo {
+    background: var(--azul-dim);
+    color: var(--azul);
+    border-color: var(--azul-line);
   }
   .mes-titulo {
     font-family: 'Montserrat', sans-serif;
@@ -172,6 +181,8 @@
     transform: translateY(-2px);
   }
   .reporte-card.disponible { border-left: 2px solid var(--verde); }
+  .reporte-card.mensual    { border-left: 2px solid var(--accent-soft); }
+  .reporte-card.borrador   { border-left: 2px solid var(--amarillo); }
   .reporte-card.proximo    { border-left: 2px solid var(--border2); opacity: 0.5; pointer-events: none; }
 
   .reporte-tipo {
@@ -188,10 +199,31 @@
     color: var(--verde);
     border: 1px solid var(--verde-line);
   }
+  .reporte-tipo.mensual-tag {
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+  }
+  .reporte-tipo.quincenal-tag {
+    background: var(--azul-dim);
+    color: var(--azul);
+    border: 1px solid var(--azul-line);
+  }
+  .reporte-tipo.borrador-tag {
+    background: var(--amarillo-dim);
+    color: var(--amarillo);
+    border: 1px solid var(--amarillo-line);
+  }
   .reporte-tipo.proximo-tag {
     background: var(--surface2);
     color: var(--text-muted);
     border: 1px solid var(--border);
+  }
+
+  .reporte-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
   }
 
   .reporte-periodo {
@@ -221,6 +253,8 @@
     flex-shrink: 0;
   }
   .reporte-meta-fila .dot.gris { background: var(--text-muted); }
+  .reporte-meta-fila .dot.morado { background: var(--accent-soft); }
+  .reporte-meta-fila .dot.amarillo { background: var(--amarillo); }
 
   .reporte-arrow {
     margin-top: auto;
@@ -265,7 +299,7 @@
   /* ── SECCIÓN REPORTES QUINCENALES ── */
   .quincenal-seccion {
     margin-bottom: 36px;
-    animation: entrada 0.5s 0.20s ease both;
+    animation: entrada 0.5s 0.26s ease both;
   }
   .quincenal-encabezado {
     display: flex;
@@ -442,22 +476,62 @@
 <section class="mes-seccion">
   <div class="mes-encabezado">
     <span class="mes-pastilla abril">Abril 2026</span>
-    <span class="mes-titulo">Semáforos <em>semanales</em></span>
-    <span class="mes-count">1 reporte disponible</span>
+    <span class="mes-titulo">Semáforos <em>operativos</em></span>
+    <span class="mes-count">2 reportes disponibles</span>
   </div>
 
   <div class="reportes-grid">
+
+    <a class="reporte-card mensual" href="semaforos/semaforos-abril-2026/semaforo_abril_2026.html">
+      <span class="reporte-tipo mensual-tag">Semáforo mensual</span>
+      <div class="reporte-periodo">1 – 30 de Abril</div>
+      <div class="reporte-meta">
+        <div class="reporte-meta-fila"><span class="dot morado"></span>20 días hábiles · 41 colaboradores operativos</div>
+        <div class="reporte-meta-fila"><span class="dot morado"></span>Asistencia promedio: 80.9% · 175 retardos</div>
+        <div class="reporte-meta-fila"><span class="dot morado"></span>63 clientes activos · 913.02 hrs de servicio</div>
+        <div class="reporte-meta-fila"><span class="dot morado"></span>Facturabilidad directa: 18.2% · Ajustada: 35.8%</div>
+      </div>
+      <span class="reporte-arrow">Ver reporte mensual</span>
+    </a>
 
     <a class="reporte-card disponible" href="semaforos/semaforos-abril-2026/semaforo_1_10_abril_2026.html">
       <span class="reporte-tipo semanal">Semáforo semanal</span>
       <div class="reporte-periodo">1 – 10 de Abril</div>
       <div class="reporte-meta">
         <div class="reporte-meta-fila"><span class="dot"></span>6 días hábiles · Feriados: 2 y 3 de Abril</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 84.2% · 48 retardos</div>
         <div class="reporte-meta-fila"><span class="dot"></span>45 clientes activos · 263.38 hrs de servicio</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>⏳ Datos de asistencia pendientes — 15 Abr</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: ⏳ · Ajustada: ⏳ · Línea base</div>
+        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 17.1% · Ajustada: 32.1%</div>
       </div>
       <span class="reporte-arrow">Ver reporte</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── MAYO 2026 ── -->
+<section class="mes-seccion">
+  <div class="mes-encabezado">
+    <span class="mes-pastilla mayo">Mayo 2026</span>
+    <span class="mes-titulo">Semáforos <em>operativos</em></span>
+    <span class="mes-count">1 reporte en borrador</span>
+  </div>
+
+  <div class="reportes-grid">
+
+    <a class="reporte-card borrador" href="semaforos/semaforos-mayo-2026/semaforo_mayo_quincena_2026_BORRADOR.html">
+      <div class="reporte-tags">
+        <span class="reporte-tipo quincenal-tag">Semáforo quincenal</span>
+        <span class="reporte-tipo borrador-tag">⚠ Borrador</span>
+      </div>
+      <div class="reporte-periodo">4 – 15 de Mayo · 1ª Quincena</div>
+      <div class="reporte-meta">
+        <div class="reporte-meta-fila"><span class="dot amarillo"></span>10 días hábiles · 1 May feriado · 9-10 fin de semana</div>
+        <div class="reporte-meta-fila"><span class="dot amarillo"></span>Datos parciales al 12 May (asistencia 7/10 días)</div>
+        <div class="reporte-meta-fila"><span class="dot amarillo"></span>47 clientes activos · 338.60 hrs al 13 May</div>
+        <div class="reporte-meta-fila"><span class="dot amarillo"></span>Cierre y datos completos: lunes 18 de Mayo</div>
+      </div>
+      <span class="reporte-arrow">Ver borrador</span>
     </a>
 
   </div>
@@ -475,34 +549,36 @@
   <div class="reportes-grid">
 
     <a class="descarga-card" href="reportes/Reporte_Quincenal_1a_Quincena_Marzo_2026_v2.xlsx" download>
-    <div class="descarga-icono">📊</div>
-    <div class="descarga-info">
-      <span class="descarga-tipo">Reporte quincenal · Excel</span>
-      <div class="descarga-titulo">1ª Quincena de Marzo 2026</div>
-      <div class="descarga-meta">
-        <div class="descarga-meta-fila"><span class="dot"></span>02 – 13 de Marzo · 10 días hábiles · 46 colaboradores</div>
-        <div class="descarga-meta-fila"><span class="dot"></span>84 clientes activos · 3,655.58 hrs acumuladas Ene–Mar</div>
-        <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+      <div class="descarga-icono">📊</div>
+      <div class="descarga-info">
+        <span class="descarga-tipo">Reporte quincenal · Excel</span>
+        <div class="descarga-titulo">1ª Quincena de Marzo 2026</div>
+        <div class="descarga-meta">
+          <div class="descarga-meta-fila"><span class="dot"></span>02 – 13 de Marzo · 10 días hábiles · 46 colaboradores</div>
+          <div class="descarga-meta-fila"><span class="dot"></span>84 clientes activos · 3,655.58 hrs acumuladas Ene–Mar</div>
+          <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+        </div>
       </div>
-    </div>
-    <div class="descarga-btn">
-      ⬇ Descargar
-    </div>
+      <div class="descarga-btn">
+        ⬇ Descargar
+      </div>
+    </a>
+
     <a class="descarga-card" href="reportes/Reporte_Quincenal_2a_Quincena_Marzo_2026_v3.xlsx" download>
-    <div class="descarga-icono">📊</div>
-    <div class="descarga-info">
-      <span class="descarga-tipo">Reporte quincenal · Excel</span>
-      <div class="descarga-titulo">2ª Quincena de Marzo 2026</div>
-      <div class="descarga-meta">
-        <div class="descarga-meta-fila"><span class="dot"></span>16 – 31 de Marzo · 12 días hábiles · 47 colaboradores</div>
-        <div class="descarga-meta-fila"><span class="dot"></span>67 clientes activos · 1,306.93 hrs de servicio en Marzo</div>
-        <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+      <div class="descarga-icono">📊</div>
+      <div class="descarga-info">
+        <span class="descarga-tipo">Reporte quincenal · Excel</span>
+        <div class="descarga-titulo">2ª Quincena de Marzo 2026</div>
+        <div class="descarga-meta">
+          <div class="descarga-meta-fila"><span class="dot"></span>16 – 31 de Marzo · 12 días hábiles · 47 colaboradores</div>
+          <div class="descarga-meta-fila"><span class="dot"></span>67 clientes activos · 1,306.93 hrs de servicio en Marzo</div>
+          <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+        </div>
       </div>
-    </div>
-    <div class="descarga-btn">
-      ⬇ Descargar
-    </div>
-  </a>
+      <div class="descarga-btn">
+        ⬇ Descargar
+      </div>
+    </a>
 
   </div>
 
