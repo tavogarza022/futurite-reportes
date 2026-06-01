@@ -1,600 +1,789 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Futurite — Reportes Operativos</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg:           #090909;
-    --surface:      #111113;
-    --surface2:     #18181c;
-    --surface3:     #202026;
-    --border:       rgba(255,255,255,0.06);
-    --border2:      rgba(255,255,255,0.10);
-    --text:         #eeedf4;
-    --text-sub:     #bcbccc;
-    --text-muted:   #8e8da0;
-    --verde:        #1fd68a;
-    --verde-dim:    rgba(31,214,138,0.10);
-    --verde-line:   rgba(31,214,138,0.22);
-    --amarillo:     #f0b429;
-    --amarillo-dim: rgba(240,180,41,0.10);
-    --amarillo-line:rgba(240,180,41,0.22);
-    --rojo:         #f05454;
-    --rojo-dim:     rgba(240,84,84,0.10);
-    --rojo-line:    rgba(240,84,84,0.22);
-    --accent:       #6c5ce7;
-    --accent-dim:   rgba(108,92,231,0.12);
-    --accent-line:  rgba(108,92,231,0.30);
-    --accent-soft:  #9b8ef4;
-    --azul:         #4cc2ff;
-    --azul-dim:     rgba(76,194,255,0.10);
-    --azul-line:    rgba(76,194,255,0.22);
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Hill School | Excelencia Educativa Cristiana</title>
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <!-- Google Fonts: Libre Baskerville (Títulos) e Inter (Textos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Lato', sans-serif;
-    font-size: 13px;
-    line-height: 1.6;
-    min-height: 100vh;
-    padding: 48px 40px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  /* ── CABECERA ── */
-  .cabecera {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    padding-bottom: 32px;
-    margin-bottom: 40px;
-    border-bottom: 1px solid var(--border2);
-    animation: entrada 0.5s ease both;
-  }
-  .cabecera-etiqueta {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent-soft);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .cabecera-etiqueta::before {
-    content: '';
-    display: inline-block;
-    width: 18px; height: 1px;
-    background: var(--accent-soft);
-  }
-  .cabecera h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 34px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.1;
-  }
-  .cabecera h1 em {
-    font-style: italic;
-    color: var(--accent-soft);
-  }
-  .cabecera-meta {
-    text-align: right;
-    font-size: 11px;
-    color: var(--text-muted);
-    line-height: 1.8;
-  }
+    <!-- FontAwesome para Íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  /* ── SECCIÓN MES ── */
-  .mes-seccion {
-    margin-bottom: 36px;
-    animation: entrada 0.5s ease both;
-  }
-  .mes-seccion:nth-child(2) { animation-delay: 0.08s; }
-  .mes-seccion:nth-child(3) { animation-delay: 0.14s; }
-  .mes-seccion:nth-child(4) { animation-delay: 0.20s; }
+    <!-- Vue 3 CDN (Global Build) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-  .mes-encabezado {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .mes-pastilla {
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid;
-  }
-  .mes-pastilla.marzo {
-    background: var(--accent-dim);
-    color: var(--accent-soft);
-    border-color: var(--accent-line);
-  }
-  .mes-pastilla.abril {
-    background: var(--amarillo-dim);
-    color: var(--amarillo);
-    border-color: var(--amarillo-line);
-  }
-  .mes-pastilla.mayo {
-    background: var(--azul-dim);
-    color: var(--azul);
-    border-color: var(--azul-line);
-  }
-  .mes-titulo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--text);
-  }
-  .mes-titulo em {
-    font-style: italic;
-    color: var(--accent-soft);
-  }
-  .mes-count {
-    margin-left: auto;
-    font-size: 10.5px;
-    color: var(--text-muted);
-  }
+    <!-- Estilos Personalizados UI/UX -->
+    <style>
+        /* Variables de Marca (Brandbook) */
+        :root {
+            --primary-guinda: #66061A;
+            --primary-navy: #08122F;
+            --primary-light: #F2F2F2;
+            --secondary-red: #A61723;
+            --secondary-cream: #FFDBB3;
+            --secondary-royal: #001F56;
 
-  /* ── GRILLA DE REPORTES ── */
-  .reportes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 14px;
-  }
+            --font-serif: 'Libre Baskerville', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
 
-  /* ── TARJETA REPORTE ── */
-  .reporte-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .reporte-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  }
-  .reporte-card:hover {
-    border-color: var(--accent-line);
-    transform: translateY(-2px);
-  }
-  .reporte-card.disponible { border-left: 2px solid var(--verde); }
-  .reporte-card.mensual    { border-left: 2px solid var(--accent-soft); }
-  .reporte-card.borrador   { border-left: 2px solid var(--amarillo); }
-  .reporte-card.proximo    { border-left: 2px solid var(--border2); opacity: 0.5; pointer-events: none; }
+        /* Resets & Body Generales */
+        body {
+            font-family: var(--font-sans);
+            color: #333;
+            background-color: var(--primary-light);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-  .reporte-tipo {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 20px;
-    align-self: flex-start;
-  }
-  .reporte-tipo.semanal {
-    background: var(--verde-dim);
-    color: var(--verde);
-    border: 1px solid var(--verde-line);
-  }
-  .reporte-tipo.mensual-tag {
-    background: var(--accent-dim);
-    color: var(--accent-soft);
-    border: 1px solid var(--accent-line);
-  }
-  .reporte-tipo.quincenal-tag {
-    background: var(--azul-dim);
-    color: var(--azul);
-    border: 1px solid var(--azul-line);
-  }
-  .reporte-tipo.borrador-tag {
-    background: var(--amarillo-dim);
-    color: var(--amarillo);
-    border: 1px solid var(--amarillo-line);
-  }
-  .reporte-tipo.proximo-tag {
-    background: var(--surface2);
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-  }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-serif);
+        }
 
-  .reporte-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+        /* 1. Header & Navbar */
+        .navbar {
+            transition: background-color 0.4s ease-in-out, padding 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+            padding: 1.2rem 0;
+        }
 
-  .reporte-periodo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.3;
-  }
+        .navbar.transparent {
+            background-color: transparent !important;
+        }
 
-  .reporte-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .reporte-meta-fila {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-  .reporte-meta-fila .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--verde);
-    flex-shrink: 0;
-  }
-  .reporte-meta-fila .dot.gris { background: var(--text-muted); }
-  .reporte-meta-fila .dot.morado { background: var(--accent-soft); }
-  .reporte-meta-fila .dot.amarillo { background: var(--amarillo); }
+        .navbar.scrolled {
+            background-color: var(--primary-navy) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 0.6rem 0;
+        }
 
-  .reporte-arrow {
-    margin-top: auto;
-    font-size: 11px;
-    color: var(--accent-soft);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-  }
-  .reporte-arrow::after {
-    content: '→';
-    transition: transform 0.2s;
-  }
-  .reporte-card:hover .reporte-arrow::after {
-    transform: translateX(4px);
-  }
+        .navbar-brand img {
+            height: 90px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
 
-  /* ── PIE ── */
-  .pie {
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
-    margin-top: 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: entrada 0.5s 0.3s ease both;
-  }
-  .pie-izquierda {
-    font-size: 10px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .pie-derecha {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-style: italic;
-    text-align: right;
-  }
+        .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
 
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-cream);
+            transition: width 0.3s ease;
+        }
 
-  /* ── SECCIÓN REPORTES QUINCENALES ── */
-  .quincenal-seccion {
-    margin-bottom: 36px;
-    animation: entrada 0.5s 0.26s ease both;
-  }
-  .quincenal-encabezado {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .quincenal-pastilla {
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid;
-    background: var(--rojo-dim);
-    color: var(--rojo);
-    border-color: var(--rojo-line);
-  }
-  .descarga-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 2px solid var(--amarillo);
-    border-radius: 16px;
-    padding: 22px 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.2s;
-    max-width: 620px;
-  }
-  .descarga-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-  }
-  .descarga-card:hover {
-    border-color: var(--amarillo-line);
-    transform: translateY(-2px);
-  }
-  .descarga-icono {
-    width: 44px; height: 44px;
-    background: var(--amarillo-dim);
-    border: 1px solid var(--amarillo-line);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .descarga-info { flex: 1; }
-  .descarga-tipo {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 20px;
-    align-self: flex-start;
-    display: inline-block;
-    margin-bottom: 8px;
-    background: var(--amarillo-dim);
-    color: var(--amarillo);
-    border: 1px solid var(--amarillo-line);
-  }
-  .descarga-titulo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .descarga-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-  .descarga-meta-fila {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .descarga-meta-fila .dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--amarillo);
-    flex-shrink: 0;
-  }
-  .descarga-btn {
-    font-size: 11px;
-    color: var(--amarillo);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 600;
-    white-space: nowrap;
-    padding: 8px 16px;
-    border: 1px solid var(--amarillo-line);
-    border-radius: 8px;
-    background: var(--amarillo-dim);
-    transition: background 0.2s;
-  }
-  .descarga-card:hover .descarga-btn {
-    background: rgba(240,180,41,0.20);
-  }
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
-  @keyframes entrada {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-</style>
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:active {
+            background-color: var(--primary-light);
+            color: var(--primary-guinda);
+        }
+
+        @media (min-width: 992px) {
+            .nav-item.dropdown:hover .dropdown-menu {
+                display: block;
+                margin-top: 0;
+            }
+        }
+
+        /* 2. Hero Section (Inmersivo con Video) */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Degradado desde Azul Marino a Guinda */
+            background: linear-gradient(135deg, rgba(8, 18, 47, 0.75) 0%, rgba(102, 6, 26, 0.65) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            animation: fadeIn 1.5s ease-out;
+            padding: 0 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--secondary-cream);
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 3. Introducción Institucional */
+        .intro-section {
+            background-color: var(--primary-light);
+            padding: 7rem 0;
+        }
+
+        .intro-title {
+            color: var(--primary-navy);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 3rem;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #4a4a4a;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* 4. Propuesta Educativa */
+        .propuesta-section {
+            padding: 6rem 0;
+            background-color: #ffffff;
+        }
+
+        .propuesta-card {
+            background: var(--primary-light);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            height: 100%;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .propuesta-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .propuesta-icon {
+            font-size: 3.5rem;
+            color: var(--primary-guinda);
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .propuesta-card:hover .propuesta-icon {
+            color: var(--secondary-royal);
+        }
+
+        .propuesta-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary-navy);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        /* 5. Banner Destacado */
+        .banner-destacado {
+            background-color: var(--primary-navy);
+            background-image: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-royal) 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .banner-destacado h2 {
+            font-size: 2.8rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.5;
+            text-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            color: var(--secondary-cream);
+        }
+
+        /* 6. Divisiones Académicas */
+        .divisiones-section {
+            padding: 7rem 0;
+            background-color: var(--primary-light);
+        }
+
+        .division-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .division-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .division-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(8, 18, 47, 0.95) 0%, rgba(8, 18, 47, 0.1) 80%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2.5rem;
+            transition: background 0.5s ease;
+        }
+
+        .division-card:hover .division-bg {
+            transform: scale(1.1);
+        }
+
+        .division-card:hover .division-overlay {
+            background: linear-gradient(to top, rgba(102, 6, 26, 0.95) 0%, rgba(102, 6, 26, 0.2) 80%);
+        }
+
+        .division-title {
+            color: white;
+            font-size: 2rem;
+            margin: 0;
+            font-weight: 700;
+            transform: translateY(15px);
+            transition: transform 0.4s ease, color 0.4s ease;
+        }
+
+        .division-card:hover .division-title {
+            transform: translateY(0);
+            color: var(--secondary-cream);
+        }
+
+        /* 7. Call to Action (Admisiones) */
+        .cta-section {
+            padding: 6rem 0;
+            text-align: center;
+            background-color: white;
+        }
+
+        .btn-cta {
+            background-color: var(--primary-guinda);
+            color: white;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-guinda);
+            box-shadow: 0 8px 15px rgba(102, 6, 26, 0.2);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            background-color: transparent;
+            color: var(--primary-guinda);
+            box-shadow: 0 15px 25px rgba(102, 6, 26, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 8. Galería de Instalaciones */
+        .galeria-section {
+            padding: 6rem 0;
+            background-color: var(--primary-light);
+        }
+
+        .carousel-item img {
+            height: 600px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .carousel-indicators [data-bs-target] {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--secondary-cream);
+        }
+
+        /* 9. Footer */
+        .footer {
+            background-color: var(--primary-navy);
+            color: white;
+            padding: 5rem 0 2rem 0;
+        }
+
+        .footer h4 {
+            color: var(--secondary-cream);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .footer p,
+        .footer a {
+            color: #d1d5db;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-logo {
+            max-width: 220px;
+            margin-bottom: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            /* placeholder visibility */
+            border-radius: 5px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-right: 0.8rem;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-guinda);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Global */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content p {
+                font-size: 1.3rem;
+            }
+
+            .banner-destacado h2 {
+                font-size: 1.8rem;
+            }
+
+            .carousel-item img {
+                height: 400px;
+            }
+
+            .navbar.transparent {
+                background-color: var(--primary-navy) !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- ── CABECERA ── -->
-<header class="cabecera">
-  <div>
-    <div class="cabecera-etiqueta">Futurite · Reportes Internos · PM Operativo</div>
-    <h1>Reportes <em>Operativos</em></h1>
-  </div>
-  <div class="cabecera-meta">
-    Agencia Futurite · 2026<br>
-    Distribución: Dirección General
-  </div>
-</header>
+    <div id="app">
+        <!-- 1. Header / Barra de Navegación -->
+        <nav :class="['navbar', 'navbar-expand-lg', 'fixed-top', isScrolled ? 'scrolled' : 'transparent']">
+            <div class="container">
+                <a class="navbar-brand" href="#home" aria-label="Home">
+                    <!-- LOGO PRINCIPAL -->
+                    <img src="assets/img/KHS-h.webp" alt="King's Hill Logo Principal"
+                        style="height: 90px; width: auto; filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.4)) brightness(1.1);">
+                </a>
 
-<!-- ── MARZO 2026 ── -->
-<section class="mes-seccion">
-  <div class="mes-encabezado">
-    <span class="mes-pastilla marzo">Marzo 2026</span>
-    <span class="mes-titulo">Semáforos <em>semanales</em></span>
-    <span class="mes-count">2 reportes disponibles</span>
-  </div>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fa-solid fa-bars text-white fs-3"></i>
+                </button>
 
-  <div class="reportes-grid">
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#nosotros" id="dropNosotros" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Nosotros
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropNosotros">
+                                <li><a class="dropdown-item" href="#nosotros">Historia, misión y visión</a></li>
+                                <li><a class="dropdown-item" href="#nosotros">Filosofía</a></li>
+                                <li><a class="dropdown-item" href="#nosotros">Modelo Educativo</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#oferta" id="dropOferta" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Oferta Educativa
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropOferta">
+                                <li><a class="dropdown-item" href="#oferta">Maternal</a></li>
+                                <li><a class="dropdown-item" href="#oferta">Kinder Garden</a></li>
+                                <li><a class="dropdown-item" href="#oferta">Primaria</a></li>
+                                <li><a class="dropdown-item" href="#oferta">Secundaria</a></li>
+                                <li><a class="dropdown-item" href="#oferta">Preparatoria</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#instalaciones">Instalaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#admisiones">Admisiones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-    <a class="reporte-card disponible" href="semaforos/semaforos-marzo-2026/semaforo_23_27_marzo_2026.html">
-      <span class="reporte-tipo semanal">Semáforo semanal</span>
-      <div class="reporte-periodo">23 – 27 de Marzo</div>
-      <div class="reporte-meta">
-        <div class="reporte-meta-fila"><span class="dot"></span>5 días hábiles · 34 colaboradores operativos</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 92.4% · 33 retardos</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Pico de retardos: jueves (27.3%)</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 18% · Ajustada: 32.6% · Línea base</div>
-      </div>
-      <span class="reporte-arrow">Ver reporte</span>
-    </a>
+        <!-- 2. Hero Section (Inmersivo) -->
+        <section id="home" class="hero">
+            <video autoplay muted loop playsinline>
+                <source src="assets/videos/horizontal_Maranatha.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1>Caminando en la Visión del Señor</h1>
+                <p>Habacuc 2:2</p>
+            </div>
+        </section>
 
-    <a class="reporte-card disponible" href="semaforos/semaforos-marzo-2026/semaforo_30_31_marzo_2026.html">
-      <span class="reporte-tipo semanal">Semáforo semanal</span>
-      <div class="reporte-periodo">30 – 31 de Marzo</div>
-      <div class="reporte-meta">
-        <div class="reporte-meta-fila"><span class="dot"></span>2 días hábiles · semana corta por feriados</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 96.7% · 4 retardos</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Mejor semana del mes en puntualidad</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 18% · Ajustada: 32.6% · Línea base</div>
-      </div>
-      <span class="reporte-arrow">Ver reporte</span>
-    </a>
+        <!-- 3. Sección de Introducción Institucional -->
+        <section id="nosotros" class="intro-section text-center">
+            <div class="container">
+                <h2 class="intro-title">King's Hill School</h2>
+                <p class="intro-text">
+                    King's Hill School es una institución educativa cristiana con 35 años de experiencia formando
+                    generaciones con excelencia académica y fundamentos bíblicos sólidos. Acompañamos a cada alumno en
+                    su crecimiento intelectual, espiritual y personal, dentro de un entorno bilingüe que amplía su
+                    visión y fortalece su preparación. Con incorporación oficial ante la SEP y la UANL, educamos para
+                    que sean establecidos en verdad y aprendan a caminar en ella.
+                </p>
+            </div>
+        </section>
 
-  </div>
-</section>
+        <!-- 4. Propuesta Educativa (Cuadrícula Vue) -->
+        <section id="propuesta" class="propuesta-section">
+            <div class="container">
+                <h2 class="text-center mb-5" style="color: var(--primary-navy); font-weight: 700;">Propuesta Educativa
+                </h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4" v-for="(item, index) in propuestaData" :key="index">
+                        <div class="propuesta-card">
+                            <div class="propuesta-icon">
+                                <i :class="item.icon"></i>
+                            </div>
+                            <h3>{{ item.title }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- ── ABRIL 2026 ── -->
-<section class="mes-seccion">
-  <div class="mes-encabezado">
-    <span class="mes-pastilla abril">Abril 2026</span>
-    <span class="mes-titulo">Semáforos <em>operativos</em></span>
-    <span class="mes-count">2 reportes disponibles</span>
-  </div>
+        <!-- 5. Banner Destacado -->
+        <section class="banner-destacado">
+            <div class="container">
+                <h2>"Educamos mentes con excelencia, formamos corazones con fe y guiamos vidas con propósito."</h2>
+            </div>
+        </section>
 
-  <div class="reportes-grid">
+        <!-- 6. Divisiones Académicas (Tarjetas Vue) -->
+        <section id="oferta" class="divisiones-section">
+            <div class="container">
+                <h2 class="text-center mb-5" style="color: var(--primary-navy); font-weight: 700;">Nuestra Oferta
+                    Educativa</h2>
+                <div class="row g-4 justify-content-center">
+                    <div v-for="(division, index) in divisionesData" :key="index"
+                        :class="index >= 3 ? 'col-md-6 col-lg-6' : 'col-md-6 col-lg-4'">
+                        <div class="division-card">
+                            <div class="division-bg" :style="{ backgroundImage: 'url(' + division.image + ')' }"></div>
+                            <div class="division-overlay">
+                                <h3 class="division-title">{{ division.name }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <a class="reporte-card mensual" href="semaforos/semaforos-abril-2026/semaforo_abril_2026.html">
-      <span class="reporte-tipo mensual-tag">Semáforo mensual</span>
-      <div class="reporte-periodo">1 – 30 de Abril</div>
-      <div class="reporte-meta">
-        <div class="reporte-meta-fila"><span class="dot morado"></span>20 días hábiles · 41 colaboradores operativos</div>
-        <div class="reporte-meta-fila"><span class="dot morado"></span>Asistencia promedio: 80.9% · 175 retardos</div>
-        <div class="reporte-meta-fila"><span class="dot morado"></span>63 clientes activos · 913.02 hrs de servicio</div>
-        <div class="reporte-meta-fila"><span class="dot morado"></span>Facturabilidad directa: 18.2% · Ajustada: 35.8%</div>
-      </div>
-      <span class="reporte-arrow">Ver reporte mensual</span>
-    </a>
+        <!-- 7. Call to Action (Admisiones) -->
+        <section id="admisiones" class="cta-section">
+            <div class="container">
+                <h2 class="mb-3" style="color: var(--primary-navy); font-weight: 700; font-size: 2.5rem;">Sé parte de
+                    nuestra comunidad</h2>
+                <p class="mb-5 text-muted" style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Ofrecemos
+                    educación de nivel internacional cimentada firmemente en valores cristianos.</p>
+                <a href="#contacto" class="btn-cta">Admisiones 2026</a>
+            </div>
+        </section>
 
-    <a class="reporte-card disponible" href="semaforos/semaforos-abril-2026/semaforo_1_10_abril_2026.html">
-      <span class="reporte-tipo semanal">Semáforo semanal</span>
-      <div class="reporte-periodo">1 – 10 de Abril</div>
-      <div class="reporte-meta">
-        <div class="reporte-meta-fila"><span class="dot"></span>6 días hábiles · Feriados: 2 y 3 de Abril</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Asistencia promedio: 84.2% · 48 retardos</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>45 clientes activos · 263.38 hrs de servicio</div>
-        <div class="reporte-meta-fila"><span class="dot"></span>Facturabilidad directa: 17.1% · Ajustada: 32.1%</div>
-      </div>
-      <span class="reporte-arrow">Ver reporte</span>
-    </a>
+        <!-- 8. Galería de Instalaciones (Carrusel Vue + Bootstrap) -->
+        <section id="instalaciones" class="galeria-section">
+            <div class="container">
+                <h2 class="text-center mb-5" style="color: var(--primary-navy); font-weight: 700;">Instalaciones de
+                    Primer Nivel</h2>
 
-  </div>
-</section>
+                <div id="schoolGallery" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel"
+                    style="border-radius: 12px; overflow: hidden; max-width: 1000px; margin: 0 auto;">
+                    <div class="carousel-indicators">
+                        <button v-for="(img, idx) in galeriaData" :key="'indicator-' + idx" type="button"
+                            data-bs-target="#schoolGallery" :data-bs-slide-to="idx" :class="{ active: idx === 0 }"
+                            :aria-current="idx === 0 ? 'true' : 'false'" :aria-label="'Slide ' + (idx + 1)"></button>
+                    </div>
 
-<!-- ── MAYO 2026 ── -->
-<section class="mes-seccion">
-  <div class="mes-encabezado">
-    <span class="mes-pastilla mayo">Mayo 2026</span>
-    <span class="mes-titulo">Semáforos <em>operativos</em></span>
-    <span class="mes-count">1 reporte en borrador</span>
-  </div>
+                    <div class="carousel-inner">
+                        <div v-for="(img, idx) in galeriaData" :key="'slide-' + idx"
+                            :class="['carousel-item', { active: idx === 0 }]" data-bs-interval="4000">
+                            <img :src="img.src" class="d-block w-100" :alt="img.alt">
+                        </div>
+                    </div>
 
-  <div class="reportes-grid">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#schoolGallery"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"
+                            style="filter: drop-shadow(0px 0px 5px black);"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#schoolGallery"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                            style="filter: drop-shadow(0px 0px 5px black);"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+            </div>
+        </section>
 
-    <a class="reporte-card borrador" href="semaforos/semaforos-mayo-2026/semaforo_mayo_quincena_2026_BORRADOR.html">
-      <div class="reporte-tags">
-        <span class="reporte-tipo quincenal-tag">Semáforo quincenal</span>
-        <span class="reporte-tipo borrador-tag">⚠ Borrador</span>
-      </div>
-      <div class="reporte-periodo">4 – 15 de Mayo · 1ª Quincena</div>
-      <div class="reporte-meta">
-        <div class="reporte-meta-fila"><span class="dot amarillo"></span>10 días hábiles · 1 May feriado · 9-10 fin de semana</div>
-        <div class="reporte-meta-fila"><span class="dot amarillo"></span>Datos parciales al 12 May (asistencia 7/10 días)</div>
-        <div class="reporte-meta-fila"><span class="dot amarillo"></span>47 clientes activos · 338.60 hrs al 13 May</div>
-        <div class="reporte-meta-fila"><span class="dot amarillo"></span>Cierre y datos completos: lunes 18 de Mayo</div>
-      </div>
-      <span class="reporte-arrow">Ver borrador</span>
-    </a>
+        <!-- 9. Footer -->
+        <footer id="contacto" class="footer" style="padding-bottom: 0;">
+            <div class="container" style="padding-bottom: 4rem;">
+                <div class="row justify-content-between gy-5">
 
-  </div>
-</section>
+                    <div class="col-lg-4 col-md-6">
+                        <h4
+                            style="color: white; font-family: var(--font-sans); font-weight: 700; font-size: 1.5rem; margin-bottom: 1rem;">
+                            King's Hill School</h4>
+                        <p class="mt-3">Acompañando a cada alumno en su crecimiento intelectual, espiritual y personal
+                            en un entorno seguro e inspirador.</p>
+                        <div class="social-icons mt-4">
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        </div>
+                    </div>
 
+                    <div class="col-lg-3 col-md-6">
+                        <h4>Ubicación</h4>
+                        <p>
+                            <i class="fa-solid fa-location-dot me-2 text-white"></i>
+                            Alcaldías No. 399<br>
+                            Col. Los Rosales<br>
+                            Monterrey, N.L. CP 64764
+                        </p>
+                        <a href="https://maps.google.com/?q=Colegio+Maranatha+Monterrey" target="_blank"
+                            class="btn btn-outline-light btn-sm mt-3" style="border-radius: 20px;">
+                            <i class="fa-solid fa-map-location-dot me-1"></i> Ver en Mapa
+                        </a>
+                    </div>
 
-<!-- ── REPORTES QUINCENALES ── -->
-<section class="quincenal-seccion">
-  <div class="quincenal-encabezado">
-    <span class="quincenal-pastilla">Reportes Quincenales</span>
-    <span class="mes-titulo">Reportes <em>quincenales</em></span>
-    <span class="mes-count">2 reportes disponibles</span>
-  </div>
+                    <div class="col-lg-4 col-md-12">
+                        <h4>Contacto Admisiones</h4>
+                        <p class="mb-3">
+                            <i class="fa-solid fa-phone me-2 text-white"></i>
+                            <a href="tel:+528189895777">(81) 8989-5777</a>
+                        </p>
+                        <p class="mb-3">
+                            <i class="fa-solid fa-phone me-2 text-white"></i>
+                            <a href="tel:+528180405605">(81) 8040-5605</a>
+                        </p>
+                        <p class="mb-3">
+                            <i class="fa-solid fa-envelope me-2 text-white"></i>
+                            <a href="mailto:contacto@colegiomaranatha.edu.mx">contacto@colegiomaranatha.edu.mx</a>
+                        </p>
+                    </div>
 
-  <div class="reportes-grid">
+                </div>
 
-    <a class="descarga-card" href="reportes/Reporte_Quincenal_1a_Quincena_Marzo_2026_v2.xlsx" download>
-      <div class="descarga-icono">📊</div>
-      <div class="descarga-info">
-        <span class="descarga-tipo">Reporte quincenal · Excel</span>
-        <div class="descarga-titulo">1ª Quincena de Marzo 2026</div>
-        <div class="descarga-meta">
-          <div class="descarga-meta-fila"><span class="dot"></span>02 – 13 de Marzo · 10 días hábiles · 46 colaboradores</div>
-          <div class="descarga-meta-fila"><span class="dot"></span>84 clientes activos · 3,655.58 hrs acumuladas Ene–Mar</div>
-          <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
+            </div>
+    </div>
+
+    <!-- Footer Bottom Bar -->
+    <div style="background-color: white; padding: 1.5rem 0; margin-top: 1rem;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <img src="assets/img/KHS-f.webp" alt="King's Hill Logo Secundario"
+                        style="height: 60px; width: auto; max-width: 100%; object-fit: contain;">
+                </div>
+                <div class="col-md-8 text-center text-md-end">
+                    <p class="mb-0" style="color: var(--primary-navy); font-weight: 500; font-size: 0.95rem;">&copy;
+                        2026 King's Hill School. Todos los derechos reservados.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="descarga-btn">
-        ⬇ Descargar
-      </div>
-    </a>
+    </div>
+    </footer>
+    </div>
 
-    <a class="descarga-card" href="reportes/Reporte_Quincenal_2a_Quincena_Marzo_2026_v3.xlsx" download>
-      <div class="descarga-icono">📊</div>
-      <div class="descarga-info">
-        <span class="descarga-tipo">Reporte quincenal · Excel</span>
-        <div class="descarga-titulo">2ª Quincena de Marzo 2026</div>
-        <div class="descarga-meta">
-          <div class="descarga-meta-fila"><span class="dot"></span>16 – 31 de Marzo · 12 días hábiles · 47 colaboradores</div>
-          <div class="descarga-meta-fila"><span class="dot"></span>67 clientes activos · 1,306.93 hrs de servicio en Marzo</div>
-          <div class="descarga-meta-fila"><span class="dot"></span>Asistencia, tareas, horas por cliente y departamento · 22 hojas</div>
-        </div>
-      </div>
-      <div class="descarga-btn">
-        ⬇ Descargar
-      </div>
-    </a>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  </div>
+    <!-- Vue 3 Setup -->
+    <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
 
-</section>
+        createApp({
+            setup() {
+                // Navbar behavior
+                const isScrolled = ref(false);
 
-<!-- ── PIE ── -->
-<footer class="pie">
-  <div class="pie-izquierda">
-    Agencia Futurite · Reportes internos de operación<br>
-    Generado por el área de Project Management
-  </div>
-  <div class="pie-derecha">
-    Distribución: Dirección General<br>
-    Uso interno — confidencial
-  </div>
-</footer>
+                const checkScroll = () => {
+                    isScrolled.value = window.scrollY > 80;
+                };
 
+                onMounted(() => {
+                    window.addEventListener('scroll', checkScroll);
+                    checkScroll();
+                });
+
+                onUnmounted(() => {
+                    window.removeEventListener('scroll', checkScroll);
+                });
+
+                // Data section 4
+                const propuestaData = ref([
+                    { title: 'Excelencia académica bilingüe', icon: 'fa-solid fa-earth-americas' },
+                    { title: 'Formación cristiana intencional y auténtica', icon: 'fa-solid fa-book-bible' },
+                    { title: 'Metodologías activas y aprendizaje significativo', icon: 'fa-solid fa-lightbulb' },
+                    { title: 'Docentes capacitados que enseñan con conocimiento y ejemplo', icon: 'fa-solid fa-chalkboard-user' },
+                    { title: 'Uso responsable de la tecnología adecuado a la edad', icon: 'fa-solid fa-laptop-code' },
+                    { title: 'Ambiente cálido, seguro y con atención personalizada', icon: 'fa-solid fa-hands-holding-child' }
+                ]);
+
+                // Data section 6
+                const divisionesData = ref([
+                    { name: 'Maternal', image: 'assets/img/Maternal.webp' },
+                    { name: 'Kinder Garden', image: 'assets/img/Preescolar-02.webp' },
+                    { name: 'Primaria', image: 'assets/img/Primaria-01.webp' },
+                    { name: 'Secundaria', image: 'assets/img/Secundaria-01.webp' },
+                    { name: 'Preparatoria incorporada a la UANL', image: 'assets/img/Preparatoria-01.webp' }
+                ]);
+
+                // Data section 8
+                const galeriaData = ref([
+                    { src: 'assets/img/Actividades-01.webp', alt: 'Actividades Escolares' },
+                    { src: 'assets/img/Actividades-02.webp', alt: 'Actividades Escolares' },
+                    { src: 'assets/img/Auditorio-01.webp', alt: 'Auditorio' },
+                    { src: 'assets/img/Biblioteca-01.webp', alt: 'Biblioteca Escolar' },
+                    { src: 'assets/img/Cafeteria-01.webp', alt: 'Cafetería' },
+                    { src: 'assets/img/Cancha-03.webp', alt: 'Cancha Deportiva' },
+                    { src: 'assets/img/Computacion-02.webp', alt: 'Aula de Computación' },
+                    { src: 'assets/img/Gimnasio-01.webp', alt: 'Gimnasio' },
+                    { src: 'assets/img/Laboratorio-02.webp', alt: 'Laboratorio' },
+                    { src: 'assets/img/Pasillo-02.webp', alt: 'Pasillos y Entorno' },
+                    { src: 'assets/img/Polivalente.webp', alt: 'Aula Polivalente' },
+                ]);
+
+                return {
+                    isScrolled,
+                    propuestaData,
+                    divisionesData,
+                    galeriaData
+                };
+            }
+        }).mount('#app');
+    </script>
 </body>
+
 </html>
