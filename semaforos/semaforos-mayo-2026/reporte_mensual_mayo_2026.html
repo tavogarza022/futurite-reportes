@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte Mensual — Mayo 2026 — Futurite</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg:           #090909;
+    --surface:      #111113;
+    --surface2:     #18181c;
+    --surface3:     #202026;
+    --border:       rgba(255,255,255,0.06);
+    --border2:      rgba(255,255,255,0.10);
+    --text:         #eeedf4;
+    --text-sub:     #bcbccc;
+    --text-muted:   #8e8da0;
+
+    --verde:        #1fd68a;
+    --verde-dim:    rgba(31,214,138,0.10);
+    --verde-line:   rgba(31,214,138,0.22);
+
+    --amarillo:     #f0b429;
+    --amarillo-dim: rgba(240,180,41,0.10);
+    --amarillo-line:rgba(240,180,41,0.22);
+
+    --rojo:         #f05454;
+    --rojo-dim:     rgba(240,84,84,0.10);
+    --rojo-line:    rgba(240,84,84,0.22);
+
+    --accent:       #6c5ce7;
+    --accent-dim:   rgba(108,92,231,0.12);
+    --accent-line:  rgba(108,92,231,0.30);
+    --accent-soft:  #9b8ef4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ══════════════════════════════════════
+     CABECERA
+  ══════════════════════════════════════ */
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border2);
+    animation: entrada 0.5s ease both;
+  }
+  .cabecera-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera-etiqueta::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--accent-soft);
+  }
+  .cabecera h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .cabecera h1 em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+  .cabecera-meta {
+    text-align: right;
+  }
+  .cabecera-periodo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 5px;
+  }
+  .cabecera-gen {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ══════════════════════════════════════
+     BARRA DE ESTADO GLOBAL
+  ══════════════════════════════════════ */
+  .estado-global {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: entrada 0.5s 0.06s ease both;
+  }
+  .estado-bloque {
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .estado-bloque::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .estado-bloque.verde  { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .estado-bloque.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .estado-bloque.rojo   { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .estado-indicador {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .verde  .estado-indicador { background: var(--verde);    box-shadow: 0 0 0 3px rgba(31,214,138,0.20), 0 0 14px rgba(31,214,138,0.35); }
+  .amarillo .estado-indicador { background: var(--amarillo); box-shadow: 0 0 0 3px rgba(240,180,41,0.20), 0 0 14px rgba(240,180,41,0.35); }
+  .rojo   .estado-indicador { background: var(--rojo);     box-shadow: 0 0 0 3px rgba(240,84,84,0.20),  0 0 14px rgba(240,84,84,0.35); }
+
+  .estado-texto { flex: 1; }
+  .estado-label {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+  .estado-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .verde  .estado-valor { color: var(--verde); }
+  .amarillo .estado-valor { color: var(--amarillo); }
+  .rojo   .estado-valor { color: var(--rojo); }
+
+  /* ══════════════════════════════════════
+     CUADRÍCULA DE TARJETAS
+  ══════════════════════════════════════ */
+  .cuadricula {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* ══════════════════════════════════════
+     TARJETA BASE
+  ══════════════════════════════════════ */
+  .tarjeta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s ease both;
+  }
+  .tarjeta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .tarjeta:nth-child(1) { animation-delay: 0.10s; }
+  .tarjeta:nth-child(2) { animation-delay: 0.15s; }
+  .tarjeta:nth-child(3) { animation-delay: 0.20s; }
+  .tarjeta:nth-child(4) { animation-delay: 0.25s; }
+
+  /* Acento lateral de color por estado */
+  .tarjeta.acento-verde    { border-left: 2px solid var(--verde); }
+  .tarjeta.acento-amarillo { border-left: 2px solid var(--amarillo); }
+  .tarjeta.acento-rojo     { border-left: 2px solid var(--rojo); }
+
+  /* ── Encabezado de tarjeta ── */
+  .tarjeta-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tarjeta-titulo-grupo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tarjeta-icono {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .tarjeta-titulo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+  .insignia {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .insignia-verde    { color: var(--verde);    background: var(--verde-dim);    border-color: var(--verde-line); }
+  .insignia-amarillo { color: var(--amarillo); background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .insignia-rojo     { color: var(--rojo);     background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  /* ── Métricas ── */
+  .metricas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .metrica-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .metrica-valor.verde    { color: var(--verde); }
+  .metrica-valor.amarillo { color: var(--amarillo); }
+  .metrica-valor.rojo     { color: var(--rojo); }
+  .metrica-valor.neutro   { color: var(--text); }
+  .metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  /* ── Separador fino ── */
+  .separador {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Barras de progreso ── */
+  .barras { display: flex; flex-direction: column; gap: 9px; }
+  .barra-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 10px;
+  }
+  .barra-nombre {
+    font-size: 11px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+  .barra-pista {
+    height: 4px;
+    background: var(--surface3);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .barra-relleno {
+    height: 100%;
+    border-radius: 99px;
+  }
+  .barra-dato {
+    font-family: 'Lato', sans-serif;
+    font-size: 10.5px;
+    color: var(--text-sub);
+    text-align: right;
+  }
+
+  /* ── Hallazgos (lista de items) ── */
+  .hallazgos { display: flex; flex-direction: column; gap: 8px; }
+  .hallazgo {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hallazgo.verde    { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .hallazgo.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .hallazgo.rojo     { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .hallazgo-simbolo {
+    font-size: 11px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .verde    .hallazgo-simbolo { background: rgba(31,214,138,0.18);  color: var(--verde); }
+  .amarillo .hallazgo-simbolo { background: rgba(240,180,41,0.18);  color: var(--amarillo); }
+  .rojo     .hallazgo-simbolo { background: rgba(240,84,84,0.18);   color: var(--rojo); }
+
+  .hallazgo-cuerpo { flex: 1; }
+  .hallazgo-cuerpo strong { color: var(--text); font-weight: 600; }
+
+  .hallazgo-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+  .etiqueta-cliente  { background: rgba(108,92,231,0.18); color: var(--accent-soft); }
+  .etiqueta-equipo   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .etiqueta-proceso  { background: rgba(240,180,41,0.12);  color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     TARJETA ACCIONES DIRECCIÓN
+  ══════════════════════════════════════ */
+  .accion-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .accion-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  }
+  .accion-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(108,92,231,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .accion-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .accion-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .accion-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .accion-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+
+  .accion-lista { display: flex; flex-direction: column; gap: 10px; }
+  .accion-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    transition: border-color 0.2s;
+  }
+  .accion-item:hover {
+    border-color: var(--accent-line);
+  }
+  .accion-numero {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--accent-soft);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-line);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .accion-contenido { flex: 1; }
+  .accion-contenido strong {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+  .accion-contenido span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     PIE DE PÁGINA
+  ══════════════════════════════════════ */
+  .pie {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .pie-izquierda {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .pie-derecha {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: right;
+  }
+
+  /* ══════════════════════════════════════
+     IMPACTO ECONÓMICO
+  ══════════════════════════════════════ */
+  .impacto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.28s ease both;
+  }
+  .impacto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,84,84,0.3), transparent);
+  }
+  .impacto-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(240,84,84,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .impacto-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .impacto-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--rojo-dim);
+    color: var(--rojo);
+    border: 1px solid var(--rojo-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .impacto-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .impacto-titulo em {
+    font-style: italic;
+    color: var(--rojo);
+  }
+  .impacto-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  .impacto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .impacto-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .impacto-bloque.alerta {
+    border-color: var(--rojo-line);
+    background: var(--rojo-dim);
+  }
+  .impacto-bloque.atencion {
+    border-color: var(--amarillo-line);
+    background: var(--amarillo-dim);
+  }
+  .impacto-bloque.referencia {
+    border-color: var(--border2);
+    background: var(--surface2);
+  }
+  .impacto-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .alerta    .impacto-etiqueta { color: var(--rojo); }
+  .atencion  .impacto-etiqueta { color: var(--amarillo); }
+  .referencia .impacto-etiqueta { color: var(--text-muted); }
+
+  .impacto-monto {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .alerta    .impacto-monto { color: var(--rojo); }
+  .atencion  .impacto-monto { color: var(--amarillo); }
+  .referencia .impacto-monto { color: var(--text); }
+
+  .impacto-desc {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-sub);
+  }
+
+  .impacto-desglose {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .desglose-titulo {
+    padding: 12px 18px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .desglose-fila {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .desglose-fila:last-child { border-bottom: none; }
+  .desglose-fila.total {
+    background: rgba(255,255,255,0.02);
+    font-weight: 600;
+  }
+  .desglose-nombre { color: var(--text-sub); }
+  .desglose-nombre strong { color: var(--text); font-weight: 500; }
+  .desglose-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .desglose-valor {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    min-width: 110px;
+  }
+  .desglose-fila.alerta .desglose-valor   { color: var(--rojo); }
+  .desglose-fila.atencion .desglose-valor { color: var(--amarillo); }
+  .desglose-fila.total .desglose-valor    { color: var(--text); }
+
+  .impacto-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .impacto-disclaimer span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     ACTIVIDAD RECIENTE
+  ══════════════════════════════════════ */
+  .reciente-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.32s ease both;
+  }
+  .reciente-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(31,214,138,0.3), transparent);
+  }
+  .reciente-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(31,214,138,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .reciente-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .reciente-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--verde-dim);
+    color: var(--verde);
+    border: 1px solid var(--verde-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .reciente-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .reciente-titulo em {
+    font-style: italic;
+    color: var(--verde);
+  }
+  .reciente-subtitulo {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .reciente-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .reciente-metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .reciente-metrica.destacado {
+    border-color: var(--verde-line);
+    background: var(--verde-dim);
+  }
+  .reciente-metrica-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .reciente-metrica.destacado .reciente-metrica-val { color: var(--verde); }
+  .reciente-metrica-val.neutro { color: var(--text); }
+  .reciente-metrica-val.amarillo { color: var(--amarillo); }
+  .reciente-metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .reciente-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .reciente-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .reciente-bloque-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reciente-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    gap: 10px;
+  }
+  .reciente-fila:last-child { border-bottom: none; }
+  .reciente-fila-nombre { color: var(--text-sub); flex: 1; }
+  .reciente-fila-nombre strong { color: var(--text); font-weight: 500; }
+  .reciente-fila-cat {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .reciente-fila-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--verde);
+    min-width: 55px;
+    text-align: right;
+  }
+  .reciente-fila-hrs.amarillo { color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     ANIMACIÓN
+  ══════════════════════════════════════ */
+  @keyframes entrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 18%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 6%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 6%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 6.5%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 7.5%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 9%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7.5%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6.5%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 5%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 9%; }
+  .cl-tabla th:nth-child(12), .cl-tabla td:nth-child(12) { width: 14%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-etq strong { color: var(--text-sub); margin-right: 4px; }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === AVISO REPORTE MENSUAL === */
+  .aviso-reporte {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: entrada 0.6s ease both;
+  }
+  .aviso-icono {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+  .aviso-contenido { flex: 1; }
+  .aviso-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .aviso-cuerpo {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .aviso-cuerpo strong { color: var(--text); }
+  .aviso-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    transition: all 0.2s;
+  }
+  .aviso-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+/* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 18%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 6%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 6%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 6.5%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 7.5%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 9%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7.5%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6.5%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 5%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 9%; }
+  .cl-tabla th:nth-child(12), .cl-tabla td:nth-child(12) { width: 14%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    padding: 18px 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-etq-titulo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .cl-leyenda-etq-grupos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 32px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .cl-leyenda-etq-grupos { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .cl-leyenda-etq-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cl-leyenda-etq-grupo-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .cl-leyenda-etq-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
+  .cl-leyenda-etq-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .cl-leyenda-etq-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .cl-leyenda-etq-nota {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === FILTROS Y BÚSQUEDA DEL DETALLE === */
+  .cl-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .cl-filtros-grupo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .cl-filtros-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .cl-filtros-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .cl-filtro-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .cl-filtro-pill:hover {
+    border-color: var(--accent-line);
+    color: var(--text);
+  }
+  .cl-filtro-pill.activo {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .cl-filtro-count {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--surface3);
+    border-radius: 8px;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .cl-filtro-pill.activo .cl-filtro-count {
+    background: rgba(255,255,255,0.08);
+    color: var(--accent-soft);
+  }
+  .cl-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+  .cl-busqueda input {
+    flex: 1;
+    max-width: 280px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .cl-busqueda input:focus {
+    border-color: var(--accent-line);
+  }
+  .cl-busqueda input::placeholder {
+    color: var(--text-muted);
+  }
+  .cl-busqueda-info {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* === ENCABEZADOS SORTABLES === */
+  .cl-tabla thead th.th-sortable,
+  .cl-tabla thead th.th-cliente {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  .cl-tabla thead th.th-sortable:hover,
+  .cl-tabla thead th.th-cliente:hover {
+    color: var(--accent-soft);
+  }
+  .sort-ind {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    opacity: 0.4;
+    transition: opacity 0.15s;
+  }
+  .cl-tabla thead th.sort-asc .sort-ind::after { content: '▲'; opacity: 1; }
+  .cl-tabla thead th.sort-desc .sort-ind::after { content: '▼'; opacity: 1; }
+  .cl-tabla thead th.th-sortable:not(.sort-asc):not(.sort-desc) .sort-ind::after,
+  .cl-tabla thead th.th-cliente:not(.sort-asc):not(.sort-desc) .sort-ind::after {
+    content: '⇅';
+    opacity: 0.4;
+  }
+
+  tr.cl-hidden { display: none !important; }
+
+
+  .cl-leyenda-nota {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-left: 2px solid var(--border2);
+    border-radius: 4px;
+    margin-top: -8px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-nota strong {
+    color: var(--text-sub);
+    font-weight: 600;
+  }
+
+
+
+  .cl-deptos-placeholder {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    align-items: center;
+  }
+  .placeholder-icono {
+    font-size: 32px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .placeholder-texto {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .placeholder-texto strong { color: var(--text-sub); }
+  .placeholder-texto em { color: var(--accent-soft); font-style: normal; }
+
+
+
+  .vis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.29s ease both;
+  }
+  .vis-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent);
+  }
+  .vis-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(108,92,231,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .vis-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .vis-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .vis-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .vis-titulo em { font-style: italic; color: var(--accent-soft); }
+  .vis-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .vis-bloques {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .vis-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .vis-bloque-label {
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .vis-bloque-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .vis-bloque-sub {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .vis-stack {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .vis-stack-titulo {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .vis-stack-barra {
+    display: flex;
+    height: 10px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    gap: 2px;
+  }
+  .vis-stack-seg {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  .vis-stack-leyenda {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .vis-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .vis-stack-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .vis-deptos {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .vis-deptos-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .vis-depto-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 55px 100px;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .vis-depto-fila:last-child { border-bottom: none; }
+  .vis-depto-nombre { color: var(--text-sub); font-weight: 500; }
+  .vis-depto-barra-wrap .barra-pista { height: 5px; }
+  .vis-depto-tasa { text-align: right; font-weight: 600; font-size: 11px; }
+  .vis-depto-hrs { color: var(--text-muted); text-align: right; font-size: 10.5px; }
+  .vis-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .vis-disclaimer span { color: var(--text-sub); }
+
+
+  .accion-toggle { display:inline-flex; align-items:center; gap:10px; margin-top:8px; padding:11px 20px; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); border-radius:10px; font-family:'Lato',sans-serif; font-size:12.5px; font-weight:700; cursor:pointer; user-select:none; transition:background 0.2s ease; }
+  .accion-toggle:hover { background:rgba(108,92,231,0.18); }
+  .accion-toggle .accion-flecha { font-size:13px; transition:transform 0.25s ease; }
+  .accion-toggle.abierto .accion-flecha { transform:rotate(180deg); }
+  .accion-lista { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+  .accion-lista.abierto { max-height:2200px; margin-top:16px; }
+  .accion-item { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; background:var(--surface2); padding:14px 18px; display:flex; gap:14px; align-items:flex-start; }
+  .accion-numero { flex-shrink:0; width:26px; height:26px; border-radius:50%; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); display:flex; align-items:center; justify-content:center; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; }
+  .accion-contenido { flex:1; }
+  .accion-contenido strong { display:block; font-family:'Lato',sans-serif; font-size:13px; font-weight:700; color:var(--text); line-height:1.4; margin-bottom:6px; }
+  .accion-contenido span { display:block; font-size:11.5px; color:var(--text-sub); line-height:1.65; }
+
+
+  .comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px 28px; margin-bottom: 16px; position: relative; overflow: hidden; animation: entrada 0.5s 0.33s ease both; }
+  .comp-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent); }
+  .comp-encabezado { display:flex; align-items:center; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .comp-pastilla { font-family:'Lato',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); padding:4px 12px; border-radius:20px; }
+  .comp-titulo { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:400; color:var(--text); }
+  .comp-titulo em { font-style:italic; color:var(--accent-soft); }
+  .comp-intro { font-size:11.5px; color:var(--text-sub); line-height:1.6; margin-bottom:20px; }
+  .comp-grupo { margin-bottom:18px; }
+  .comp-grupo-titulo { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .comp-grupo-desc { font-size:10.5px; color:var(--text-muted); margin-bottom:12px; line-height:1.5; }
+  .comp-tabla { background:var(--surface2); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .comp-head, .comp-fila { display:grid; grid-template-columns: 1.7fr 1.9fr 1fr 0.85fr; align-items:center; gap:12px; padding:10px 16px; font-size:11.5px; }
+  .comp-head { background:rgba(255,255,255,0.02); border-bottom:1px solid var(--border); font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+  .comp-head span:nth-child(3), .comp-head span:nth-child(4) { text-align:right; }
+  .comp-fila { border-bottom:1px solid var(--border); }
+  .comp-fila:last-child { border-bottom:none; }
+  .comp-cuenta { color:var(--text-sub); display:flex; align-items:center; gap:8px; }
+  .comp-sem { color:var(--text-muted); font-size:10.5px; white-space:nowrap; }
+  .comp-tend { font-weight:700; }
+  .comp-acum { font-weight:700; text-align:right; }
+  .comp-acum-sub { font-weight:400; font-size:9px; color:var(--text-muted); display:block; }
+  .comp-proy { text-align:right; font-size:10.5px; font-weight:600; }
+  .comp-disclaimer { margin-top:14px; padding:10px 16px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; font-size:10.5px; color:var(--text-muted); line-height:1.6; }
+  .comp-disclaimer span { color:var(--text-sub); }
+  @media (max-width:720px) { .comp-head, .comp-fila { grid-template-columns: 1.6fr 1fr 1fr; } .comp-proy { display:none; } }
+
+
+  .btn-regresar {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .btn-regresar:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    transform: translateX(-3px);
+  }
+  .btn-regresar svg {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .btn-regresar:hover svg {
+    transform: translateX(-2px);
+  }
+
+
+/* ── extras del mensual ── */
+.resumen-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:4px; }
+@media (max-width:720px) { .resumen-grid { grid-template-columns:repeat(2,1fr); } }
+.mes-tabla { width:100%; border-collapse:collapse; margin-top:14px; font-size:12px; }
+.mes-tabla th, .mes-tabla td { padding:9px 10px; text-align:center; border-bottom:1px solid var(--border); }
+.mes-tabla th { font-family:'Lato',sans-serif; font-size:9.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+.mes-tabla td:first-child, .mes-tabla th:first-child { text-align:left; color:var(--text-sub); }
+.mes-tabla tr.mes-total td { border-top:1px solid var(--border2); border-bottom:none; font-weight:700; color:var(--text); font-family:'Montserrat',sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ CABECERA ═══════════════ -->
+<header class="cabecera">
+  <div>
+    <div class="cabecera-etiqueta">Futurite · Reporte Interno · PM Operativo</div>
+    <h1>Reporte <em>Mensual · Mayo 2026</em></h1>
+  </div>
+  <div class="cabecera-meta">
+    <div class="cabecera-periodo">1 – 29 de Mayo 2026  ·  Mensual  ·  20 días hábiles  ·  4 semanas</div>
+    <div class="cabecera-gen">Generado el 9 de Junio 2026 · Síntesis de los 4 cierres semanales (4–8 · 11–15 · 18–22 · 25–29) · Fuente: Biométrico · OnGoing · CRM Futurite</div>
+  </div>
+</header>
+
+<!-- ═══════════════ 1 · RESUMEN EJECUTIVO ═══════════════ -->
+<div class="tarjeta">
+  <div class="tarjeta-encabezado">
+    <div class="tarjeta-titulo-grupo">
+      <div class="tarjeta-icono">📊</div>
+      <span class="tarjeta-titulo">Resumen ejecutivo del mes</span>
+    </div>
+  </div>
+  <div class="resumen-grid">
+    <div class="metrica"><div class="metrica-valor">796.33</div><div class="metrica-etiqueta">Horas reales de servicio en el mes</div></div>
+    <div class="metrica"><div class="metrica-valor">$128,209</div><div class="metrica-etiqueta">Valor económico estimado ($161/hr)</div></div>
+    <div class="metrica"><div class="metrica-valor">91.5%</div><div class="metrica-etiqueta">Asistencia promedio (535/585 días-persona)</div></div>
+    <div class="metrica"><div class="metrica-valor">168</div><div class="metrica-etiqueta">Retardos en el mes (53 inconsistencias)</div></div>
+    <div class="metrica"><div class="metrica-valor">69</div><div class="metrica-etiqueta">Cuentas con actividad (53 retainers · 7 proyectos · 5 internas · 4 bajas)</div></div>
+    <div class="metrica"><div class="metrica-valor" style="color:var(--rojo)">12</div><div class="metrica-etiqueta">Cuentas que rebasaron su contrato del mes</div></div>
+    <div class="metrica"><div class="metrica-valor" style="color:var(--amarillo)">30</div><div class="metrica-etiqueta">Cuentas en desuso (&lt;50% de su contrato)</div></div>
+    <div class="metrica"><div class="metrica-valor">39.8%</div><div class="metrica-etiqueta">Cumplimiento de contrato de toda la cartera (denom. fijo)</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ 2 · ASISTENCIA ═══════════════ -->
+<div class="tarjeta">
+  <div class="tarjeta-encabezado">
+    <div class="tarjeta-titulo-grupo">
+      <div class="tarjeta-icono">🕐</div>
+      <span class="tarjeta-titulo">Asistencia y puntualidad del mes</span>
+    </div>
+  </div>
+  <div class="metricas">
+    <div class="metrica"><div class="metrica-valor">91.5%</div><div class="metrica-etiqueta">Asistencia promedio del mes (535 de 585 días-persona)</div></div>
+    <div class="metrica"><div class="metrica-valor">168</div><div class="metrica-etiqueta">Retardos en el mes · tendencia a la baja (52→62→30→24)</div></div>
+    <div class="metrica"><div class="metrica-valor">~8:45</div><div class="metrica-etiqueta">Jornada mediana, estable todo el mes</div></div>
+  </div>
+  <table class="mes-tabla">
+    <thead><tr><th>Semana</th><th>Asistencia</th><th>Puntuales</th><th>Dentro rango</th><th>Retardos</th><th>Salidas tempranas</th><th>Jornada med.</th></tr></thead>
+    <tbody><tr><td>4–8</td><td>92.1%</td><td>52</td><td>25</td><td>52</td><td>57</td><td>8h53m</td></tr>
+<tr><td>11–15</td><td>93.5%</td><td>48</td><td>35</td><td>62</td><td>67</td><td>8h44m</td></tr>
+<tr><td>18–22</td><td>86.2%</td><td>52</td><td>43</td><td>30</td><td>63</td><td>8h45m</td></tr>
+<tr><td>25–29</td><td>93.8%</td><td>59</td><td>53</td><td>24</td><td>91</td><td>8h45m</td></tr>
+<tr class="mes-total"><td>Mayo (total)</td><td>91.5%</td><td>211</td><td>156</td><td>168</td><td>278</td><td>~8h45m</td></tr></tbody>
+  </table>
+  <div class="hallazgos" style="margin-top:16px">
+    <div class="hallazgo amarillo">
+      <div class="hallazgo-simbolo">△</div>
+      <div class="hallazgo-cuerpo"><strong>Reincidencia en retardos — patrón del mes:</strong> Ángel González y Williana Cuéllar cayeron en 3 o más retardos <strong>las 4 semanas</strong> del mes. En segundo plano (2 de 4 semanas): Claudia Moya, Adrián Magallanes, Karinya Silva, Lucía González y Petra Medrano. Es un patrón que solo se ve al juntar el mes; conviene una conversación puntual.</div>
+      <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+    </div>
+    <div class="hallazgo verde">
+      <div class="hallazgo-simbolo">✓</div>
+      <div class="hallazgo-cuerpo"><strong>La puntualidad mejoró en la 2ª mitad del mes:</strong> los retardos pasaron de 52 y 62 (primeras dos semanas) a 30 y 24 (últimas dos). La mejor semana fue la del 25–29 (asistencia 93.8%); la más baja fue el 18–22 (86.2%), pero esas 20 ausencias estaban todas justificadas.</div>
+      <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 3 · PRODUCTIVIDAD ═══════════════ -->
+<div class="tarjeta">
+  <div class="tarjeta-encabezado">
+    <div class="tarjeta-titulo-grupo">
+      <div class="tarjeta-icono">⚡</div>
+      <span class="tarjeta-titulo">Productividad del mes</span>
+    </div>
+  </div>
+  <div class="metricas">
+    <div class="metrica"><div class="metrica-valor">796.33</div><div class="metrica-etiqueta">Horas reales de servicio (243.6 → 183.9 → 204.0 → 164.8)</div></div>
+    <div class="metrica"><div class="metrica-valor">≈626</div><div class="metrica-etiqueta">Tareas trabajadas en el mes (aproximado)</div></div>
+    <div class="metrica"><div class="metrica-valor">21</div><div class="metrica-etiqueta">Máximo de colaboradores con actividad en una semana</div></div>
+  </div>
+  <div class="separador"></div>
+  <div class="desglose-titulo" style="margin-bottom:10px">Carga por departamento · acumulado del mes (horas)</div>
+  <div class="barras">
+      <div class="barra-fila">
+        <span class="barra-nombre">Diseño</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:100.0%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">339.51 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Tráfico</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:48.8%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">165.78 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Contenido</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:47.5%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">161.42 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">TI</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:24.8%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">84.30 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Marketing</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:9.9%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">33.54 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">SEO</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:3.4%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">11.59 hrs</span>
+      </div>
+      <div class="barra-fila">
+        <span class="barra-nombre">Operaciones</span>
+        <div class="barra-pista"><div class="barra-relleno" style="width:0.4%;background:var(--accent-soft)"></div></div>
+        <span class="barra-dato" style="color:var(--accent-soft)">0.17 hrs</span>
+      </div>
+  </div>
+  <div class="hallazgos" style="margin-top:16px">
+    <div class="hallazgo amarillo">
+      <div class="hallazgo-simbolo">△</div>
+      <div class="hallazgo-cuerpo"><strong>Las horas bajaron hacia el cierre de mes:</strong> 243.6 hrs la primera semana contra 164.8 la última. Es el patrón normal de fin de mes (cierres, menos tareas nuevas). Diseño concentró la mayor carga del mes (339.5 hrs), seguido de Tráfico y Contenido. Operaciones siguió sin actividad (columna permanente).</div>
+      <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 4 · IMPACTO ECONÓMICO ═══════════════ -->
+<div class="impacto-card">
+  <div class="impacto-encabezado">
+    <span class="impacto-pastilla">Impacto Económico · Estimado</span>
+    <span class="impacto-titulo">Valor operativo <em>del mes</em></span>
+    <span class="impacto-nota">Costo promedio ponderado $161/hr · MXN</span>
+  </div>
+  <div class="impacto-grid">
+    <div class="impacto-bloque">
+      <div class="impacto-etiqueta">Valor generado en el mes</div>
+      <div class="impacto-monto" style="color:var(--verde)">$128,209</div>
+      <div class="impacto-desc">Estimado de las 796.33 horas de servicio reales de mayo a $161/hr. Es valor estimado, no facturación real.</div>
+    </div>
+    <div class="impacto-bloque">
+      <div class="impacto-etiqueta">Evolución semana a semana</div>
+      <div class="impacto-monto" style="color:var(--text)">$39.2k → $26.5k</div>
+      <div class="impacto-desc">$39,221 (4–8) · $29,609 (11–15) · $32,849 (18–22) · $26,530 (25–29). La baja del cierre es operación normal de fin de mes.</div>
+    </div>
+    <div class="impacto-bloque">
+      <div class="impacto-etiqueta">Costo por hora de servicio</div>
+      <div class="impacto-monto" style="color:var(--text)">$161</div>
+      <div class="impacto-desc">Ponderado: RRSS $58 · SEO $224 · Google Ads $202. Misma base usada en los 4 semanales.</div>
+    </div>
+  </div>
+  <div class="impacto-desglose">
+    <div class="desglose-titulo">Cuentas externas que más valor generaron en el mes</div>
+    <div class="desglose-fila"><span class="desglose-nombre">Hospitales MAC <span class="etq-mini etq-aaa">AAA</span></span><span class="desglose-hrs">52.99 hrs</span><span class="desglose-valor">$8,531</span></div>
+    <div class="desglose-fila"><span class="desglose-nombre">Monarca Residencial <span class="etq-mini etq-aa">AA</span></span><span class="desglose-hrs">42.26 hrs</span><span class="desglose-valor">$6,804</span></div>
+    <div class="desglose-fila"><span class="desglose-nombre">Elizondo <span class="etq-mini etq-aaa">AAA</span></span><span class="desglose-hrs">30.00 hrs</span><span class="desglose-valor">$4,830</span></div>
+  </div>
+  <div class="impacto-disclaimer">Valor estimado con costo ponderado de $161/hr; se reemplazará cuando llegue el ingreso por cuenta del CRM.</div>
+</div>
+
+<!-- ═══════════════ 5 · VISIBILIDAD OPERATIVA ═══════════════ -->
+<div class="vis-card">
+  <div class="vis-encabezado">
+    <span class="vis-pastilla">Visibilidad Operativa · Informativo (sin color)</span>
+    <span class="vis-titulo">Cumplimiento de contrato y <em>esfuerzo facturable</em> del mes</span>
+    <span class="vis-nota">Sección informativa · mide qué tanto de lo contratado se entregó en todo mayo</span>
+  </div>
+  <div class="vis-bloques" style="grid-template-columns:repeat(2,1fr)">
+    <div class="vis-bloque">
+      <div class="vis-bloque-label">Cumplimiento de contrato · toda la cartera</div>
+      <div class="vis-bloque-valor" style="color:var(--text)">39.8%</div>
+      <div class="vis-bloque-sub">≈636 hrs reales de retainers ÷ 1,601 hrs contratadas de <strong>toda la cartera de retainers</strong> (denominador FIJO del mes). A diferencia del semanal, aquí la base incluye TODAS las cuentas contratadas, no solo las que tuvieron actividad — por eso el número es más bajo: refleja cuánto del contrato total de la agencia se cubrió en el mes.</div>
+    </div>
+    <div class="vis-bloque">
+      <div class="vis-bloque-label">Esfuerzo facturable</div>
+      <div class="vis-bloque-valor" style="color:var(--text)">90.8%</div>
+      <div class="vis-bloque-sub">723.1 hrs facturables ÷ 796.33 hrs totales del mes. Fuera del facturable: internas (PYI) y proyectos sin bolsa estipulada. De lo que se trabajó, casi todo es facturable.</div>
+    </div>
+  </div>
+  <div class="vis-disclaimer">
+    <span>Cómo leer el 39.8%:</span> no significa que el equipo trabajara mal en lo que atendió (el esfuerzo facturable de 90.8% lo confirma). Significa que <strong>hay contrato vendido que no se está cubriendo</strong> — cuentas que pagan y recibieron poco o nada en el mes. Es la señal que el reporte semanal no alcanza a mostrar y que el mensual sí destapa.
+  </div>
+</div>
+
+<!-- ═══════════════ 6 · USO DE CONTRATO ACUMULADO ═══════════════ -->
+<div class="comp-card" id="comparativa">
+  <div class="comp-encabezado">
+    <span class="comp-pastilla">Uso acumulado del mes · con color</span>
+    <span class="comp-titulo">Cierre de mayo · <em>consumo del contrato (4 de 4 semanas)</em></span>
+  </div>
+  <div class="comp-intro">
+    Horas de las 4 semanas (4–8 + 11–15 + 18–22 + 25–29) ÷ contrato mensual de cada cuenta. Es el resultado final del mes, no proyección. <strong style="color:var(--rojo)">Sobreuso</strong> = rebasó su contrato (candidata a renegociar honorarios). <strong style="color:var(--amarillo)">Desuso</strong> = quedó por debajo del 50%. La columna "Sem 4–8 / 11–15 / 18–22 / 25–29" muestra las horas de cada semana; la flecha compara la última semana con la anterior. Solo retainers (no proyectos ni internas).
+  </div>
+
+  <div class="comp-tabla" style="margin-bottom:22px">
+    <div class="comp-subtitulo" style="color:var(--rojo);font-weight:700;margin:6px 0 8px">🔴 Rebasaron el contrato del mes (12)</div>
+    <div class="comp-head"><span>Cuenta</span><span>Sem 4–8 / 11–15 / 18–22 / 25–29</span><span>Acum. mes</span><span>Cierre</span></div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> LR Recolectora</span>
+          <span class="comp-sem">0.00 / 0.00 / 11.58 / 10.50 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">276% <span class="comp-acum-sub">de 8.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Pinturas Philadelphia</span>
+          <span class="comp-sem">7.17 / 6.00 / 5.92 / 10.00 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">224% <span class="comp-acum-sub">de 13.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Grupo Corda Arquitectos</span>
+          <span class="comp-sem">0.00 / 5.83 / 4.25 / 2.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">173% <span class="comp-acum-sub">de 7.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> kanan</span>
+          <span class="comp-sem">4.92 / 0.00 / 2.50 / 9.33 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">168% <span class="comp-acum-sub">de 10.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> DURATEX</span>
+          <span class="comp-sem">7.67 / 15.50 / 4.75 / 1.25 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">162% <span class="comp-acum-sub">de 18.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Monarca Residencial</span>
+          <span class="comp-sem">4.25 / 11.08 / 18.09 / 8.83 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">156% <span class="comp-acum-sub">de 27.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Nicholas plastics</span>
+          <span class="comp-sem">5.00 / 6.42 / 4.00 / 4.50 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">153% <span class="comp-acum-sub">de 13.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Bark & Co</span>
+          <span class="comp-sem">3.00 / 5.33 / 10.83 / 8.58 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">139% <span class="comp-acum-sub">de 20.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Paxcon by Line-X</span>
+          <span class="comp-sem">9.33 / 5.50 / 4.66 / 9.17 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">119% <span class="comp-acum-sub">de 24.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Autos Dieck</span>
+          <span class="comp-sem">1.00 / 2.50 / 6.16 / 4.58 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">119% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Perforaciones y Anclajes</span>
+          <span class="comp-sem">0.00 / 0.00 / 5.08 / 8.50 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">104% <span class="comp-acum-sub">de 13.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> TRYPHE</span>
+          <span class="comp-sem">15.83 / 1.00 / 0.25 / 0.00 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--rojo)">100% <span class="comp-acum-sub">de 17.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--rojo)">rebasó</span>
+        </div>
+  </div>
+
+  <div class="comp-tabla">
+    <div class="comp-subtitulo" style="color:var(--amarillo);font-weight:700;margin:6px 0 8px">🟡 En desuso · &lt;50% del contrato (30)</div>
+    <div class="comp-head"><span>Cuenta</span><span>Sem 4–8 / 11–15 / 18–22 / 25–29</span><span>Acum. mes</span><span>Estado</span></div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> Hospitales MAC</span>
+          <span class="comp-sem">37.08 / 12.58 / 0.33 / 3.00 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">20% <span class="comp-acum-sub">de 260.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> InverCap</span>
+          <span class="comp-sem">6.17 / 0.25 / 0.17 / 1.25 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">8% <span class="comp-acum-sub">de 100.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> Elizondo</span>
+          <span class="comp-sem">10.58 / 2.50 / 5.92 / 11.00 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">41% <span class="comp-acum-sub">de 74.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> MUGUERZA SUR</span>
+          <span class="comp-sem">2.17 / 2.00 / 10.17 / 6.08 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">42% <span class="comp-acum-sub">de 49.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Manolo Jimenez Saltillo</span>
+          <span class="comp-sem">0.00 / 1.17 / 3.25 / 2.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">15% <span class="comp-acum-sub">de 42.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> TERZA</span>
+          <span class="comp-sem">0.25 / 2.83 / 0.00 / 4.80 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">20% <span class="comp-acum-sub">de 40.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> PHS</span>
+          <span class="comp-sem">1.50 / 5.08 / 10.59 / 0.83 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">47% <span class="comp-acum-sub">de 38.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> TLE</span>
+          <span class="comp-sem">6.42 / 2.00 / 5.00 / 0.50 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">38% <span class="comp-acum-sub">de 37.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Inversión Educativa TEC</span>
+          <span class="comp-sem">6.50 / 4.83 / 4.08 / 0.50 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">44% <span class="comp-acum-sub">de 36.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Financiera MEXI</span>
+          <span class="comp-sem">0.17 / 1.00 / 0.25 / 0.92 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">6% <span class="comp-acum-sub">de 36.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Hospital San Vicente</span>
+          <span class="comp-sem">0.50 / 0.00 / 0.00 / 0.08 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">2% <span class="comp-acum-sub">de 31.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Gama Music</span>
+          <span class="comp-sem">2.08 / 2.92 / 5.25 / 2.50 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">42% <span class="comp-acum-sub">de 30.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> FAMAPER</span>
+          <span class="comp-sem">0.00 / 2.00 / 0.00 / 0.00 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">7% <span class="comp-acum-sub">de 28.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> INMEDI-K</span>
+          <span class="comp-sem">5.25 / 0.00 / 0.00 / 1.50 <span class="comp-tend">↑</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">26% <span class="comp-acum-sub">de 26.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> INFINITI</span>
+          <span class="comp-sem">4.50 / 1.00 / 0.00 / 0.00 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">31% <span class="comp-acum-sub">de 18.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> CIA Neumatica</span>
+          <span class="comp-sem">0.17 / 0.00 / 0.25 / 0.25 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">4% <span class="comp-acum-sub">de 15.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> VAG</span>
+          <span class="comp-sem">0.00 / 3.50 / 0.67 / 0.08 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">28% <span class="comp-acum-sub">de 15.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Raelsa</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.50 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">4% <span class="comp-acum-sub">de 14.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Petrovim</span>
+          <span class="comp-sem">1.83 / 2.08 / 1.25 / 0.25 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">42% <span class="comp-acum-sub">de 13.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Roma Herramientas</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.50 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">4% <span class="comp-acum-sub">de 13.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> SUMINREGIOS</span>
+          <span class="comp-sem">0.42 / 0.50 / 0.00 / 0.25 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">10% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Hamer Empaques</span>
+          <span class="comp-sem">0.00 / 0.42 / 0.27 / 0.50 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">10% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> ICCE</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.50 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">4% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Covacsa</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.33 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">3% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Pedrera San Angel</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.33 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">3% <span class="comp-acum-sub">de 12.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Leuman GMB</span>
+          <span class="comp-sem">4.00 / 0.00 / 0.50 / 0.25 <span class="comp-tend">→</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">48% <span class="comp-acum-sub">de 10.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Soluciones Pop</span>
+          <span class="comp-sem">0.17 / 0.58 / 0.67 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">14% <span class="comp-acum-sub">de 10.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> MAXIRent</span>
+          <span class="comp-sem">0.00 / 0.00 / 3.17 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">40% <span class="comp-acum-sub">de 8.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Argo</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.50 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">8% <span class="comp-acum-sub">de 6.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> The Paletas</span>
+          <span class="comp-sem">0.00 / 0.00 / 0.33 / 0.00 <span class="comp-tend">↓</span></span>
+          <span class="comp-acum" style="color:var(--amarillo)">7% <span class="comp-acum-sub">de 5.00 hrs</span></span>
+          <span class="comp-proy" style="color:var(--amarillo)">Desuso</span>
+        </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 7 · CUENTAS SIN TRABAJO ═══════════════ -->
+<div class="salud-card">
+  <div class="salud-encabezado">
+    <span class="salud-pastilla">Salud de Clientes · Mes de Mayo 2026</span>
+    <span class="salud-titulo">Clientes que pagan y <em>no recibieron trabajo</em> en el mes</span>
+    <span class="salud-subtitulo">Retainers con contrato mensual que registraron 0 horas en las 4 semanas · riesgo de baja real</span>
+  </div>
+  <div class="salud-grupos">
+    <div class="salud-grupo grupo-rojo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🔴 Contratos grandes (AAA / AA) sin movimiento en el mes</span>
+        <span class="salud-grupo-total">3 cuentas</span>
+      </div>
+      <div class="salud-lista">
+        <div class="salud-item"><span class="salud-cliente">Gobierno de Coahuila <span class="etq-mini etq-aaa">AAA</span></span><span class="salud-hrs">50 hrs/mes contratadas</span></div>
+        <div class="salud-item"><span class="salud-cliente">Vesuvius México <span class="etq-mini etq-aa">AA</span></span><span class="salud-hrs">28 hrs/mes contratadas</span></div>
+        <div class="salud-item"><span class="salud-cliente">Domingo S <span class="etq-mini etq-aaa">AAA</span></span><span class="salud-hrs">8 hrs/mes contratadas</span></div>
+      </div>
+    </div>
+    <div class="salud-grupo grupo-amarillo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🟡 Contratos A / B sin movimiento en el mes</span>
+        <span class="salud-grupo-total">5 cuentas</span>
+      </div>
+      <div class="salud-lista">
+        <div class="salud-item"><span class="salud-cliente">Dr. Christopher Manrique <span class="etq-mini etq-a">A</span></span><span class="salud-hrs">29 hrs/mes</span></div>
+        <div class="salud-item"><span class="salud-cliente">ASC Manufacturing <span class="etq-mini etq-a">A</span></span><span class="salud-hrs">18 hrs/mes</span></div>
+        <div class="salud-item"><span class="salud-cliente">Tecmilenio - Comunidades <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">13 hrs/mes</span></div>
+        <div class="salud-item"><span class="salud-cliente">TAVILSA <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">12 hrs/mes</span></div>
+        <div class="salud-item"><span class="salud-cliente">Gobarsa | Decoroca <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">6 hrs/mes</span></div>
+      </div>
+    </div>
+    <div class="salud-grupo grupo-amarillo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">⚠ Casi nulo (alerta extra · trabajaron &lt;0.5 hrs en todo el mes)</span>
+        <span class="salud-grupo-total">4 cuentas</span>
+      </div>
+      <div class="salud-lista">
+        <div class="salud-item"><span class="salud-cliente">Ghase-GNV <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">60 hrs contratadas · solo 0.08 trabajadas</span></div>
+        <div class="salud-item"><span class="salud-cliente">Covacsa <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">12 hrs · solo 0.33</span></div>
+        <div class="salud-item"><span class="salud-cliente">Pedrera San Ángel <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">12 hrs · solo 0.33</span></div>
+        <div class="salud-item"><span class="salud-cliente">The Paletas <span class="etq-mini etq-b">B</span></span><span class="salud-hrs">5 hrs · solo 0.33</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 8 · ALERTAS DE CATÁLOGO ═══════════════ -->
+<div class="alertas-card">
+  <div class="alertas-encabezado">
+    <span class="alertas-pastilla">Alertas de Catálogo · Consolidado del mes</span>
+    <span class="alertas-titulo">Cambios y discrepancias del <em>catálogo</em> en mayo</span>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">⚠ Cambios de clasificación durante el mes</div>
+    <div class="alerta-meta">
+    · <strong>Citrofrut</strong> y <strong>Marimar Arroyo</strong> → pasaron a <strong>baja</strong>.<br>
+    · <strong>OEMT</strong> → reclasificada de AA a <strong>proyecto (PY)</strong> sin bolsa estipulada.<br>
+    · <strong>PASA</strong> → proyecto con <strong>contrato agotado · sin renovación</strong>.<br>
+    · <strong>LR Recolectora</strong> → corregida a <strong>8 hrs/mes</strong> (antes ~13); cerró el mes en sobreuso (276%) y <strong>sigue sin alta en el padrón</strong> CUENTAS_ACTIVAS.
+    </div>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">⚠ Espacio propio · siguen registradas sin captura de horas</div>
+    <div class="alerta-meta">Apetit, Aqua Terra, Alimentro, Disa JR y Steel Warehouse están dadas de alta por decisión de Dirección pero <strong>no capturan horas</strong>. Quedan <strong>fuera de la medición de cumplimiento</strong> a propósito; se listan solo para que conste que siguen en el sistema.</div>
+  </div>
+  <div class="alerta-bloque alerta-rojo">
+    <div class="alerta-titulo">✕ Para el equipo de sistemas (a corregir en el origen)</div>
+    <div class="alerta-meta">
+    · Biométrico <strong>mal etiquetado el 28–29 de mayo</strong> (entradas marcadas como "Salida") — reparado en el reporte, notificado.<br>
+    · Columna <strong>"Vencidas" marca 178/178 (100%)</strong> — artefacto del sistema, quedó fuera del análisis.<br>
+    · <strong>Tareas finalizadas sin departamento</strong> (T45861 → Diseño, T26465 → TI) — dispuestas a mano.<br>
+    · <strong>Homologación de nombres</strong> biométrico ↔ OnGoing — sigue pendiente.<br>
+    · <strong>CARFY y RYOGA</strong> con 0 horas contratadas · <strong>TERZA duplicada</strong> en el padrón.
+    </div>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">ℹ Nota para Dirección de Marketing</div>
+    <div class="alerta-meta">En el 25–29 se omitieron <strong>112 tareas "Revisión de Cuenta" autogeneradas</strong> (programadas lun/mié/vie). Es proceso normal de monitoreo; se excluyen del radar a propósito para no inflar el conteo.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ 9 · ACCIÓN REQUERIDA (colapsable) ═══════════════ -->
+<div class="accion-card">
+  <div class="accion-encabezado">
+    <span class="accion-pastilla">Acción requerida · Dirección General</span>
+    <span class="accion-titulo">Decisiones del mes <em>para Dirección</em></span>
+  </div>
+  <button class="accion-toggle" id="accion-toggle" type="button">
+    <span class="accion-toggle-texto">Ver decisiones (4)</span>
+    <span class="accion-flecha">▾</span>
+  </button>
+  <div class="accion-lista" id="accion-lista">
+    <div class="accion-item">
+      <div class="accion-numero">1</div>
+      <div class="accion-contenido"><strong>¿Se renegocian honorarios con las 12 cuentas que rebasaron su contrato en mayo?</strong><span>Consumieron más horas de las contratadas en el mes: LR Recolectora 276%, Pinturas Philadelphia 224%, Grupo Corda 173%, kanan 168% (AA), DURATEX 162%, Monarca 156% (AA), Nicholas plastics 153%, Bark &amp; Co. 139% (AA), entre otras. Las AAA/AA pesan más en la conversación de honorarios.</span></div>
+    </div>
+    <div class="accion-item">
+      <div class="accion-numero">2</div>
+      <div class="accion-contenido"><strong>¿Qué se hace con los contratos grandes desaprovechados?</strong><span>Cuentas con contrato alto y consumo muy bajo en el mes: Hospitales MAC 20% (de 260 hrs), InverCap 8% (100), Elizondo 41% (74), MUGUERZA SUR 42% (49), TERZA 20% (40). Hay mucha hora pagada sin usar.</span></div>
+    </div>
+    <div class="accion-item">
+      <div class="accion-numero">3</div>
+      <div class="accion-contenido"><strong>¿Riesgo de baja en cuentas que pagan y no recibieron nada en el mes?</strong><span>El caso más fuerte es Ghase-GNV (60 hrs contratadas, solo 0.08 trabajadas). También Gobierno de Coahuila (50), Dr. Christopher Manrique (29) y Vesuvius México (28) cerraron el mes en cero.</span></div>
+    </div>
+    <div class="accion-item">
+      <div class="accion-numero">4</div>
+      <div class="accion-contenido"><strong>El cumplimiento global de contrato fue 39.8% — ¿la cartera está sobre-vendida?</strong><span>De las 1,601 hrs contratadas de toda la cartera, se entregaron ≈636. La combinación de cuentas en sobreuso y cuentas sin tocar sugiere revisar si hay que redistribuir capacidad del equipo o ajustar contratos.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PIE ═══════════════ -->
+<footer class="pie">
+  <div class="pie-izquierda">
+    Fuentes: Biométrico · OnGoing · Reporte de Dirección de Marketing · Horas_Servicios / Departamentos / Colaborador (4 semanas)<br>
+    Período: Mayo 2026 · 4 semanas · 20 días hábiles<br>
+    Síntesis de los 4 cierres semanales. Horas de proyectos verificadas contra el CRM.
+  </div>
+  <div class="pie-derecha">
+    Elaborado por el área de Project Management<br>
+    Distribución: Dirección General
+  </div>
+</footer>
+
+<a class="btn-regresar" href="../../index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+    <path d="M19 12H5M12 19l-7-7 7-7"/>
+  </svg>
+  Reportes
+</a>
+
+<script>
+(function() {
+  const t = document.getElementById('accion-toggle');
+  if (t) {
+    t.addEventListener('click', () => {
+      const l = document.getElementById('accion-lista');
+      const ab = l.classList.toggle('abierto');
+      t.classList.toggle('abierto', ab);
+      t.querySelector('.accion-toggle-texto').textContent = ab ? 'Ocultar decisiones' : 'Ver decisiones (4)';
+    });
+  }
+})();
+</script>
+</body>
+</html>
