@@ -1,0 +1,3643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semáforo Operativo — Semana 1–5 Junio 2026 — Futurite</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:           #090909;
+    --surface:      #111113;
+    --surface2:     #18181c;
+    --surface3:     #202026;
+    --border:       rgba(255,255,255,0.06);
+    --border2:      rgba(255,255,255,0.10);
+    --text:         #eeedf4;
+    --text-sub:     #bcbccc;
+    --text-muted:   #8e8da0;
+
+    --verde:        #1fd68a;
+    --verde-dim:    rgba(31,214,138,0.10);
+    --verde-line:   rgba(31,214,138,0.22);
+
+    --amarillo:     #f0b429;
+    --amarillo-dim: rgba(240,180,41,0.10);
+    --amarillo-line:rgba(240,180,41,0.22);
+
+    --rojo:         #f05454;
+    --rojo-dim:     rgba(240,84,84,0.10);
+    --rojo-line:    rgba(240,84,84,0.22);
+
+    --accent:       #6c5ce7;
+    --accent-dim:   rgba(108,92,231,0.12);
+    --accent-line:  rgba(108,92,231,0.30);
+    --accent-soft:  #9b8ef4;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ══════════════════════════════════════
+     CABECERA
+  ══════════════════════════════════════ */
+  .cabecera {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border2);
+    animation: entrada 0.5s ease both;
+  }
+  .cabecera-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cabecera-etiqueta::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--accent-soft);
+  }
+  .cabecera h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+  .cabecera h1 em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+  .cabecera-meta {
+    text-align: right;
+  }
+  .cabecera-periodo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    margin-bottom: 5px;
+  }
+  .cabecera-gen {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ══════════════════════════════════════
+     BARRA DE ESTADO GLOBAL
+  ══════════════════════════════════════ */
+  .estado-global {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: entrada 0.5s 0.06s ease both;
+  }
+  .estado-bloque {
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .estado-bloque::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .estado-bloque.verde  { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .estado-bloque.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .estado-bloque.rojo   { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .estado-indicador {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .verde  .estado-indicador { background: var(--verde);    box-shadow: 0 0 0 3px rgba(31,214,138,0.20), 0 0 14px rgba(31,214,138,0.35); }
+  .amarillo .estado-indicador { background: var(--amarillo); box-shadow: 0 0 0 3px rgba(240,180,41,0.20), 0 0 14px rgba(240,180,41,0.35); }
+  .rojo   .estado-indicador { background: var(--rojo);     box-shadow: 0 0 0 3px rgba(240,84,84,0.20),  0 0 14px rgba(240,84,84,0.35); }
+
+  .estado-texto { flex: 1; }
+  .estado-label {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 400;
+    margin-bottom: 2px;
+  }
+  .estado-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .verde  .estado-valor { color: var(--verde); }
+  .amarillo .estado-valor { color: var(--amarillo); }
+  .rojo   .estado-valor { color: var(--rojo); }
+
+  /* ══════════════════════════════════════
+     CUADRÍCULA DE TARJETAS
+  ══════════════════════════════════════ */
+  .cuadricula {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* ══════════════════════════════════════
+     TARJETA BASE
+  ══════════════════════════════════════ */
+  .tarjeta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s ease both;
+  }
+  .tarjeta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .tarjeta:nth-child(1) { animation-delay: 0.10s; }
+  .tarjeta:nth-child(2) { animation-delay: 0.15s; }
+  .tarjeta:nth-child(3) { animation-delay: 0.20s; }
+  .tarjeta:nth-child(4) { animation-delay: 0.25s; }
+
+  /* Acento lateral de color por estado */
+  .tarjeta.acento-verde    { border-left: 2px solid var(--verde); }
+  .tarjeta.acento-amarillo { border-left: 2px solid var(--amarillo); }
+  .tarjeta.acento-rojo     { border-left: 2px solid var(--rojo); }
+
+  /* ── Encabezado de tarjeta ── */
+  .tarjeta-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tarjeta-titulo-grupo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .tarjeta-icono {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .tarjeta-titulo {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+  }
+  .insignia {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .insignia-verde    { color: var(--verde);    background: var(--verde-dim);    border-color: var(--verde-line); }
+  .insignia-amarillo { color: var(--amarillo); background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .insignia-rojo     { color: var(--rojo);     background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  /* ── Métricas ── */
+  .metricas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .metrica-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .metrica-valor.verde    { color: var(--verde); }
+  .metrica-valor.amarillo { color: var(--amarillo); }
+  .metrica-valor.rojo     { color: var(--rojo); }
+  .metrica-valor.neutro   { color: var(--text); }
+  .metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  /* ── Separador fino ── */
+  .separador {
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Barras de progreso ── */
+  .barras { display: flex; flex-direction: column; gap: 9px; }
+  .barra-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 10px;
+  }
+  .barra-nombre {
+    font-size: 11px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+  .barra-pista {
+    height: 4px;
+    background: var(--surface3);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .barra-relleno {
+    height: 100%;
+    border-radius: 99px;
+  }
+  .barra-dato {
+    font-family: 'Lato', sans-serif;
+    font-size: 10.5px;
+    color: var(--text-sub);
+    text-align: right;
+  }
+
+  /* ── Hallazgos (lista de items) ── */
+  .hallazgos { display: flex; flex-direction: column; gap: 8px; }
+  .hallazgo {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hallazgo.verde    { background: var(--verde-dim);    border-color: var(--verde-line); }
+  .hallazgo.amarillo { background: var(--amarillo-dim); border-color: var(--amarillo-line); }
+  .hallazgo.rojo     { background: var(--rojo-dim);     border-color: var(--rojo-line); }
+
+  .hallazgo-simbolo {
+    font-size: 11px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .verde    .hallazgo-simbolo { background: rgba(31,214,138,0.18);  color: var(--verde); }
+  .amarillo .hallazgo-simbolo { background: rgba(240,180,41,0.18);  color: var(--amarillo); }
+  .rojo     .hallazgo-simbolo { background: rgba(240,84,84,0.18);   color: var(--rojo); }
+
+  .hallazgo-cuerpo { flex: 1; }
+  .hallazgo-cuerpo strong { color: var(--text); font-weight: 600; }
+
+  .hallazgo-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    align-self: flex-start;
+  }
+  .etiqueta-cliente  { background: rgba(108,92,231,0.18); color: var(--accent-soft); }
+  .etiqueta-equipo   { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .etiqueta-proceso  { background: rgba(240,180,41,0.12);  color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     TARJETA ACCIONES DIRECCIÓN
+  ══════════════════════════════════════ */
+  .accion-card {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .accion-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-line), transparent);
+  }
+  .accion-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(108,92,231,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .accion-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .accion-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .accion-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .accion-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+  }
+
+  .accion-lista { display: flex; flex-direction: column; gap: 10px; }
+  .accion-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    transition: border-color 0.2s;
+  }
+  .accion-item:hover {
+    border-color: var(--accent-line);
+  }
+  .accion-numero {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--accent-soft);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-line);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .accion-contenido { flex: 1; }
+  .accion-contenido strong {
+    display: block;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+  .accion-contenido span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     PIE DE PÁGINA
+  ══════════════════════════════════════ */
+  .pie {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: entrada 0.5s 0.35s ease both;
+  }
+  .pie-izquierda {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .pie-derecha {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: right;
+  }
+
+  /* ══════════════════════════════════════
+     IMPACTO ECONÓMICO
+  ══════════════════════════════════════ */
+  .impacto-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.28s ease both;
+  }
+  .impacto-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,84,84,0.3), transparent);
+  }
+  .impacto-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(240,84,84,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .impacto-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .impacto-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--rojo-dim);
+    color: var(--rojo);
+    border: 1px solid var(--rojo-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .impacto-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .impacto-titulo em {
+    font-style: italic;
+    color: var(--rojo);
+  }
+  .impacto-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  .impacto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .impacto-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .impacto-bloque.alerta {
+    border-color: var(--rojo-line);
+    background: var(--rojo-dim);
+  }
+  .impacto-bloque.atencion {
+    border-color: var(--amarillo-line);
+    background: var(--amarillo-dim);
+  }
+  .impacto-bloque.referencia {
+    border-color: var(--border2);
+    background: var(--surface2);
+  }
+  .impacto-etiqueta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .alerta    .impacto-etiqueta { color: var(--rojo); }
+  .atencion  .impacto-etiqueta { color: var(--amarillo); }
+  .referencia .impacto-etiqueta { color: var(--text-muted); }
+
+  .impacto-monto {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .alerta    .impacto-monto { color: var(--rojo); }
+  .atencion  .impacto-monto { color: var(--amarillo); }
+  .referencia .impacto-monto { color: var(--text); }
+
+  .impacto-desc {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-sub);
+  }
+
+  .impacto-desglose {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .desglose-titulo {
+    padding: 12px 18px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .desglose-fila {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .desglose-fila:last-child { border-bottom: none; }
+  .desglose-fila.total {
+    background: rgba(255,255,255,0.02);
+    font-weight: 600;
+  }
+  .desglose-nombre { color: var(--text-sub); }
+  .desglose-nombre strong { color: var(--text); font-weight: 500; }
+  .desglose-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .desglose-valor {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: right;
+    min-width: 110px;
+  }
+  .desglose-fila.alerta .desglose-valor   { color: var(--rojo); }
+  .desglose-fila.atencion .desglose-valor { color: var(--amarillo); }
+  .desglose-fila.total .desglose-valor    { color: var(--text); }
+
+  .impacto-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .impacto-disclaimer span { color: var(--text-sub); }
+
+  /* ══════════════════════════════════════
+     ACTIVIDAD RECIENTE
+  ══════════════════════════════════════ */
+  .reciente-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.32s ease both;
+  }
+  .reciente-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(31,214,138,0.3), transparent);
+  }
+  .reciente-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(31,214,138,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .reciente-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .reciente-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--verde-dim);
+    color: var(--verde);
+    border: 1px solid var(--verde-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .reciente-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .reciente-titulo em {
+    font-style: italic;
+    color: var(--verde);
+  }
+  .reciente-subtitulo {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .reciente-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .reciente-metrica {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .reciente-metrica.destacado {
+    border-color: var(--verde-line);
+    background: var(--verde-dim);
+  }
+  .reciente-metrica-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .reciente-metrica.destacado .reciente-metrica-val { color: var(--verde); }
+  .reciente-metrica-val.neutro { color: var(--text); }
+  .reciente-metrica-val.amarillo { color: var(--amarillo); }
+  .reciente-metrica-etiqueta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .reciente-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .reciente-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+  }
+  .reciente-bloque-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .reciente-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    gap: 10px;
+  }
+  .reciente-fila:last-child { border-bottom: none; }
+  .reciente-fila-nombre { color: var(--text-sub); flex: 1; }
+  .reciente-fila-nombre strong { color: var(--text); font-weight: 500; }
+  .reciente-fila-cat {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .reciente-fila-hrs {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--verde);
+    min-width: 55px;
+    text-align: right;
+  }
+  .reciente-fila-hrs.amarillo { color: var(--amarillo); }
+
+  /* ══════════════════════════════════════
+     ANIMACIÓN
+  ══════════════════════════════════════ */
+  @keyframes entrada {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 18%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 6%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 6%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 6.5%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 7.5%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 9%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7.5%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6.5%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 5%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 9%; }
+  .cl-tabla th:nth-child(12), .cl-tabla td:nth-child(12) { width: 14%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-etq strong { color: var(--text-sub); margin-right: 4px; }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === AVISO REPORTE MENSUAL === */
+  .aviso-reporte {
+    background: var(--surface);
+    border: 1px solid var(--accent-line);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    animation: entrada 0.6s ease both;
+  }
+  .aviso-icono {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+  .aviso-contenido { flex: 1; }
+  .aviso-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .aviso-cuerpo {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .aviso-cuerpo strong { color: var(--text); }
+  .aviso-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Lato', sans-serif;
+    transition: all 0.2s;
+  }
+  .aviso-btn:hover {
+    background: var(--accent);
+    color: white;
+  }
+
+/* ═══════════════ NUEVAS SECCIONES — DETALLE/SALUD/ALERTAS ═══════════════ */
+  .detalle-card, .salud-card, .alertas-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+    animation: entrada 0.6s ease both;
+  }
+  .detalle-encabezado, .salud-encabezado, .alertas-encabezado {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border2);
+  }
+  .detalle-pastilla, .salud-pastilla, .alertas-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .detalle-titulo, .salud-titulo, .alertas-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .detalle-titulo em, .salud-titulo em, .alertas-titulo em {
+    font-style: italic;
+    color: var(--accent-soft);
+    font-weight: 400;
+  }
+  .detalle-subtitulo, .salud-subtitulo {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* TABLA POR CLIENTE — COMPACTA, SIN SCROLL HORIZONTAL */
+  .cl-tabla-wrap {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .cl-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    table-layout: fixed;
+  }
+  .cl-tabla thead th {
+    background: var(--surface2);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 10px 4px;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .cl-tabla thead th:first-child {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .cl-tabla tbody td {
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cl-tabla tbody td:first-child { padding-left: 10px; }
+  .cl-tabla tbody td:last-child { padding-right: 10px; }
+  /* Column widths to fit everything visible */
+  .cl-tabla th:nth-child(1),  .cl-tabla td:nth-child(1)  { width: 18%; }
+  .cl-tabla th:nth-child(2),  .cl-tabla td:nth-child(2)  { width: 6%; text-align: center; padding: 8px 2px; }
+  .cl-tabla th:nth-child(3),  .cl-tabla td:nth-child(3)  { width: 6%; }
+  .cl-tabla th:nth-child(4),  .cl-tabla td:nth-child(4)  { width: 6.5%; }
+  .cl-tabla th:nth-child(5),  .cl-tabla td:nth-child(5)  { width: 7.5%; }
+  .cl-tabla th:nth-child(6),  .cl-tabla td:nth-child(6)  { width: 5%; }
+  .cl-tabla th:nth-child(7),  .cl-tabla td:nth-child(7)  { width: 9%; }
+  .cl-tabla th:nth-child(8),  .cl-tabla td:nth-child(8)  { width: 7.5%; }
+  .cl-tabla th:nth-child(9),  .cl-tabla td:nth-child(9)  { width: 6.5%; }
+  .cl-tabla th:nth-child(10), .cl-tabla td:nth-child(10) { width: 5%; }
+  .cl-tabla th:nth-child(11), .cl-tabla td:nth-child(11) { width: 9%; }
+  .cl-tabla th:nth-child(12), .cl-tabla td:nth-child(12) { width: 14%; padding-right: 10px; }
+  .cl-tabla tbody tr:last-child td { border-bottom: none; }
+  .cl-tabla tbody tr:hover td { background: var(--surface2); }
+  .cl-cliente {
+    color: var(--text) !important;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cl-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-total {
+    color: var(--text) !important;
+    font-weight: 600;
+  }
+  .cl-contr {
+    color: var(--text-muted);
+  }
+  .cl-pct {
+    font-weight: 600;
+  }
+  .cl-pct.cl-rojo    { color: var(--rojo); }
+  .cl-pct.cl-verde   { color: var(--verde); }
+  .cl-pct.cl-amarillo{ color: var(--amarillo); }
+  .cl-pct.cl-gris    { color: var(--text-muted); }
+
+  /* LEYENDA */
+  .cl-leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .cl-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cl-dot.cl-rojo    { background: var(--rojo); }
+  .cl-dot.cl-verde   { background: var(--verde); }
+  .cl-dot.cl-amarillo{ background: var(--amarillo); }
+  .cl-dot.cl-gris    { background: var(--text-muted); }
+
+  /* DESGLOSE DEPARTAMENTOS / COLABORADORES */
+  .cl-deptos {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .cl-deptos-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cl-depto-bloque:last-child {
+    border-bottom: none;
+  }
+  .cl-depto-fila-titulo {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .cl-depto-nombre {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    min-width: 110px;
+  }
+  .cl-depto-pct {
+    font-size: 13px;
+    color: var(--accent-soft);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cl-depto-horas {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .cl-depto-colabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cl-colab {
+    font-size: 11px;
+    padding: 5px 12px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-sub);
+    white-space: nowrap;
+  }
+
+  /* SALUD DETALLADA */
+  .salud-grupos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .salud-grupo {
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 3px solid;
+  }
+  .salud-grupo.grupo-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .salud-grupo.grupo-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+  .salud-grupo.grupo-naranja  { background: rgba(255,140,60,0.10);border-color: #ff8c3c; }
+
+  /* === ETIQUETAS DE CLIENTE === */
+  .etq-pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid;
+  }
+  .etq-mini {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-left: 6px;
+  }
+  .etq-aaa    { background:#3a1212; color:#ff8888; border-color:#5a1818; }
+  .etq-aa     { background:#3a2510; color:#ffb066; border-color:#5a3818; }
+  .etq-a      { background:#1c2e3a; color:#7ec0e8; border-color:#2a4458; }
+  .etq-b      { background:#1f2937; color:#9ca3af; border-color:#374151; }
+  .etq-py     { background:#1f1530; color:#c4a8ff; border-color:#322050; }
+  .etq-pyi    { background:#15301f; color:#88e0a0; border-color:#1f4a30; }
+  .etq-hst    { background:#2a1a30; color:#d899ff; border-color:#3f284a; }
+  .etq-vacio  { background:#2a1818; color:#ff9090; border-color:#4a2222; border-style:dashed; }
+
+  .cl-etq { text-align: center; }
+  td.cl-etq { padding: 9px 6px; }
+
+  .cl-leyenda-etq {
+    padding: 18px 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-etq-titulo {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .cl-leyenda-etq-grupos {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px 32px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .cl-leyenda-etq-grupos { grid-template-columns: 1fr; gap: 16px; }
+  }
+  .cl-leyenda-etq-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cl-leyenda-etq-grupo-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .cl-leyenda-etq-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
+  .cl-leyenda-etq-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .cl-leyenda-etq-desc {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .cl-leyenda-etq-nota {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .salud-grupo.grupo-gris      { background: rgba(120,120,120,0.08); border-color: #6b7280; }
+  .salud-grupo.grupo-pendiente { background: rgba(255,60,60,0.08);  border-color: #ef4444; border-style:dashed; }
+
+
+  .salud-grupo-encabezado {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .salud-grupo-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .salud-grupo-total {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-grupo-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .salud-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .salud-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+  }
+  .salud-cliente {
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .salud-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    margin-right: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+  .salud-fecha {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* ALERTAS PROCESOS */
+  .alerta-bloque {
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+  .alerta-bloque:last-child { margin-bottom: 0; }
+  .alerta-rojo     { background: var(--rojo-dim);     border-color: var(--rojo); }
+  .alerta-amarillo { background: var(--amarillo-dim); border-color: var(--amarillo); }
+
+  .alerta-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .alerta-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .alerta-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .alerta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+  .alerta-item-cliente {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  .alerta-item-hrs {
+    color: var(--text-sub);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .alerta-tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .alerta-tabla-fila {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    align-items: center;
+  }
+  .alerta-tabla-fila.header {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-bottom: 2px;
+    font-weight: 600;
+  }
+  .alerta-tabla-fila .ahf-cliente { color: var(--text); font-weight: 500; }
+  .alerta-tabla-fila .ahf-num { text-align: right; font-variant-numeric: tabular-nums; color: var(--text-sub); }
+  .alerta-tabla-fila .ahf-pct { text-align: right; font-weight: 600; color: var(--rojo); font-variant-numeric: tabular-nums; }
+  .alerta-tabla-fila .ahf-exceso { text-align: right; color: var(--rojo); font-variant-numeric: tabular-nums; }
+
+  /* Link clickable en tarjeta Salud Clientes */
+  .salud-link-detalle {
+    color: var(--accent-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .salud-link-detalle:hover {
+    color: var(--accent);
+  }
+  .salud-link-detalle::after {
+    content: ' ↓';
+    font-size: 11px;
+  }
+
+
+  /* === FILTROS Y BÚSQUEDA DEL DETALLE === */
+  .cl-filtros {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .cl-filtros-grupo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .cl-filtros-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .cl-filtros-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .cl-filtro-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .cl-filtro-pill:hover {
+    border-color: var(--accent-line);
+    color: var(--text);
+  }
+  .cl-filtro-pill.activo {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    font-weight: 600;
+  }
+  .cl-filtro-count {
+    display: inline-block;
+    padding: 1px 6px;
+    background: var(--surface3);
+    border-radius: 8px;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .cl-filtro-pill.activo .cl-filtro-count {
+    background: rgba(255,255,255,0.08);
+    color: var(--accent-soft);
+  }
+  .cl-busqueda {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+  .cl-busqueda input {
+    flex: 1;
+    max-width: 280px;
+    padding: 7px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .cl-busqueda input:focus {
+    border-color: var(--accent-line);
+  }
+  .cl-busqueda input::placeholder {
+    color: var(--text-muted);
+  }
+  .cl-busqueda-info {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* === ENCABEZADOS SORTABLES === */
+  .cl-tabla thead th.th-sortable,
+  .cl-tabla thead th.th-cliente {
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  .cl-tabla thead th.th-sortable:hover,
+  .cl-tabla thead th.th-cliente:hover {
+    color: var(--accent-soft);
+  }
+  .sort-ind {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    opacity: 0.4;
+    transition: opacity 0.15s;
+  }
+  .cl-tabla thead th.sort-asc .sort-ind::after { content: '▲'; opacity: 1; }
+  .cl-tabla thead th.sort-desc .sort-ind::after { content: '▼'; opacity: 1; }
+  .cl-tabla thead th.th-sortable:not(.sort-asc):not(.sort-desc) .sort-ind::after,
+  .cl-tabla thead th.th-cliente:not(.sort-asc):not(.sort-desc) .sort-ind::after {
+    content: '⇅';
+    opacity: 0.4;
+  }
+
+  tr.cl-hidden { display: none !important; }
+
+
+  .cl-leyenda-nota {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-left: 2px solid var(--border2);
+    border-radius: 4px;
+    margin-top: -8px;
+    margin-bottom: 28px;
+  }
+  .cl-leyenda-nota strong {
+    color: var(--text-sub);
+    font-weight: 600;
+  }
+
+
+
+  .cl-deptos-placeholder {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    align-items: center;
+  }
+  .placeholder-icono {
+    font-size: 32px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .placeholder-texto {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .placeholder-texto strong { color: var(--text-sub); }
+  .placeholder-texto em { color: var(--accent-soft); font-style: normal; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ CABECERA ═══════════════ -->
+<header class="cabecera">
+  <div>
+    <div class="cabecera-etiqueta">Futurite · Reporte Interno · PM Operativo</div>
+    <h1>Semáforo <em>Semana 1–5 Junio</em></h1>
+  </div>
+  <div class="cabecera-meta">
+    <div class="cabecera-periodo">1 – 5 de Junio 2026  ·  Semanal  ·  5 días hábiles</div>
+    <div class="cabecera-gen">Generado el 16 de Junio 2026 · Datos completos del período · Fuente: Biométrico · OnGoing · CRM Futurite</div>
+  </div>
+</header>
+
+<!-- ═══════════════ ESTADO GLOBAL ═══════════════ -->
+<div class="estado-global">
+  <div class="estado-bloque verde">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Indicadores en orden</div>
+      <div class="estado-valor">2</div>
+    </div>
+  </div>
+  <div class="estado-bloque amarillo">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Requieren atención</div>
+      <div class="estado-valor">2</div>
+    </div>
+  </div>
+  <div class="estado-bloque rojo">
+    <div class="estado-indicador"></div>
+    <div class="estado-texto">
+      <div class="estado-label">Alertas críticas</div>
+      <div class="estado-valor">0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ CUADRÍCULA PRINCIPAL ═══════════════ -->
+<div class="cuadricula">
+
+  <!-- ── TARJETA 1: ASISTENCIA ── -->
+  <div class="tarjeta acento-amarillo">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">🕐</div>
+        <span class="tarjeta-titulo">Asistencia y Puntualidad</span>
+      </div>
+      <span class="insignia insignia-amarillo">⚠ Atención</span>
+    </div>
+    <div class="metricas">
+      <div class="metrica"><div class="metrica-valor amarillo">89.3%</div><div class="metrica-etiqueta">Asistencia promedio del equipo (134/150 días-persona)</div></div>
+      <div class="metrica"><div class="metrica-valor amarillo">28</div><div class="metrica-etiqueta">Retardos registrados (entrada después de 09:20)</div></div>
+      <div class="metrica"><div class="metrica-valor verde">8:40</div><div class="metrica-etiqueta">Jornada mediana en días con marcaje</div></div>
+    </div>
+    <div class="separador"></div>
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Semana sana, sin inconsistencias:</strong> asistencia 89.3% (134/150) con 68 entradas puntuales y 38 dentro del rango de indulto (9:00–9:20). 0 días con marcaje sin entrada. Jornada mediana 8h 40m. Lideran en puntualidad Alejandro Vargas (entrada promedio 08:09), Jorge Valente Alfaro (08:24), Verónica Picón (08:32), Luis Espinosa (08:35), Israel Obregón (08:40) y Fátima Molina (08:43).</div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>16 ausencias, todas justificadas:</strong> por eso la tarjeta queda en amarillo y no en rojo. Los retardos (28) se repartieron lun 4 · mar 7 · mié 6 · <strong>jue 9</strong> · vie 2. Las salidas tempranas (74, última salida antes de 18:00) se recalcularon con el último marcaje del día, porque el checador marcó varias salidas de tarde como "Entrada" (error de configuración) — notificado a sistemas.</div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Patrón</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>Retardo recurrente en pocas personas:</strong> con retardo los 5 días, Lucía González y Ángel González (sin indulto). Con 4 de 5, Williana Cuéllar; con 3, Vicente Manzo y Adrián Magallanes (sin indulto). La reparación del biométrico por mal etiquetado de mañana NO se necesitó esta semana (0 salidas de mañana mal puestas).</div>
+        <span class="hallazgo-etiqueta etiqueta-equipo">Equipo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 2: PRODUCTIVIDAD ── -->
+  <div class="tarjeta acento-verde">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">⚡</div>
+        <span class="tarjeta-titulo">Productividad del Equipo</span>
+      </div>
+      <span class="insignia insignia-verde">✓ Estable</span>
+    </div>
+    <div class="metricas">
+      <div class="metrica"><div class="metrica-valor neutro">21</div><div class="metrica-etiqueta">Tareas activas en el radar (de 29 registradas − 8 artefactos)</div></div>
+      <div class="metrica"><div class="metrica-valor verde">278.07</div><div class="metrica-etiqueta">Horas de servicio registradas (reconciliadas vs CRM)</div></div>
+      <div class="metrica"><div class="metrica-valor verde">22</div><div class="metrica-etiqueta">Colaboradores con actividad</div></div>
+    </div>
+    <div class="separador"></div>
+    <div class="barras">
+      <div class="barra-fila"><span class="barra-nombre">Diseño</span><div class="barra-pista"><div class="barra-relleno" style="width:100%;background:var(--verde)"></div></div><span class="barra-dato" style="color:var(--verde)">140.40 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">Tráfico</span><div class="barra-pista"><div class="barra-relleno" style="width:34%;background:var(--verde)"></div></div><span class="barra-dato" style="color:var(--verde)">47.27 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">Marketing</span><div class="barra-pista"><div class="barra-relleno" style="width:21%;background:var(--amarillo)"></div></div><span class="barra-dato" style="color:var(--amarillo)">29.89 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">Contenido</span><div class="barra-pista"><div class="barra-relleno" style="width:19%;background:var(--amarillo)"></div></div><span class="barra-dato" style="color:var(--amarillo)">26.51 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">TI</span><div class="barra-pista"><div class="barra-relleno" style="width:18%;background:var(--amarillo)"></div></div><span class="barra-dato" style="color:var(--amarillo)">25.83 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">SEO</span><div class="barra-pista"><div class="barra-relleno" style="width:6%;background:var(--rojo)"></div></div><span class="barra-dato" style="color:var(--rojo)">8.16 hrs</span></div>
+      <div class="barra-fila"><span class="barra-nombre">Operaciones</span><div class="barra-pista"><div class="barra-relleno" style="width:1%;background:var(--rojo)"></div></div><span class="barra-dato" style="color:var(--rojo)">0.00 hrs</span></div>
+    </div>
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>La semana más alta del registro en horas:</strong> 278.07 hrs reales entre 22 colaboradores, por encima de cualquier semana de mayo (164–244). El total crudo (269.90) subió a 278.07 tras reconciliar proyectos contra el CRM por fecha de creación.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Equipo</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>Diseño absorbió la mitad de la semana (140 de 278 hrs, ~50%):</strong> no es carga crónica — viene de proyectos: YOMP (36h de Claudia Cantú) y los pitches de Propuestas Comerciales (26.8h: Nestlé y Cat &amp; Clean). Fue una semana fuerte en diseño de proyectos, no en retainers.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Patrón</span>
+      </div>
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Radar bajo pero normal de 1ª semana:</strong> 21 tareas activas (en mayo, las primeras semanas tuvieron 16 y 15). 0 tareas pausadas en el periodo. Se descartaron 8 artefactos del radar (3 de "Cliente de Pruebas", 4 de Regina López —baja— y 1 de un directivo).</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 3: SALUD DE CLIENTES ── -->
+  <div class="tarjeta acento-amarillo">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <a href="#salud-detalle" class="salud-link-detalle" style="text-decoration:none;display:flex;align-items:center;gap:14px;">
+          <div class="tarjeta-icono">🏢</div>
+          <span class="tarjeta-titulo">Salud de Clientes</span>
+        </a>
+      </div>
+      <span class="insignia insignia-amarillo">⚠ Atención</span>
+    </div>
+    <div class="metricas">
+      <div class="metrica"><div class="metrica-valor verde">74</div><div class="metrica-etiqueta">Clientes activos en el padrón</div></div>
+      <div class="metrica"><div class="metrica-valor amarillo">9</div><div class="metrica-etiqueta"><a href="#salud-detalle" class="salud-link-detalle">Clientes que pagan sin actividad en la semana — ver detalle</a></div></div>
+      <div class="metrica"><div class="metrica-valor verde">278.1 h</div><div class="metrica-etiqueta">Horas de servicio registradas en el período</div></div>
+    </div>
+    <div class="separador"></div>
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Cuentas con mayor trabajo de la semana:</strong> Hospitales MAC (32.92 hrs · AAA), InverCap (14.58 hrs · AAA), Anaerobia (12.75 hrs · AA), Elizondo (11.58 hrs · AAA) y MUGUERZA SUR (10.00 hrs · AAA). El ranking considera solo clientes externos (se excluyen internas y proyectos).</div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>9 clientes con retainer mensual sin trabajo esta semana</strong> (<a href="#salud-detalle" class="salud-link-detalle">ver detalle completo</a>). Los de mayor contrato: Gobierno de Coahuila (AAA, 50 hrs/mes), Vesuvius México (AA, 28) y Domingo S (AAA, 8). 8 de las 9 ya venían arrastrando cero actividad desde mayo.</div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>~24 cuentas nuevas en el roster con 0 horas contratadas:</strong> prospectos o altas sin contrato capturado (ver alertas de catálogo). MONTGOMERY además aparece con tareas de desarrollo web. Se notifican a sistemas para clasificarlas.</div>
+        <span class="hallazgo-etiqueta etiqueta-cliente">Cliente</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TARJETA 4: ALERTAS DE PROCESOS ── -->
+  <div class="tarjeta acento-verde">
+    <div class="tarjeta-encabezado">
+      <div class="tarjeta-titulo-grupo">
+        <div class="tarjeta-icono">⚙️</div>
+        <span class="tarjeta-titulo">Alertas de Procesos</span>
+      </div>
+      <span class="insignia insignia-verde">✓ Estable</span>
+    </div>
+    <div class="metricas">
+      <div class="metrica"><div class="metrica-valor verde">0.03 h</div><div class="metrica-etiqueta">Brecha colaboradores (A) vs clientes (B) · solo redondeo</div></div>
+      <div class="metrica"><div class="metrica-valor verde">0.00 h</div><div class="metrica-etiqueta">Diferencia entre fuente clientes y departamentos · Candado B==C</div></div>
+      <div class="metrica"><div class="metrica-valor verde">3 / 3</div><div class="metrica-etiqueta">Candados de validación en orden · semana limpia</div></div>
+    </div>
+    <div class="separador"></div>
+    <div class="hallazgos">
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Las tres fuentes de datos cuadran entre sí:</strong> horas de colaboradores vs horas a clientes con diferencia mínima (0.03 hrs, redondeo), y el desglose por departamento cuadra al 100% (0.00 hrs). Las 61 cuentas del crudo calzan fila por fila.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+      <div class="hallazgo verde">
+        <div class="hallazgo-simbolo">✓</div>
+        <div class="hallazgo-cuerpo"><strong>Todas las horas quedaron asignadas a un departamento (0 sin asignar):</strong> el candado detectó 32.5 hrs sin departamento (YOMP 24 y Subestaciones Mx 8.5) y se dispusieron a Diseño y TI según el trabajo real del CRM. Es el tercer candado haciendo su función.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+      <div class="hallazgo amarillo">
+        <div class="hallazgo-simbolo">△</div>
+        <div class="hallazgo-cuerpo"><strong>OnGoing dejó de exportar la columna Operaciones:</strong> este mes el export salió con 6 departamentos en vez de 7. Se mantuvo la columna Operaciones en 0 para no romper la estructura. Notificado a sistemas. Subestaciones Mx salió con su depto (TI) sin capturar.</div>
+        <span class="hallazgo-etiqueta etiqueta-proceso">Proceso</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cuadrícula -->
+
+<!-- ═══════════════ IMPACTO ECONÓMICO ═══════════════ -->
+<div class="impacto-card">
+  <div class="impacto-encabezado">
+    <span class="impacto-pastilla">Impacto Económico · Estimado</span>
+    <span class="impacto-titulo">Valor operativo e <em>indicadores financieros</em></span>
+    <span class="impacto-nota">Basado en costos mensuales por servicio · MXN</span>
+  </div>
+
+  <!-- TRES BLOQUES PRINCIPALES -->
+  <div class="impacto-grid">
+    <div class="impacto-bloque atencion">
+      <div class="impacto-etiqueta">Horas de servicio generadas</div>
+      <div class="impacto-monto" style="color:var(--verde)">$44,769</div>
+      <div class="impacto-desc">Estimado monetario de las 278.07 horas de servicio registradas en la semana (1–5 jun), calculado con el costo promedio ponderado de $161/hr. Es un valor estimado, no facturación real; se reemplazará cuando llegue el dato de ingreso por cuenta del CRM.</div>
+    </div>
+    <div class="impacto-bloque referencia">
+      <div class="impacto-etiqueta">Costo por hora utilizado</div>
+      <div class="impacto-monto">$161</div>
+      <div class="impacto-desc">Promedio ponderado por servicio (MXN/hr). Referencias: RRSS $58/hr · SEO $224/hr · Google Ads $202/hr. Es la base para todas las estimaciones de valor de esta sección.</div>
+    </div>
+    <div class="impacto-bloque referencia">
+      <div class="impacto-etiqueta">Comparativa vs. semana previa (25–29 May)</div>
+      <div class="impacto-monto" style="color:var(--verde)">+68.7%</div>
+      <div class="impacto-desc">El valor estimado subió de $26,530 (25–29 may, cierre de mayo) a $44,769 (1–5 jun). Arranque de mes fuerte, con 278 hrs vs 164.78. Comparación entre el último corte de mayo y el primero de junio.</div>
+    </div>
+  </div>
+
+  <!-- CUENTAS DESTACADAS -->
+  <div class="impacto-desglose">
+    <div class="desglose-titulo">Cuentas destacadas de la semana (clientes externos)</div>
+    <div class="desglose-fila" style="background:var(--verde-dim); border-color:var(--verde-line)">
+      <span class="desglose-nombre"><strong>Hospitales MAC</strong> · Categoría AAA Premium · Mayor carga del período</span>
+      <span class="desglose-hrs">32.92 hrs</span>
+      <span class="desglose-valor" style="color:var(--verde)">$5,300 MXN estimados</span>
+    </div>
+    <div class="desglose-fila" style="background:var(--verde-dim); border-color:var(--verde-line)">
+      <span class="desglose-nombre"><strong>InverCap</strong> · Categoría AAA Premium · Segunda cuenta del período</span>
+      <span class="desglose-hrs">14.58 hrs</span>
+      <span class="desglose-valor" style="color:var(--verde)">$2,347 MXN estimados</span>
+    </div>
+    <div class="desglose-fila" style="background:var(--verde-dim); border-color:var(--verde-line)">
+      <span class="desglose-nombre"><strong>Anaerobia</strong> · Categoría AA Pro · Tercera cuenta del período</span>
+      <span class="desglose-hrs">12.75 hrs</span>
+      <span class="desglose-valor" style="color:var(--verde)">$2,053 MXN estimados</span>
+    </div>
+    <div class="desglose-fila total">
+      <span class="desglose-nombre"><strong>Total horas top 3 cuentas</strong></span>
+      <span class="desglose-hrs">60.25 hrs · $9,700 MXN estimados</span>
+      <span class="desglose-valor" style="color:var(--verde)">3 cuentas externas</span>
+    </div>
+  </div>
+
+  <div class="impacto-disclaimer">
+    <span>Metodología:</span> El costo por hora de servicio se estima dividiendo el precio mensual de cada servicio entre las horas registradas en el período. Costo promedio ponderado utilizado: <strong style="color:var(--text-sub)">$161 MXN por hora</strong> (RRSS: $58/hr · SEO: $224/hr · Google Ads: $202/hr). Las cifras son estimaciones basadas en datos del CRM y el sistema de tareas. No incluye estimación del valor de horas no trazables (no es medible de forma confiable a nivel semanal). Los costos de servicios fueron proporcionados por el área de operaciones y pueden variar según el requerimiento del cliente.
+  </div>
+</div>
+
+
+<!-- ═══════════════ VISIBILIDAD OPERATIVA ═══════════════ -->
+<style>
+  .vis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    animation: entrada 0.5s 0.29s ease both;
+  }
+  .vis-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent);
+  }
+  .vis-card::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(108,92,231,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .vis-encabezado {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .vis-pastilla {
+    font-family: 'Lato', sans-serif;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    background: var(--accent-dim);
+    color: var(--accent-soft);
+    border: 1px solid var(--accent-line);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .vis-titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .vis-titulo em { font-style: italic; color: var(--accent-soft); }
+  .vis-nota {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-left: auto;
+    font-style: italic;
+  }
+  .vis-bloques {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .vis-bloque {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .vis-bloque-label {
+    font-size: 9px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .vis-bloque-valor {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .vis-bloque-sub {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .vis-stack {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .vis-stack-titulo {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .vis-stack-barra {
+    display: flex;
+    height: 10px;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    gap: 2px;
+  }
+  .vis-stack-seg {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+  .vis-stack-leyenda {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .vis-stack-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-sub);
+  }
+  .vis-stack-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .vis-deptos {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .vis-deptos-titulo {
+    padding: 11px 16px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .vis-depto-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 55px 100px;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .vis-depto-fila:last-child { border-bottom: none; }
+  .vis-depto-nombre { color: var(--text-sub); font-weight: 500; }
+  .vis-depto-barra-wrap .barra-pista { height: 5px; }
+  .vis-depto-tasa { text-align: right; font-weight: 600; font-size: 11px; }
+  .vis-depto-hrs { color: var(--text-muted); text-align: right; font-size: 10.5px; }
+  .vis-disclaimer {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .vis-disclaimer span { color: var(--text-sub); }
+</style>
+
+<div class="vis-card">
+  <div class="vis-encabezado">
+    <span class="vis-pastilla">Visibilidad Operativa · Informativo (sin color)</span>
+    <span class="vis-titulo">Facturabilidad y <em>cumplimiento</em> del equipo</span>
+    <span class="vis-nota">Sección informativa · una semana suelta no concluye por sí sola</span>
+  </div>
+
+  <!-- DOS BLOQUES (lo medible a nivel semanal) -->
+  <div class="vis-bloques" style="grid-template-columns:repeat(2,1fr)">
+    <div class="vis-bloque">
+      <div class="vis-bloque-label">Cumplimiento de contrato (retainers)</div>
+      <div class="vis-bloque-valor" style="color:var(--text)">52.2%</div>
+      <div class="vis-bloque-sub">188.47 hrs trabajadas ÷ 361.00 hrs contratadas prorrateadas a la semana (5 de 20 días hábiles del mes). Denominador dinámico: solo los 53 retainers con actividad esta semana (1,444 hrs contratadas).</div>
+    </div>
+    <div class="vis-bloque">
+      <div class="vis-bloque-label">Esfuerzo facturable</div>
+      <div class="vis-bloque-valor" style="color:var(--text)">82.1%</div>
+      <div class="vis-bloque-sub">228.41 hrs facturables ÷ 278.07 hrs totales. Fuera del facturable: PYI (Propuestas, Futurite) y proyectos sin bolsa estipulada (Paileria, Subestaciones). YOMP sí cuenta como facturable.</div>
+    </div>
+  </div>
+
+  <div class="vis-disclaimer">
+    <span>Por qué es informativa (sin semáforo):</span> el contrato de cada cliente es un tope <strong style="color:var(--text-sub)">mensual</strong> y el trabajo no se reparte parejo entre semanas, así que ponerle verde/amarillo/rojo a una semana suelta engañaría. Por eso esta sección no entra en el conteo del Estado Global.
+    <br><br>
+    <span>Desglose directo / interno / no trazable:</span> queda <strong style="color:var(--text-sub)">fuera del reporte semanal</strong> por ahora. OnGoing solo captura ~18–20% del tiempo real en oficina (el resto —juntas, coordinación, trabajo interno— no se registra de forma confiable), y no se mide bien semana a semana. <em>Definición documentada para cuando se incorpore:</em> No trazable = Capacidad instalada (horas reales del biométrico) − Directo (horas en OnGoing) − Interno estimado (clientes activos × 3.5 hrs/semana). Referencia histórica: quincena de mayo ~21.5% directo / 14.6% interno / 63.9% no trazable.
+  </div>
+</div>
+
+<!-- ═══════════════ ACCIÓN REQUERIDA (COLAPSABLE) ═══════════════ -->
+<style>
+  .accion-toggle { display:inline-flex; align-items:center; gap:10px; margin-top:8px; padding:11px 20px; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); border-radius:10px; font-family:'Lato',sans-serif; font-size:12.5px; font-weight:700; cursor:pointer; user-select:none; transition:background 0.2s ease; }
+  .accion-toggle:hover { background:rgba(108,92,231,0.18); }
+  .accion-toggle .accion-flecha { font-size:13px; transition:transform 0.25s ease; }
+  .accion-toggle.abierto .accion-flecha { transform:rotate(180deg); }
+  .accion-lista { max-height:0; overflow:hidden; transition:max-height 0.45s ease; }
+  .accion-lista.abierto { max-height:2200px; margin-top:16px; }
+  .accion-item { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; background:var(--surface2); padding:14px 18px; display:flex; gap:14px; align-items:flex-start; }
+  .accion-numero { flex-shrink:0; width:26px; height:26px; border-radius:50%; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); display:flex; align-items:center; justify-content:center; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; }
+  .accion-contenido { flex:1; }
+  .accion-contenido strong { display:block; font-family:'Lato',sans-serif; font-size:13px; font-weight:700; color:var(--text); line-height:1.4; margin-bottom:6px; }
+  .accion-contenido span { display:block; font-size:11.5px; color:var(--text-sub); line-height:1.65; }
+</style>
+<div class="accion-card">
+  <div class="accion-encabezado">
+    <span class="accion-pastilla">Acción requerida · Dirección General</span>
+    <span class="accion-titulo">Decisiones <em>para Dirección</em></span>
+  </div>
+  <button class="accion-toggle" id="accion-toggle" type="button">
+    <span class="accion-toggle-texto">Ver decisiones (3)</span>
+    <span class="accion-flecha">▾</span>
+  </button>
+  <div class="accion-lista" id="accion-lista">
+      <div class="accion-item">
+        <div class="accion-numero">1</div>
+        <div class="accion-contenido"><strong>¿Hay riesgo de baja en cuentas de alto valor que pagan y no recibieron trabajo?</strong><span>9 clientes con retainer mensual no recibieron ni una hora esta semana. Los de mayor contrato: Gobierno de Coahuila (AAA, 50 hrs/mes), Vesuvius México (AA, 28) y Domingo S (AAA, 8). <strong style="color:var(--text-sub)">Recomendación:</strong> confirmar con comercial si están en pausa acordada o en riesgo real de baja.</span></div>
+      </div>
+      <div class="accion-item">
+        <div class="accion-numero">2</div>
+        <div class="accion-contenido"><strong>¿Se formalizan o se depuran las ~24 cuentas nuevas con 0 horas contratadas?</strong><span>El roster del CRM trae ~24 cuentas sin contrato capturado (prospectos o altas a medias). Conviene decidir si se les configura contrato o se sacan del catálogo. <strong style="color:var(--text-sub)">Recomendación:</strong> revisar con comercial y sistemas. Lista: Kodex, Nexa, Aurelio, Mis Materiales Escolares, BlackPixel, Medivía, Church's México, Carnes San Gabriel, Proyectos 9, Aso Alloy, Creaprac, Inhomia, EDUX, Indelpro, Tecnocranes, CUC, MONTGOMERY, Enrique Fectory, Dr. Salvador Ángel, Lunanco, Admin, Los Originales de Braulio Mtz, Viaja Como Yo, Tremet-Scrap.</span></div>
+      </div>
+      <div class="accion-item">
+        <div class="accion-numero">3</div>
+        <div class="accion-contenido"><strong>Recordatorio · cuentas trabajando sin alta formal.</strong><span>Subestaciones Mx (proyecto PYA) y LR Recolectora trabajan sin estar dadas de alta en el padrón con su contrato. <strong style="color:var(--text-sub)">Recomendación:</strong> dar seguimiento si Subestaciones se reactiva, y asignarle a LR Recolectora las horas que contrató (8 hrs/mes).</span></div>
+      </div>
+  </div>
+  <div style="margin-top:14px;padding:10px 16px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;font-size:10.5px;color:var(--text-muted);line-height:1.6;">
+    Esta sección admite hasta 10 decisiones, pero se llena solo con hallazgos reales: esta semana hay 3. No se agrega relleno para alcanzar un número.
+  </div>
+</div>
+
+<!-- ═══════════════ PIE DE PÁGINA ═══════════════ -->
+
+
+
+
+<!-- ═══════════════════════════ BLOQUE 2 — DETALLE OPERATIVO ═══════════════════════════ -->
+
+<!-- ═══════════════ SECCIÓN A — DETALLE POR CLIENTE ═══════════════ -->
+<div class="detalle-card" id="detalle-clientes">
+  <div class="detalle-encabezado">
+    <span class="detalle-pastilla">Detalle Operativo · Semana 1–5 Junio 2026</span>
+    <span class="detalle-titulo">Horas por <em>cliente</em>, departamento y uso de contrato</span>
+    <span class="detalle-subtitulo">61 cuentas con actividad · 278.07 hrs trabajadas · Horas de proyectos verificadas contra CRM por fecha de creación · Etiquetas y contratos según Reporte de Dirección. El % de uso es consumo del contrato mensual a esta semana (no prorrateo).</span>
+  </div>
+
+  <div class="cl-filtros">
+    <div class="cl-filtros-grupo">
+      <span class="cl-filtros-label">Filtrar por etiqueta:</span>
+      <div class="cl-filtros-pills" id="filtros-etiqueta">
+        <button class="cl-filtro-pill activo" data-filtro="ALL">Todas <span class="cl-filtro-count">61</span></button>
+        <button class="cl-filtro-pill" data-filtro="AAA">AAA <span class="cl-filtro-count">6</span></button>
+        <button class="cl-filtro-pill" data-filtro="AA">AA <span class="cl-filtro-count">17</span></button>
+        <button class="cl-filtro-pill" data-filtro="A">A <span class="cl-filtro-count">11</span></button>
+        <button class="cl-filtro-pill" data-filtro="B">B <span class="cl-filtro-count">19</span></button>
+        <button class="cl-filtro-pill" data-filtro="PY">PY <span class="cl-filtro-count">3</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYAA">PYAA <span class="cl-filtro-count">1</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYA">PYA <span class="cl-filtro-count">1</span></button>
+        <button class="cl-filtro-pill" data-filtro="PYI">PYI <span class="cl-filtro-count">2</span></button>
+        <button class="cl-filtro-pill" data-filtro="baja">baja <span class="cl-filtro-count">1</span></button>
+      </div>
+    </div>
+    <div class="cl-filtros-grupo">
+      <div class="cl-busqueda">
+        <input type="text" id="cl-buscar" placeholder="Buscar cliente..." />
+        <span class="cl-busqueda-info" id="cl-resultados">61 de 61 cuentas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cl-tabla-wrap">
+    <table class="cl-tabla">
+      <thead>
+        <tr>
+          <th class="th-cliente" data-sort="cliente" data-type="text">Cliente <span class="sort-ind"></span></th>
+          <th>Etiqueta</th>
+          <th class="th-sortable" data-sort="total" data-type="num">Total <span class="sort-ind"></span></th>
+          <th>Tráfico</th>
+          <th>Marketing</th>
+          <th>TI</th>
+          <th>Operaciones</th>
+          <th>Contenido</th>
+          <th>Diseño</th>
+          <th>SEO</th>
+          <th class="th-sortable" data-sort="contratadas" data-type="num">Contratadas <span class="sort-ind"></span></th>
+          <th class="th-sortable" data-sort="pct" data-type="num">% Uso <span class="sort-ind"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr data-etiqueta="PY" data-cliente="yomp" data-total="36.0" data-contratadas="160" data-pct="22.5">
+        <td class="cl-cliente">YOMP</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">36.00</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">36.00</td><td class="cl-num">—</td>
+        <td class="cl-num">160</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">23% · proy</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="hospitales mac" data-total="32.92" data-contratadas="260.0" data-pct="12.66">
+        <td class="cl-cliente">Hospitales MAC</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">32.92</td>
+        <td class="cl-num">—</td><td class="cl-num">0.83</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">32.08</td><td class="cl-num">—</td>
+        <td class="cl-num">260</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">13%</span></td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="propuestas comerciales futurite" data-total="26.83" data-contratadas="0.0" data-pct="0">
+        <td class="cl-cliente">Propuestas Comerciales - Futurite</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">26.83</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.00</td><td class="cl-num">25.83</td><td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">interno</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="invercap" data-total="14.58" data-contratadas="100.0" data-pct="14.58">
+        <td class="cl-cliente">InverCap</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">14.58</td>
+        <td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">9.00</td><td class="cl-num">—</td><td class="cl-num">5.08</td>
+        <td class="cl-num">100</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">15%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="anaerobia" data-total="12.75" data-contratadas="35.0" data-pct="36.43">
+        <td class="cl-cliente">Anaerobia</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">12.75</td>
+        <td class="cl-num">6.75</td><td class="cl-num">3.92</td><td class="cl-num">1.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.58</td>
+        <td class="cl-num">35</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">36%</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="elizondo" data-total="11.58" data-contratadas="74.0" data-pct="15.65">
+        <td class="cl-cliente">Elizondo</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">11.58</td>
+        <td class="cl-num">5.42</td><td class="cl-num">4.00</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">2.17</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">74</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">16%</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="muguerza sur" data-total="10.0" data-contratadas="49.0" data-pct="20.41">
+        <td class="cl-cliente">MUGUERZA SUR</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">10.00</td>
+        <td class="cl-num">3.50</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.17</td><td class="cl-num">5.00</td><td class="cl-num">—</td>
+        <td class="cl-num">49</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">20%</span></td>
+      </tr>
+      <tr data-etiqueta="PYA" data-cliente="subestaciones mx" data-total="8.5" data-contratadas="0.0" data-pct="0">
+        <td class="cl-cliente">Subestaciones Mx</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PYA</span></td>
+        <td class="cl-num cl-total">8.50</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">8.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">proyecto</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="materia" data-total="8.42" data-contratadas="27.0" data-pct="31.19">
+        <td class="cl-cliente">Materia</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">8.42</td>
+        <td class="cl-num">2.17</td><td class="cl-num">0.75</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">5.00</td><td class="cl-num">—</td>
+        <td class="cl-num">27</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">31%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="coberlum" data-total="8.33" data-contratadas="19.0" data-pct="43.84">
+        <td class="cl-cliente">COBERLUM</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">8.33</td>
+        <td class="cl-num">1.67</td><td class="cl-num">1.00</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.00</td><td class="cl-num">4.00</td><td class="cl-num">0.67</td>
+        <td class="cl-num">19</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">44%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="perforaciones y anclajes especiales" data-total="8.08" data-contratadas="13.0" data-pct="62.15">
+        <td class="cl-cliente">Perforaciones y Anclajes Especiales</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">8.08</td>
+        <td class="cl-num">3.50</td><td class="cl-num">0.75</td><td class="cl-num">3.42</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.42</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">62%</span></td>
+      </tr>
+      <tr data-etiqueta="PYI" data-cliente="futurite" data-total="8.0" data-contratadas="0.0" data-pct="0">
+        <td class="cl-cliente">Futurite</td>
+        <td class="cl-etq"><span class="etq-pill etq-pyi">PYI</span></td>
+        <td class="cl-num cl-total">8.00</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">8.00</td><td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">interno</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="terza" data-total="6.58" data-contratadas="40.0" data-pct="16.45">
+        <td class="cl-cliente">TERZA</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">6.58</td>
+        <td class="cl-num">2.00</td><td class="cl-num">0.08</td><td class="cl-num">2.83</td><td class="cl-num">—</td><td class="cl-num">1.00</td><td class="cl-num">0.08</td><td class="cl-num">0.58</td>
+        <td class="cl-num">40</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">16%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="paxcon by line x" data-total="6.42" data-contratadas="24.0" data-pct="26.75">
+        <td class="cl-cliente">Paxcon by Line-X</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">6.42</td>
+        <td class="cl-num">—</td><td class="cl-num">1.00</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">4.92</td><td class="cl-num">—</td>
+        <td class="cl-num">24</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">27%</span></td>
+      </tr>
+      <tr data-etiqueta="PY" data-cliente="paileria maquinados y productos industriales sa" data-total="6.33" data-contratadas="0.0" data-pct="0">
+        <td class="cl-cliente">Paileria, Maquinados y productos Industriales SA</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">6.33</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">6.33</td><td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">proyecto</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="bark co" data-total="6.08" data-contratadas="20.0" data-pct="30.4">
+        <td class="cl-cliente">Bark & Co.</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">6.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.17</td><td class="cl-num">3.33</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">2.08</td><td class="cl-num">—</td>
+        <td class="cl-num">20</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">30%</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="phs" data-total="5.75" data-contratadas="38.0" data-pct="15.13">
+        <td class="cl-cliente">PHS</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">5.75</td>
+        <td class="cl-num">0.83</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">4.83</td><td class="cl-num">—</td>
+        <td class="cl-num">38</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">15%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="duratex" data-total="5.5" data-contratadas="18.0" data-pct="30.56">
+        <td class="cl-cliente">DURATEX</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">5.50</td>
+        <td class="cl-num">1.00</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">3.50</td><td class="cl-num">—</td>
+        <td class="cl-num">18</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">31%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="pinturas philadelphia" data-total="5.5" data-contratadas="13.0" data-pct="42.31">
+        <td class="cl-cliente">Pinturas Philadelphia</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">5.50</td>
+        <td class="cl-num">1.50</td><td class="cl-num">0.17</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">2.00</td><td class="cl-num">1.83</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">42%</span></td>
+      </tr>
+      <tr data-etiqueta="AAA" data-cliente="tle" data-total="5.17" data-contratadas="37.0" data-pct="13.97">
+        <td class="cl-cliente">TLE</td>
+        <td class="cl-etq"><span class="etq-pill etq-aaa">AAA</span></td>
+        <td class="cl-num cl-total">5.17</td>
+        <td class="cl-num">2.50</td><td class="cl-num">0.08</td><td class="cl-num">2.00</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">0.08</td><td class="cl-num">—</td>
+        <td class="cl-num">37</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">14%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="nicholas plastics de mexico" data-total="4.75" data-contratadas="13.0" data-pct="36.54">
+        <td class="cl-cliente">Nicholas plastics de Mexico</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">4.75</td>
+        <td class="cl-num">1.25</td><td class="cl-num">3.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">37%</span></td>
+      </tr>
+      <tr data-etiqueta="PYAA" data-cliente="autotracking" data-total="3.83" data-contratadas="28" data-pct="13.68">
+        <td class="cl-cliente">AutoTracking</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PYAA</span></td>
+        <td class="cl-num cl-total">3.83</td>
+        <td class="cl-num">1.67</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.67</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">28</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">14% · proy</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="inversion educativa tec" data-total="3.33" data-contratadas="36.0" data-pct="9.25">
+        <td class="cl-cliente">Inversión Educativa TEC</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">3.33</td>
+        <td class="cl-num">0.83</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">2.50</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">36</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">9%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="grupo sar" data-total="3.0" data-contratadas="10.0" data-pct="30.0">
+        <td class="cl-cliente">Grupo SAR</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">3.00</td>
+        <td class="cl-num">1.50</td><td class="cl-num">1.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">10</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">30%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="bullseye mexico" data-total="3.0" data-contratadas="13.0" data-pct="23.08">
+        <td class="cl-cliente">Bullseye Mexico</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">3.00</td>
+        <td class="cl-num">3.00</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">23%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="autos dieck" data-total="2.67" data-contratadas="12.0" data-pct="22.25">
+        <td class="cl-cliente">Autos Dieck</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">2.67</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">2.17</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">22%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="petrovim" data-total="2.5" data-contratadas="13.0" data-pct="19.23">
+        <td class="cl-cliente">Petrovim</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">2.50</td>
+        <td class="cl-num">2.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">19%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="gama music" data-total="2.42" data-contratadas="30.0" data-pct="8.07">
+        <td class="cl-cliente">Gama Music</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">2.42</td>
+        <td class="cl-num">0.67</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.25</td>
+        <td class="cl-num">30</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">8%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="crea soluciones estudios de mercado" data-total="2.17" data-contratadas="24.0" data-pct="9.04">
+        <td class="cl-cliente">Crea Soluciones - Estudios de mercado</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">2.17</td>
+        <td class="cl-num">1.00</td><td class="cl-num">0.33</td><td class="cl-num">0.67</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.17</td><td class="cl-num">—</td>
+        <td class="cl-num">24</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">9%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="cbn" data-total="1.58" data-contratadas="16.0" data-pct="9.88">
+        <td class="cl-cliente">CBN</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">1.58</td>
+        <td class="cl-num">1.00</td><td class="cl-num">0.58</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">16</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">10%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="grupo corda arquitectos" data-total="1.5" data-contratadas="7.0" data-pct="21.43">
+        <td class="cl-cliente">Grupo Corda Arquitectos</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">1.50</td>
+        <td class="cl-num">0.92</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">7</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">21%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="financiera mexi" data-total="1.5" data-contratadas="36.0" data-pct="4.17">
+        <td class="cl-cliente">Financiera MEXI</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">1.50</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">1.17</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">36</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">4%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="kanan servicios" data-total="1.33" data-contratadas="10.0" data-pct="13.3">
+        <td class="cl-cliente">kanan Servicios</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">1.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">1.00</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">10</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">13%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="hamer empaques" data-total="1.25" data-contratadas="12.0" data-pct="10.42">
+        <td class="cl-cliente">Hamer Empaques</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">1.25</td>
+        <td class="cl-num">0.42</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">10%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="manolo jimenez saltillo" data-total="1.17" data-contratadas="42.0" data-pct="2.79">
+        <td class="cl-cliente">Manolo Jimenez Saltillo</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">1.17</td>
+        <td class="cl-num">0.50</td><td class="cl-num">0.67</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">42</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">3%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="family meat market" data-total="0.92" data-contratadas="15.0" data-pct="6.13">
+        <td class="cl-cliente">Family Meat Market</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.92</td>
+        <td class="cl-num">—</td><td class="cl-num">0.92</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">15</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">6%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="lr recolectora" data-total="0.83" data-contratadas="8" data-pct="10.38">
+        <td class="cl-cliente">LR Recolectora</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.83</td>
+        <td class="cl-num">0.75</td><td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">8</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">10%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="monarca residencial" data-total="0.75" data-contratadas="27.0" data-pct="2.78">
+        <td class="cl-cliente">Monarca Residencial</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.75</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.50</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">27</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">3%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="the paletas" data-total="0.67" data-contratadas="5.0" data-pct="13.4">
+        <td class="cl-cliente">The Paletas</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.67</td>
+        <td class="cl-num">—</td><td class="cl-num">0.67</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">5</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">13%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="covacsa" data-total="0.67" data-contratadas="12.0" data-pct="5.58">
+        <td class="cl-cliente">Covacsa</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.67</td>
+        <td class="cl-num">—</td><td class="cl-num">0.67</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">6%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="pedrera san angel" data-total="0.67" data-contratadas="12.0" data-pct="5.58">
+        <td class="cl-cliente">Pedrera San Angel</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.67</td>
+        <td class="cl-num">—</td><td class="cl-num">0.67</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">6%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="infiniti monterrey" data-total="0.42" data-contratadas="18.0" data-pct="2.33">
+        <td class="cl-cliente">INFINITI Monterrey</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">0.42</td>
+        <td class="cl-num">0.42</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">18</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">2%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="dr christopher manrique" data-total="0.33" data-contratadas="29.0" data-pct="1.14">
+        <td class="cl-cliente">Dr. Christopher Manrique</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">29</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">1%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="inmedi k" data-total="0.33" data-contratadas="26.0" data-pct="1.27">
+        <td class="cl-cliente">INMEDI-K</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">26</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">1%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="maxirent" data-total="0.33" data-contratadas="8.0" data-pct="4.12">
+        <td class="cl-cliente">MAXIRent</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">8</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">4%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="suminregios industriales" data-total="0.33" data-contratadas="12.0" data-pct="2.75">
+        <td class="cl-cliente">SUMINREGIOS INDUSTRIALES</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">3%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="tryphe" data-total="0.33" data-contratadas="17.0" data-pct="1.94">
+        <td class="cl-cliente">TRYPHE</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.33</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">17</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">2%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="leuman gmb" data-total="0.33" data-contratadas="10.0" data-pct="3.3">
+        <td class="cl-cliente">Leuman GMB</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.33</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">10</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">3%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="argo de mexico" data-total="0.25" data-contratadas="6.0" data-pct="4.17">
+        <td class="cl-cliente">Argo de México</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">0.25</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">6</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">4%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="icce" data-total="0.25" data-contratadas="12.0" data-pct="2.08">
+        <td class="cl-cliente">ICCE</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.25</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">2%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="radiology advance" data-total="0.25" data-contratadas="7.0" data-pct="3.57">
+        <td class="cl-cliente">Radiology Advance</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.25</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">7</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">4%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="raelsa" data-total="0.25" data-contratadas="14.0" data-pct="1.79">
+        <td class="cl-cliente">Raelsa</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.25</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">14</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">2%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="roma herramientas de corte" data-total="0.25" data-contratadas="13.0" data-pct="1.92">
+        <td class="cl-cliente">Roma Herramientas de Corte</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.25</td>
+        <td class="cl-num">—</td><td class="cl-num">0.25</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">13</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">2%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="ghase gnv" data-total="0.08" data-contratadas="60.0" data-pct="0.13">
+        <td class="cl-cliente">Ghase - GNV</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">60</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">0%</span></td>
+      </tr>
+      <tr data-etiqueta="PY" data-cliente="colegio maranatha" data-total="0.08" data-contratadas="38" data-pct="0.21">
+        <td class="cl-cliente">Colegio Maranatha</td>
+        <td class="cl-etq"><span class="etq-pill etq-py">PY</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">38</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">0% · proy</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="gobarsa decoroca" data-total="0.08" data-contratadas="6.0" data-pct="1.33">
+        <td class="cl-cliente">Gobarsa | Decoroca</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">6</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">1%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="famaper" data-total="0.08" data-contratadas="28.0" data-pct="0.29">
+        <td class="cl-cliente">FAMAPER</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">28</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">0%</span></td>
+      </tr>
+      <tr data-etiqueta="AA" data-cliente="hospital san vicente" data-total="0.08" data-contratadas="31.0" data-pct="0.26">
+        <td class="cl-cliente">Hospital San Vicente</td>
+        <td class="cl-etq"><span class="etq-pill etq-aa">AA</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">31</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">0%</span></td>
+      </tr>
+      <tr data-etiqueta="B" data-cliente="tavilsa" data-total="0.08" data-contratadas="12.0" data-pct="0.67">
+        <td class="cl-cliente">TAVILSA</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">B</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">12</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">1%</span></td>
+      </tr>
+      <tr data-etiqueta="A" data-cliente="vag inmobiliaria remate bancario" data-total="0.08" data-contratadas="15.0" data-pct="0.53">
+        <td class="cl-cliente">VAG INMOBILIARIA (Remate bancario)</td>
+        <td class="cl-etq"><span class="etq-pill etq-a">A</span></td>
+        <td class="cl-num cl-total">0.08</td>
+        <td class="cl-num">—</td><td class="cl-num">0.08</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">15</td>
+        <td class="cl-num"><span style="color:var(--verde);font-weight:600">1%</span></td>
+      </tr>
+      <tr data-etiqueta="baja" data-cliente="tubos y valvulas ml" data-total="0.02" data-contratadas="0.0" data-pct="0">
+        <td class="cl-cliente">TUBOS Y VALVULAS ML</td>
+        <td class="cl-etq"><span class="etq-pill etq-b">baja</span></td>
+        <td class="cl-num cl-total">0.02</td>
+        <td class="cl-num">—</td><td class="cl-num">0.02</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td><td class="cl-num">—</td>
+        <td class="cl-num">—</td>
+        <td class="cl-num"><span style="color:var(--text-muted)">baja</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cl-leyenda">
+    <span class="cl-leyenda-item"><span class="cl-dot cl-rojo"></span>Sobre-uso (&gt;100%) · 9 cuentas</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-amarillo"></span>Al límite (90-100%) · 1 cuenta</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-verde"></span>Dentro de contrato (&lt;90%) · 29 cuentas</span>
+    <span class="cl-leyenda-item"><span class="cl-dot cl-gris"></span>Interno / baja / contrato agotado · 6 cuentas</span>
+  </div>
+  <div class="cl-leyenda-nota">
+    <strong>Lectura del uso de contrato:</strong> los retainers se prorratean a la semana (horas ÷ contratadas mensuales ÷ 4, porque la semana son 5 de 20 días hábiles del mes). Un <strong>&gt;100% es por concentración del trabajo en la semana, NO un sobregiro del contrato mensual</strong> (el trabajo no se reparte parejo entre semanas). El sobre-uso ponderado por categoría señala candidatas a renegociar honorarios (no es lo mismo sobre-trabajar una B/Lite que una AAA/Premium); el sub-uso señala contratos que no se están cumpliendo. Los proyectos (PY) usan "% del total" (no prorrateado); los internos (PYI) no tienen uso facturable.
+  </div>
+
+  <div class="cl-leyenda-etq">
+    <div class="cl-leyenda-etq-titulo">Etiquetas</div>
+    <div class="cl-leyenda-etq-grupos">
+      <div class="cl-leyenda-etq-grupo">
+        <div class="cl-leyenda-etq-grupo-label">Categorías de cuenta</div>
+        <div class="cl-leyenda-etq-items">
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-aaa">AAA</span><span class="cl-leyenda-etq-desc">Premium</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-aa">AA</span><span class="cl-leyenda-etq-desc">Pro</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-a">A</span><span class="cl-leyenda-etq-desc">Plus</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-b">B</span><span class="cl-leyenda-etq-desc">Lite</span></span>
+        </div>
+      </div>
+      <div class="cl-leyenda-etq-grupo">
+        <div class="cl-leyenda-etq-grupo-label">Tipos especiales</div>
+        <div class="cl-leyenda-etq-items">
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-py">PY*</span><span class="cl-leyenda-etq-desc">Proyecto</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-pyi">PYI*</span><span class="cl-leyenda-etq-desc">Proyecto interno</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-hst">HST</span><span class="cl-leyenda-etq-desc">Hosting</span></span>
+          <span class="cl-leyenda-etq-item"><span class="etq-pill etq-vacio">—</span><span class="cl-leyenda-etq-desc">Pendiente de etiquetar</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="cl-leyenda-etq-nota">El asterisco (*) en PY* y PYI* indica que pueden combinarse con la categoría de cuenta (ej. PYAAA, PYAA, PYA, PYIAAA).</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECCIÓN B — SALUD DE CLIENTES ═══════════════ -->
+<div class="salud-card" id="salud-detalle">
+  <div class="salud-encabezado">
+    <span class="salud-pastilla">Salud de Clientes · Semana 1–5 Junio 2026</span>
+    <span class="salud-titulo">9 clientes que pagan <em>sin actividad</em> esta semana</span>
+    <span class="salud-subtitulo">Clientes con retainer mensual que no recibieron trabajo registrado del 1 al 5 de junio · Solo clientes externos (no incluye internas, hosting ni proyectos)</span>
+  </div>
+  <div class="salud-grupos">
+    <div class="salud-grupo grupo-rojo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🔴 Cuentas prioritarias sin movimiento</span>
+        <span class="salud-grupo-total">3 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Niveles AAA (Premium) y AA (Pro) — máxima prioridad comercial.</div>
+      <div class="salud-lista">
+        <div class="salud-item"><span class="salud-cliente">Gobierno del Estado de Coahuila</span><span class="salud-item-hrs">50 hrs/mes</span><span class="etq-pill etq-aaa">AAA</span></div>
+        <div class="salud-item"><span class="salud-cliente">Vesuvius México</span><span class="salud-item-hrs">28 hrs/mes</span><span class="etq-pill etq-aa">AA</span></div>
+        <div class="salud-item"><span class="salud-cliente">Domingo S</span><span class="salud-item-hrs">8 hrs/mes</span><span class="etq-pill etq-aaa">AAA</span></div>
+      </div>
+    </div>
+    <div class="salud-grupo grupo-amarillo">
+      <div class="salud-grupo-encabezado">
+        <span class="salud-grupo-titulo">🟡 Cuentas regulares sin movimiento</span>
+        <span class="salud-grupo-total">6 cuentas</span>
+      </div>
+      <div class="salud-grupo-desc">Niveles A (Plus) y B (Lite) — seguimiento normal.</div>
+      <div class="salud-lista">
+        <div class="salud-item"><span class="salud-cliente">ASC Manufacturing</span><span class="salud-item-hrs">18 hrs/mes</span><span class="etq-pill etq-a">A</span></div>
+        <div class="salud-item"><span class="salud-cliente">IT ELEMENT</span><span class="salud-item-hrs">15 hrs/mes</span><span class="etq-pill etq-b">B</span></div>
+        <div class="salud-item"><span class="salud-cliente">CIA Neumática Internacional</span><span class="salud-item-hrs">15 hrs/mes</span><span class="etq-pill etq-a">A</span></div>
+        <div class="salud-item"><span class="salud-cliente">Tecmilenio - Comunidades</span><span class="salud-item-hrs">13 hrs/mes</span><span class="etq-pill etq-b">B</span></div>
+        <div class="salud-item"><span class="salud-cliente">Soluciones Pop</span><span class="salud-item-hrs">10 hrs/mes</span><span class="etq-pill etq-b">B</span></div>
+        <div class="salud-item"><span class="salud-cliente">Cavazos Logistics</span><span class="salud-item-hrs">4 hrs/mes</span><span class="etq-pill etq-a">A</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cl-leyenda-nota" style="margin-top:18px">
+    <strong>Cómo leer esto:</strong> son clientes activos que pagan un retainer mensual y que esta semana no recibieron ni una hora de trabajo registrada. Las horas mostradas son <strong>mensuales</strong>. 8 de las 9 ya venían sin actividad desde el cierre de mayo; la única nueva es Cavazos Logistics. Antes de marcarlas como inactivas, conviene confirmar con comercial si están en pausa acordada o en riesgo de baja. Quedan fuera las internas, hosting y proyectos.
+  </div>
+</div>
+
+<!-- ═══════════════ SECCIÓN C — ALERTAS DE PROCESOS ═══════════════ -->
+<div class="alertas-card" id="alertas-procesos">
+  <div class="alertas-encabezado">
+    <span class="alertas-pastilla">Alertas de Catálogo · Semana 1–5 Junio 2026</span>
+    <span class="alertas-titulo">Discrepancias detectadas en el <em>catálogo de servicios</em></span>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">⚠ Cambio estructural en el export</div>
+    <div class="alerta-meta">· <strong>OnGoing dejó de exportar la columna Operaciones</strong> este mes (salió con 6 departamentos en vez de 7). Se mantuvo la columna en 0 para no romper la estructura del reporte ni la Tabla A. Notificar a sistemas.</div>
+  </div>
+  <div class="alerta-bloque alerta-rojo">
+    <div class="alerta-titulo">✕ Para sistemas — datos que salieron mal del CRM / biométrico</div>
+    <div class="alerta-meta">
+    · <strong>Biométrico — salidas mal etiquetadas:</strong> el checador marcó varias salidas de tarde como "Entrada" (error de configuración, ej. ClaudiaGuerra 03/06 a las 17:54). Las salidas tempranas se recalcularon usando el último marcaje del día. Notificado para corrección en el origen.<br>
+    · <strong>Tareas pausadas — export con periodo equivocado:</strong> el archivo de pausadas (periodo 1–5 jun) trajo una tarea de TLE creada el 27/05 y pausada el 10/06 — ambas fechas fuera del periodo. Filtra por fecha de pausa, no de creación. Pausadas reales en 1–5 = 0.<br>
+    · <strong>Tareas vencidas no confiable:</strong> el reporte de totales vuelve a marcar el 100% de las tareas como "vencidas" (igual al total en cada persona). No es creíble; las vencidas quedan fuera del análisis. Pendiente con sistemas.<br>
+    · <strong>Subestaciones Mx sin departamento:</strong> sus 8.5 hrs salieron del CRM sin depto; se dispusieron a TI según el CRM. Etiquetar en el origen.</div>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">⚠ Proyectos reconciliados contra CRM (por fecha de creación)</div>
+    <div class="alerta-meta">Al reconciliar los 7 proyectos PY/PYI/PYA contra el CRM, las horas de proyecto pasaron de <strong>81.41 (archivo) a 89.58 (reales)</strong>. Ajustes notables: YOMP (24 → 36, todas creadas en la semana), AutoTracking (8.67 → 3.83, el Diseño del archivo no tenía tiempo registrado), Propuestas Comerciales (25.83 → 26.83). Es operación normal.<br>
+    Total: <strong>269.90 hrs crudas → 278.07 reales</strong> de la semana.</div>
+  </div>
+  <div class="alerta-bloque alerta-amarillo">
+    <div class="alerta-titulo">⚠ Cuentas fuera de padrón o sin contrato capturado</div>
+    <div class="alerta-meta">
+    · <strong>Subestaciones Mx</strong> — cuenta nueva (proyecto PYA), trabajó 8.5 hrs (TI) pero no está en el padrón ni en el Reporte_Direccion. Dar de alta formalmente.<br>
+    · <strong>LR Recolectora</strong> — B con 8 hrs contratadas, sigue sin aparecer en el padrón pese a registrar actividad.<br>
+    · <strong>Cavazos Logistics</strong> — retainer A nuevo (no estaba en la documentación previa).<br>
+    · <strong>~24 cuentas con 0 horas contratadas</strong> en el roster (prospectos o altas sin contrato): Kodex, Nexa, Aurelio, BlackPixel, Medivía, Church's México, MONTGOMERY, Tremet-Scrap, entre otras. MONTGOMERY además trae tareas de desarrollo web. Clasificar con comercial/sistemas.<br>
+    · <strong>Tubos y Válvulas ML</strong> — baja que sigue registrando horas (0.02).</div>
+  </div>
+  <div class="alerta-bloque" style="background:var(--surface2);border:1px solid var(--border2);">
+    <div class="alerta-titulo">ⓘ Cuentas dadas de alta sin captura de horas (espacio propio)</div>
+    <div class="alerta-meta"><strong>Nota:</strong> dadas de alta pero sus horas no se capturan en OnGoing por especificación de Dirección. <strong>No están desatendidas.</strong> Esta semana ninguna registró actividad.<br><br>
+    · <strong>Alimentro</strong> (Lite) · <strong>Apetit</strong> (Plus, 21 hrs/mes) · <strong>Aqua Terra</strong> (Pro, 8 hrs/mes) · <strong>Disa JR</strong> (Lite) · <strong>Steel Warehouse</strong> (Pro)</div>
+  </div>
+</div>
+
+
+
+<!-- ═══════════════ SECCIÓN COMPARATIVA — USO ACUMULADO DEL MES ═══════════════ -->
+<style>
+  .comp-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 26px 28px; margin-bottom: 16px; position: relative; overflow: hidden; animation: entrada 0.5s 0.33s ease both; }
+  .comp-card::before { content: ''; position: absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, rgba(108,92,231,0.3), transparent); }
+  .comp-encabezado { display:flex; align-items:center; gap:14px; margin-bottom:8px; flex-wrap:wrap; }
+  .comp-pastilla { font-family:'Lato',sans-serif; font-size:9.5px; font-weight:500; letter-spacing:0.10em; text-transform:uppercase; background:var(--accent-dim); color:var(--accent-soft); border:1px solid var(--accent-line); padding:4px 12px; border-radius:20px; }
+  .comp-titulo { font-family:'Montserrat',sans-serif; font-size:18px; font-weight:400; color:var(--text); }
+  .comp-titulo em { font-style:italic; color:var(--accent-soft); }
+  .comp-intro { font-size:11.5px; color:var(--text-sub); line-height:1.6; margin-bottom:20px; }
+  .comp-grupo { margin-bottom:18px; }
+  .comp-grupo-titulo { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .comp-grupo-desc { font-size:10.5px; color:var(--text-muted); margin-bottom:12px; line-height:1.5; }
+  .comp-tabla { background:var(--surface2); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .comp-head, .comp-fila { display:grid; grid-template-columns: 1.7fr 1.9fr 1fr 0.85fr; align-items:center; gap:12px; padding:10px 16px; font-size:11.5px; }
+  .comp-head { background:rgba(255,255,255,0.02); border-bottom:1px solid var(--border); font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+  .comp-head span:nth-child(3), .comp-head span:nth-child(4) { text-align:right; }
+  .comp-fila { border-bottom:1px solid var(--border); }
+  .comp-fila:last-child { border-bottom:none; }
+  .comp-cuenta { color:var(--text-sub); display:flex; align-items:center; gap:8px; }
+  .comp-sem { color:var(--text-muted); font-size:10.5px; white-space:nowrap; }
+  .comp-tend { font-weight:700; }
+  .comp-acum { font-weight:700; text-align:right; }
+  .comp-acum-sub { font-weight:400; font-size:9px; color:var(--text-muted); display:block; }
+  .comp-proy { text-align:right; font-size:10.5px; font-weight:600; }
+  .comp-disclaimer { margin-top:14px; padding:10px 16px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; font-size:10.5px; color:var(--text-muted); line-height:1.6; }
+  .comp-disclaimer span { color:var(--text-sub); }
+  @media (max-width:720px) { .comp-head, .comp-fila { grid-template-columns: 1.6fr 1fr 1fr; } .comp-proy { display:none; } }
+</style>
+<div class="comp-card" id="comparativa">
+  <div class="comp-encabezado">
+    <span class="comp-pastilla">Comparativa · Transición de mes</span>
+    <span class="comp-titulo">Última semana de mayo <em>vs. primera de junio</em></span>
+  </div>
+  <div class="comp-intro">
+    Por ser la primera semana de junio, todavía no hay acumulado dentro del mes, así que esta comparativa muestra la <strong>tendencia semana vs semana</strong>: las horas de la última semana de mayo (25–29) contra la primera de junio (1–5), por cuenta retainer. La flecha indica si subió (↑), bajó (↓) o se mantuvo (→, umbral ±0.3 hrs). El uso acumulado del mes y las alertas de sobreuso/desuso arrancan en la 2ª semana de junio. Esta semana, 24 cuentas subieron y 14 bajaron respecto al cierre de mayo.
+  </div>
+  <div class="comp-grupo">
+    <div class="comp-grupo-titulo">Tendencia por cuenta (retainers)</div>
+    <div class="comp-grupo-desc">Ordenadas por horas de la semana 1–5 jun. Solo retainers (AAA/AA/A/B); no entran proyectos ni internas.</div>
+    <div class="comp-tabla">
+      <div class="comp-head"><span>Cuenta</span><span>Periodo</span><span>25–29 may → 1–5 jun</span><span>Tend.</span></div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> Hospitales MAC</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">3.00 → 32.92</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> InverCap</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">1.25 → 14.58</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Anaerobia</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">12.33 → 12.75</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> Elizondo</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">11.00 → 11.58</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> MUGUERZA SUR</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">6.08 → 10.00</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Materia</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.67 → 8.42</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> COBERLUM</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.25 → 8.33</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Perforaciones y Anclajes Especiales</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">8.50 → 8.08</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> TERZA</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">4.80 → 6.58</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Paxcon by Line-X</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">9.17 → 6.42</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Bark & Co.</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">8.59 → 6.08</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> PHS</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.83 → 5.75</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Pinturas Philadelphia</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">9.99 → 5.50</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> DURATEX</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">1.25 → 5.50</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aaa">AAA</span> TLE</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.50 → 5.17</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Nicholas plastics de Mexico</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">4.50 → 4.75</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Inversión Educativa TEC</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.50 → 3.33</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Bullseye Mexico</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.42 → 3.00</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Grupo SAR</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">2.50 → 3.00</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Autos Dieck</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">4.58 → 2.67</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Petrovim</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.25 → 2.50</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Gama Music</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">2.50 → 2.42</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Crea Soluciones - Estudios de mercado</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">7.50 → 2.17</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> CBN</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">5.09 → 1.58</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Financiera MEXI</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.92 → 1.50</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Grupo Corda Arquitectos</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">2.00 → 1.50</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> kanan Servicios</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">9.33 → 1.33</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Hamer Empaques</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.50 → 1.25</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Manolo Jimenez Saltillo</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">2.00 → 1.17</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Family Meat Market</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">1.33 → 0.92</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> LR Recolectora</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">10.50 → 0.83</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Monarca Residencial</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">8.84 → 0.75</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> The Paletas</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.67</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Pedrera San Angel</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.67</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Covacsa</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.67</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> INFINITI Monterrey</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.42</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> SUMINREGIOS INDUSTRIALES</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.25 → 0.33</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Dr. Christopher Manrique</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.33</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> INMEDI-K</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">1.50 → 0.33</span>
+          <span class="comp-proy" style="color:var(--rojo)"><span class="comp-tend">↓</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Leuman GMB</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.25 → 0.33</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> MAXIRent</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.33</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> TRYPHE</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.33</span>
+          <span class="comp-proy" style="color:var(--verde)"><span class="comp-tend">↑</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Roma Herramientas de Corte</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.25</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Argo de México</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.25</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Radiology Advance</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.25</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> ICCE</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.25</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Raelsa</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.25</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> FAMAPER</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Ghase - GNV</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> VAG INMOBILIARIA (Remate bancario)</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.08 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> Gobarsa | Decoroca</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-aa">AA</span> Hospital San Vicente</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.08 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> TAVILSA</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.00 → 0.08</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-b">B</span> It Element</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.17 → 0.00</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+        <div class="comp-fila">
+          <span class="comp-cuenta"><span class="etq-pill etq-a">A</span> Cia Neumatica Internacional</span>
+          <span class="comp-sem">semana vs semana</span>
+          <span class="comp-acum">0.25 → 0.00</span>
+          <span class="comp-proy" style="color:var(--text-muted)"><span class="comp-tend">→</span></span>
+        </div>
+    </div>
+  </div>
+  <div class="comp-disclaimer">
+    <span>Cómo leer esto:</span> es una comparación de <strong>horas trabajadas</strong> entre la última semana de mayo y la primera de junio, no de uso de contrato. Un "0.00" significa que la cuenta no tuvo actividad esa semana. Sirve para ver el arranque del mes; el monitoreo de sobreuso/desuso del contrato empieza cuando junio acumule más semanas.
+  </div>
+</div>
+
+
+<footer class="pie">
+  <div class="pie-izquierda">
+    Fuentes de datos: Biométrico · OnGoing · CUENTAS_ACTIVAS_MAYO · Horas_Servicios · Horas_Departamentos · Reporte de Dirección<br>
+    Período: Semana del 1 – 5 de Junio 2026 · 5 días hábiles<br>
+    Datos completos del período. Horas de proyectos verificadas contra el CRM.
+  </div>
+  <div class="pie-derecha">
+    Elaborado por el área de Project Management<br>
+    Distribución: Dirección General
+  </div>
+</footer>
+
+
+<!-- ═══════════════ BOTÓN REGRESAR ═══════════════ -->
+<style>
+  .btn-regresar {
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    color: var(--text-sub);
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .btn-regresar:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-line);
+    color: var(--accent-soft);
+    transform: translateX(-3px);
+  }
+  .btn-regresar svg {
+    width: 13px; height: 13px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .btn-regresar:hover svg {
+    transform: translateX(-2px);
+  }
+</style>
+<a class="btn-regresar" href="../../index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 12H5M12 5l-7 7 7 7"/>
+  </svg>
+  Reportes
+</a>
+
+
+<script>
+(function() {
+  const tabla = document.querySelector('.cl-tabla');
+  if (!tabla) return;
+  const tbody = tabla.querySelector('tbody');
+  const filas = Array.from(tbody.querySelectorAll('tr'));
+  const filtrosPills = document.querySelectorAll('#filtros-etiqueta .cl-filtro-pill');
+  const buscarInput = document.getElementById('cl-buscar');
+  const infoSpan = document.getElementById('cl-resultados');
+  const total = filas.length;
+
+  let estado = { etiqueta: 'ALL', busqueda: '', sortCol: null, sortDir: 'desc' };
+
+  function aplicar() {
+    let visibles = 0;
+    filas.forEach(tr => {
+      const et = tr.dataset.etiqueta;
+      const cli = tr.dataset.cliente;
+      const okEt = estado.etiqueta === 'ALL' || et === estado.etiqueta;
+      const okBus = !estado.busqueda || cli.includes(estado.busqueda);
+      if (okEt && okBus) {
+        tr.classList.remove('cl-hidden');
+        visibles++;
+      } else {
+        tr.classList.add('cl-hidden');
+      }
+    });
+    infoSpan.textContent = `${visibles} de ${total} cuentas`;
+
+    if (estado.sortCol) {
+      const sortable = filas.slice().filter(tr => !tr.classList.contains('cl-hidden'));
+      sortable.sort((a, b) => {
+        let va, vb;
+        if (estado.sortCol === 'cliente') {
+          va = a.dataset.cliente; vb = b.dataset.cliente;
+        } else {
+          va = parseFloat(a.dataset[estado.sortCol]) || 0;
+          vb = parseFloat(b.dataset[estado.sortCol]) || 0;
+        }
+        if (va < vb) return estado.sortDir === 'asc' ? -1 : 1;
+        if (va > vb) return estado.sortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
+      sortable.forEach(tr => tbody.appendChild(tr));
+      filas.filter(tr => tr.classList.contains('cl-hidden')).forEach(tr => tbody.appendChild(tr));
+    }
+  }
+
+  filtrosPills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filtrosPills.forEach(b => b.classList.remove('activo'));
+      btn.classList.add('activo');
+      estado.etiqueta = btn.dataset.filtro;
+      aplicar();
+    });
+  });
+
+  buscarInput.addEventListener('input', e => {
+    estado.busqueda = e.target.value.toLowerCase().trim();
+    aplicar();
+  });
+
+  document.querySelectorAll('.cl-tabla thead th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.sort;
+      if (estado.sortCol === col) {
+        estado.sortDir = estado.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        estado.sortCol = col;
+        estado.sortDir = col === 'cliente' ? 'asc' : 'desc';
+      }
+      document.querySelectorAll('.cl-tabla thead th').forEach(t => {
+        t.classList.remove('sort-asc', 'sort-desc');
+      });
+      th.classList.add(estado.sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+      aplicar();
+    });
+  });
+
+  // ─── Desplegable de sección · Acción Requerida ───
+  const accionToggle = document.getElementById('accion-toggle');
+  if (accionToggle) {
+    accionToggle.addEventListener('click', () => {
+      const lista = document.getElementById('accion-lista');
+      const abierto = lista.classList.toggle('abierto');
+      accionToggle.classList.toggle('abierto', abierto);
+      accionToggle.querySelector('.accion-toggle-texto').textContent = abierto ? 'Ocultar decisiones' : 'Ver decisiones (3)';
+    });
+  }
+
+  aplicar();
+})();
+</script>
+
+</body>
+</html>
