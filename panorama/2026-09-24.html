@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panorama de cuentas, septiembre 2026 · Futurite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F6; --surface:#FFFFFF; --ink:#0F1B2D; --muted:#566275; --line:#D5DCE6; --line-strong:#AEB9C8;
+  --brand:#1B4FD8; --brand-soft:#E2EAFC; --over:#B4231F; --over-soft:#FBE7E6; --warn:#A76200; --warn-soft:#FBF0DC;
+  --d-trafico:#1B4FD8; --d-marketing:#7657D6; --d-ti:#C13E68; --d-contenido:#0B8F9C; --d-diseno:#D97F12; --d-seo:#2C9460; --d-sin:#98A2B3;
+  --s-otros:#C3CBD6;
+  --st-abierta:#5E6B7E; --st-proceso:#1B4FD8; --st-revision:#A76200;
+  --font:"Archivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B1422; --surface:#121E31; --ink:#E6ECF5; --muted:#9AA8BC; --line:#233250; --line-strong:#3A4B6B;
+    --brand:#7C9DFF; --brand-soft:#1A2A4B; --over:#FF7A70; --over-soft:#3A1C22; --warn:#F2B455; --warn-soft:#352812;
+    --d-trafico:#6F93FF; --d-marketing:#A08BF0; --d-ti:#EE7199; --d-contenido:#3CC3CF; --d-diseno:#F3A445; --d-seo:#5BC58D; --d-sin:#7D889A;
+    --s-otros:#4A5870; --st-abierta:#9AA8BC; --st-proceso:#7C9DFF; --st-revision:#F2B455;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B1422; --surface:#121E31; --ink:#E6ECF5; --muted:#9AA8BC; --line:#233250; --line-strong:#3A4B6B;
+  --brand:#7C9DFF; --brand-soft:#1A2A4B; --over:#FF7A70; --over-soft:#3A1C22; --warn:#F2B455; --warn-soft:#352812;
+  --d-trafico:#6F93FF; --d-marketing:#A08BF0; --d-ti:#EE7199; --d-contenido:#3CC3CF; --d-diseno:#F3A445; --d-seo:#5BC58D; --d-sin:#7D889A;
+  --s-otros:#4A5870; --st-abierta:#9AA8BC; --st-proceso:#7C9DFF; --st-revision:#F2B455;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px); -webkit-text-size-adjust:100%}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.5; font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px; margin:0 auto; padding:0 20px}
+a{color:var(--brand)}
+button{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--brand); outline-offset:2px; border-radius:4px}
+
+/* Encabezado */
+.top{padding:48px 0 28px; border-bottom:1px solid var(--line)}
+.org{margin:0 0 18px; color:var(--muted); font-size:.95rem}
+.org b{color:var(--ink); font-weight:650}
+h1{margin:0; font-stretch:125%; font-weight:780; font-size:clamp(2.2rem,6vw,4.1rem); line-height:.98; letter-spacing:-.02em}
+.period{margin:10px 0 0; font-stretch:112%; font-size:clamp(1.05rem,2.2vw,1.35rem); color:var(--muted); font-weight:500}
+.lede{margin:30px 0 0; max-width:34ch; font-size:clamp(1.3rem,3vw,1.85rem); line-height:1.3; font-weight:420; letter-spacing:-.005em}
+.lede strong{font-weight:720; color:var(--brand)}
+.facts{display:flex; flex-wrap:wrap; gap:8px 28px; margin:22px 0 0; padding:0; list-style:none; color:var(--muted); font-size:.95rem}
+.facts b{color:var(--ink); font-weight:650}
+.flag{display:inline-flex; gap:8px; align-items:baseline; margin:20px 0 0; padding:8px 12px; border-radius:6px; background:var(--warn-soft); color:var(--ink); font-size:.93rem; max-width:70ch}
+.flag::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--warn); transform:translateY(-1px)}
+
+/* Secciones */
+section{padding:44px 0 8px}
+h2{margin:0 0 6px; font-stretch:118%; font-weight:720; font-size:clamp(1.45rem,3vw,1.9rem); letter-spacing:-.01em; line-height:1.15}
+.sub{margin:0 0 22px; color:var(--muted); max-width:68ch}
+h3{margin:0 0 10px; font-size:1.02rem; font-weight:680}
+
+/* Barras de composición */
+.comp{margin:0 0 30px}
+.comp-bar{display:flex; height:26px; border-radius:5px; overflow:hidden; background:var(--line)}
+.comp-bar span{display:block; height:100%}
+.comp-bar span + span{box-shadow:inset 2px 0 0 var(--paper)}
+.legend{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:6px 20px; margin:12px 0 0; padding:0; list-style:none; font-size:.93rem}
+.legend li{display:flex; align-items:baseline; gap:8px}
+.sw{flex:none; width:11px; height:11px; border-radius:3px; transform:translateY(1px)}
+.legend .v{margin-left:auto; color:var(--muted); white-space:nowrap}
+.legend .v b{color:var(--ink); font-weight:620}
+.note{margin:10px 0 0; font-size:.92rem; color:var(--muted); max-width:72ch}
+.hatch{background-image:repeating-linear-gradient(135deg, transparent 0 5px, rgba(255,255,255,.55) 5px 7px)}
+
+/* Patrones */
+.groups{display:grid; gap:0; border-top:1px solid var(--line-strong)}
+.group{display:grid; grid-template-columns:minmax(180px,260px) 1fr; gap:6px 28px; padding:18px 0; border-bottom:1px solid var(--line)}
+.group h3{margin:0; font-stretch:108%}
+.group .n{display:block; margin-top:2px; color:var(--muted); font-size:.92rem; font-weight:400}
+.group p{margin:0 0 10px; max-width:66ch}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+.chip{display:inline-block; padding:3px 10px; border:1px solid var(--line-strong); border-radius:999px; background:var(--surface); font-size:.86rem; text-decoration:none; color:var(--ink); cursor:pointer}
+.chip:hover{border-color:var(--brand); color:var(--brand)}
+
+/* Señales */
+.signals{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+.sig{min-width:0; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:16px 16px 12px}
+.sig h3{font-size:.98rem}
+.sig .why{margin:-4px 0 10px; color:var(--muted); font-size:.87rem}
+.sig ol{margin:0; padding:0; list-style:none}
+.sig li{display:flex; gap:10px; align-items:baseline; padding:5px 0; border-top:1px solid var(--line); font-size:.92rem}
+.sig li button{all:unset; cursor:pointer; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.sig li button:hover{color:var(--brand)}
+.sig li button:focus-visible{outline:3px solid var(--brand); outline-offset:1px; border-radius:3px}
+.sig .val{color:var(--muted); white-space:nowrap}
+.sig .val b{color:var(--ink); font-weight:620}
+.sig.over{border-top:4px solid var(--over)}
+.sig.nocon{border-top:4px solid var(--brand)}
+.sig.idle{border-top:4px solid var(--line-strong)}
+
+/* Controles */
+.controls{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; display:flex; flex-wrap:wrap; gap:10px 14px; align-items:center; margin:0 -20px 14px; padding:12px 20px; background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+.controls label{display:flex; gap:8px; align-items:center; font-size:.9rem; color:var(--muted)}
+.controls input[type=search], .controls select{font:inherit; font-size:.95rem; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:6px; padding:7px 10px}
+.controls input[type=search]{width:min(260px,100%)}
+.controls .count{margin-left:auto; color:var(--muted); font-size:.9rem}
+.toggle-all{background:none; border:1px solid var(--line-strong); border-radius:6px; padding:7px 12px; cursor:pointer; font-size:.9rem}
+.toggle-all:hover{border-color:var(--brand); color:var(--brand)}
+
+/* Cuentas */
+.scale{display:grid; grid-template-columns:minmax(0,1fr) 220px 128px 58px 88px; gap:14px; padding:0 14px 6px; color:var(--muted); font-size:.82rem}
+.scale span:nth-child(2){position:relative}
+.acct{background:var(--surface); border:1px solid var(--line); border-radius:8px; margin:0 0 8px; overflow:hidden}
+.acct.flash{box-shadow:0 0 0 3px var(--brand)}
+.acct-head{all:unset; box-sizing:border-box; display:grid; grid-template-columns:minmax(0,1fr) 220px 128px 58px 88px; gap:14px; align-items:center; width:100%; padding:13px 14px; cursor:pointer}
+.acct-head:focus-visible{outline:3px solid var(--brand); outline-offset:-3px; border-radius:8px}
+.acct-head:hover .nm{color:var(--brand)}
+.who{display:flex; gap:10px; align-items:baseline; min-width:0}
+.nm{font-weight:650; font-stretch:106%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.cat{flex:none; font-size:.76rem; font-weight:650; padding:1px 7px; border-radius:4px; background:var(--brand-soft); color:var(--brand)}
+.meter{position:relative; height:12px; border-radius:3px; background:var(--line)}
+.meter .fill{position:absolute; left:0; top:0; bottom:0; border-radius:3px; background:var(--brand)}
+.meter.over .fill{background:var(--over)}
+.meter .mark{position:absolute; top:-4px; bottom:-4px; left:66.667%; width:2px; background:var(--ink); opacity:.55}
+.meter.none{background:repeating-linear-gradient(135deg, var(--line) 0 6px, transparent 6px 10px)}
+.meter.none .mark{display:none}
+.hrs{font-size:.92rem; color:var(--muted); white-space:nowrap}
+.hrs b{color:var(--ink); font-weight:650}
+.pct{font-weight:650; text-align:right; white-space:nowrap}
+.pct.over{color:var(--over)}
+.pct.none{color:var(--muted); font-weight:400; font-size:.85rem}
+.tc{justify-self:end; font-size:.86rem; white-space:nowrap; color:var(--muted)}
+.tc.has{color:var(--ink); font-weight:600}
+.tc.has::before{content:""; display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--st-revision); margin-right:6px; transform:translateY(-1px)}
+.acct-body{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:26px; padding:4px 14px 20px; border-top:1px solid var(--line)}
+.acct-body[hidden]{display:none}
+.acct-note{margin:16px 0 0; padding:10px 12px; border-radius:6px; background:var(--brand-soft); font-size:.88rem; line-height:1.45}
+.acct-body h4{margin:16px 0 8px; font-size:.9rem; font-weight:680}
+.mini{display:flex; height:12px; border-radius:3px; overflow:hidden; background:var(--line)}
+.mini span{height:100%}
+.mini span + span{box-shadow:inset 2px 0 0 var(--surface)}
+.kv{margin:8px 0 0; padding:0; list-style:none; font-size:.9rem}
+.kv li{display:flex; gap:8px; align-items:baseline; padding:3px 0}
+.kv li .v{margin-left:auto; color:var(--muted); white-space:nowrap}
+.kv li .v b{color:var(--ink); font-weight:620}
+.contracted{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+.contracted li{font-size:.85rem; padding:3px 9px; border-radius:4px; background:var(--paper); border:1px solid var(--line)}
+.empty{color:var(--muted); font-size:.9rem; margin:0}
+.tasks{margin:0; padding:0; list-style:none}
+.task{padding:10px 0; border-top:1px solid var(--line)}
+.task:first-child{border-top:0}
+.task .tt{display:flex; gap:10px; align-items:baseline}
+.st{flex:none; font-size:.76rem; font-weight:650; padding:1px 7px; border-radius:4px; border:1px solid currentColor; white-space:nowrap}
+.st.abierta{color:var(--st-abierta)} .st.proceso{color:var(--st-proceso)} .st.revision{color:var(--st-revision)}
+.task .name{font-weight:560}
+.task .meta{margin:3px 0 0; color:var(--muted); font-size:.85rem}
+
+/* Sin actividad */
+.idle-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:0 24px; margin:0; padding:0; list-style:none; border-top:1px solid var(--line-strong)}
+.idle-grid li{display:flex; gap:10px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--line); font-size:.92rem}
+.idle-grid .nm{font-weight:520; font-stretch:100%; white-space:normal; overflow:visible}
+.idle-grid .h{margin-left:auto; color:var(--muted); white-space:nowrap; font-size:.86rem}
+.idle-grid .h.has{color:var(--ink); font-weight:600}
+.rez-resumen{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 40px; max-width:760px; margin:0 0 26px}
+.rez-resumen h3{font-size:.95rem; margin:0 0 4px}
+.rez{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 18px; align-items:start}
+.rez-acct.open-acct{border-left-color:var(--brand)}
+.open-acct .hh{margin:0 0 6px; color:var(--muted); font-size:.86rem}
+.rez-band{margin:0 0 26px}
+.band-t{display:flex; align-items:baseline; gap:12px; margin:0 0 12px; padding-top:12px; border-top:1px solid var(--line-strong); font-stretch:108%; font-size:1.08rem}
+.band-t .n{color:var(--muted); font-weight:400; font-size:.9rem}
+.band-note{margin:-4px 0 12px}
+.rez-acct{min-width:0; background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--line-strong); border-radius:8px; padding:12px 16px 6px}
+.rez-acct h3{display:flex; gap:10px; align-items:baseline; margin:0 0 4px; font-size:1rem}
+.rez-acct h3 button{all:unset; cursor:pointer; font-weight:680; font-stretch:106%}
+.rez-acct h3 button:hover{color:var(--brand)}
+.rez-acct h3 button:focus-visible{outline:3px solid var(--brand); outline-offset:2px; border-radius:3px}
+.rez-acct h3 .n{margin-left:auto; color:var(--muted); font-weight:400; font-size:.88rem; white-space:nowrap}
+.idle-grid li.flash{background:var(--brand-soft); border-radius:4px}
+
+/* Notas */
+.notes{margin:0; padding:0; list-style:none; max-width:78ch}
+.notes li{padding:14px 0; border-top:1px solid var(--line)}
+.notes li:first-child{border-top:0}
+.notes h3{margin:0 0 4px}
+.notes p{margin:0; color:var(--muted)}
+.notes .pend{background:var(--warn-soft); border-radius:8px; padding:14px 16px; border:0; margin-bottom:6px}
+.notes .pend p{color:var(--ink)}
+.notes table{border-collapse:collapse; margin:10px 0 4px; font-size:.9rem}
+.notes td{padding:3px 18px 3px 0}
+.notes td:last-child{text-align:right; font-weight:620}
+.notes summary{display:flex; justify-content:space-between; align-items:center; gap:12px; cursor:pointer; list-style:none; font-weight:680; padding:2px 0}
+.notes summary::-webkit-details-marker{display:none}
+.notes summary::after{content:""; flex:none; width:8px; height:8px; margin-right:6px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); transform:translateY(-2px) rotate(45deg)}
+.notes details[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.notes summary:hover{color:var(--brand)}
+.notes details p{margin-top:8px}
+footer{padding:36px 0 48px; color:var(--muted); font-size:.86rem}
+
+@media (max-width:860px){
+  .signals{grid-template-columns:minmax(0,1fr)}
+  .group{grid-template-columns:1fr}
+  .scale{display:none}
+  .acct-head{grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"who pct" "meter meter" "hrs tc"; gap:8px 12px}
+  .who{grid-area:who} .meter{grid-area:meter} .hrs{grid-area:hrs} .pct{grid-area:pct} .tc{grid-area:tc}
+  .acct-body{grid-template-columns:1fr; gap:0}
+  .rez, .rez-resumen{grid-template-columns:minmax(0,1fr)}
+  .controls{position:static; background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none}
+  .controls .count{margin-left:0; width:100%}
+}
+@media (prefers-reduced-motion:no-preference){
+  .acct.flash{transition:box-shadow .6s}
+}
+@media print{
+  body{background:#fff}
+  .controls{position:static}
+  .acct-body[hidden]{display:grid !important}
+  .toggle-all{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="org"><b>Agencia Futurite</b>, reporte para Dirección General</p>
+    <h1>Panorama de cuentas</h1>
+    <p class="period">Corte al 24 de septiembre de 2026, últimas 4 semanas</p>
+    <p class="lede" id="lede"></p>
+    <ul class="facts" id="facts"></ul>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="h-abiertas">
+    <h2 id="h-abiertas">Tareas abiertas por cliente</h2>
+    <p class="sub" id="sub-abiertas"></p>
+    <div class="rez" id="abiertas"></div>
+  </section>
+
+  <section aria-labelledby="h-horas">
+    <h2 id="h-horas">Distribución del trabajo</h2>
+    <p class="sub">Horas registradas en OnGoing del 28 de agosto al 24 de septiembre, para toda la agencia.</p>
+    <div class="comp">
+      <h3>Por departamento</h3>
+      <div class="comp-bar" id="bar-dep" role="img"></div>
+      <ul class="legend" id="leg-dep"></ul>
+    </div>
+    <div class="comp">
+      <h3>Por servicio</h3>
+      <div class="comp-bar" id="bar-svc" role="img"></div>
+      <ul class="legend" id="leg-svc"></ul>
+      <p class="note" id="note-otros"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-activo">
+    <h2 id="h-activo">Qué está activo</h2>
+    <p class="sub" id="sub-activo"></p>
+    <div class="groups" id="groups"></div>
+  </section>
+
+  <section aria-labelledby="h-senales">
+    <h2 id="h-senales">Señales del periodo</h2>
+    <p class="sub">Comparación directa entre horas registradas y horas contratadas. Toca una cuenta para ver su detalle.</p>
+    <div class="signals" id="signals"></div>
+  </section>
+
+  <section aria-labelledby="h-cuentas">
+    <h2 id="h-cuentas">Cuenta por cuenta</h2>
+    <p class="sub">Cuentas con horas registradas o con tareas creadas en las últimas 4 semanas. La barra muestra las horas de esas 4 semanas contra las contratadas del mes; la línea vertical marca el 100%.</p>
+    <div class="controls">
+      <label>Buscar <input type="search" id="q" placeholder="Nombre de la cuenta" autocomplete="off"></label>
+      <label>Categoría <select id="fcat"></select></label>
+      <label>Ordenar por <select id="sort">
+        <option value="ht">Horas registradas</option>
+        <option value="pct">Porcentaje del contrato</option>
+        <option value="tar">Tareas</option>
+        <option value="n">Nombre</option>
+      </select></label>
+      <label><input type="checkbox" id="onlyt"> Solo con tareas</label>
+      <button class="toggle-all" id="toggle-all" type="button">Abrir todas</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="scale" aria-hidden="true"><span>Cuenta</span><span>Registradas contra contratadas</span><span>Horas</span><span style="text-align:right">%</span><span style="text-align:right">Tareas</span></div>
+    <div id="list"></div>
+  </section>
+
+  <section aria-labelledby="h-rez">
+    <h2 id="h-rez">Tareas sin cerrar de más de 4 semanas</h2>
+    <p class="sub" id="sub-rez"></p>
+    <div class="rez-resumen" id="rez-resumen"></div>
+    <div id="rez"></div>
+  </section>
+
+  <section aria-labelledby="h-idle">
+    <h2 id="h-idle">Cuentas sin actividad</h2>
+    <p class="sub" id="sub-idle"></p>
+    <ul class="idle-grid" id="idle"></ul>
+  </section>
+
+  <section aria-labelledby="h-notas">
+    <h2 id="h-notas">Notas del corte</h2>
+    <ul class="notes">
+      <li><details><summary>Qué cuenta como tarea activa</summary><p>Tareas en estatus abierta, en proceso o en revisión. No se cuentan las pausadas ni las aprobadas. Se excluyen las <span id="n-rev"></span> tareas con “revisión de cuenta” o “revisión de cuentas” en el nombre, porque son internas de la agencia.</p></details></li>
+      <li><details><summary>Tareas recientes y tareas sin cerrar</summary><p>Las tareas de las fichas y de “Qué está activo” son las creadas en las últimas 4 semanas antes del corte, sin importar el mes (en este corte, del 28 de agosto al 24 de septiembre). Las creadas antes van en su propia sección, agrupadas por antigüedad: de 4 a 8 semanas, de 2 a 3 meses (8 a 13 semanas) y más de 3 meses. El descargable de OnGoing no trae la fecha de creación, así que se estima con el número de tarea: los números suben con el tiempo, y se ubicaron en el calendario con las fechas de la columna “Última tarea” del reporte de Dirección. Una tarea quedó por confirmar porque solo se sabe que se creó entre el 14 y el 31 de agosto.</p></details></li>
+      <li><details><summary>Fecha de entrega</summary><p>En las tareas recientes se muestra como referencia (“entrega registrada”). Puede ajustarse según la necesidad, así que no se usa para ordenar, calificar cuentas ni separar tareas.</p></details></li>
+      <li><details><summary>Agrupación por tipo de trabajo</summary><p>Los cinco grupos de “Qué está activo” son una lectura hecha a partir del nombre de cada tarea. No es un campo de OnGoing.</p></details></li>
+      <li><details><summary>Horas</summary><p>Vienen de los reportes de horas por departamento y por servicio de OnGoing (descargados el 24 de septiembre a las 11:13) y cubren del 28 de agosto al 24 de septiembre, igual que las tareas. Se comparan contra las horas contratadas del mes: en la agencia, un mes de contrato equivale a 20 días hábiles, es decir, 4 semanas. Incluyen <span id="h-rev"></span> registradas en revisiones de cuenta, que no se pueden separar por departamento.</p></details></li>
+      <li><details><summary>Ajustes manuales</summary><p>Anaerobia: 69 h de la tarea T51582 “TI | Ajustes generales de Agosto” venían sin departamento y se asignaron a TI, con base en la tarea en OnGoing. La tarea se creó el 17 de agosto, se finalizó el 4 de septiembre y tiene entrega registrada el 31 de agosto.</p></details></li>
+      <li><details><summary>Horas contratadas, categoría y servicios contratados</summary><p>Vienen del Reporte de Dirección de Marketing de septiembre. Sus horas trabajadas no se usan: son el acumulado del mes y este reporte cubre 4 semanas.</p></details></li>
+    </ul>
+  </section>
+</main>
+<footer class="wrap">Fuentes: OnGoing (tareas vencidas, y horas por departamento y por servicio del 28 de agosto al 24 de septiembre; descargados el 24 sep 2026 a las 11:13) y Reporte de Dirección de Marketing, septiembre 2026.</footer>
+
+<script>
+const CUENTAS = [{"n": "Cliente de Pruebas FUTURITE", "cat": "PY", "hc": 13.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Google ADS", "h": 1.0}, {"s": "Administración de Redes Sociales", "h": 12.0}], "tar": []}, {"n": "Manolo Jimenez Saltillo", "cat": "AA", "hc": 42.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Redes Sociales", "h": 42.0}], "tar": []}, {"n": "PASA", "cat": "PY", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "RYOGA", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Homline", "cat": "PYI", "hc": 20.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Redes Sociales", "h": 20.0}], "tar": []}, {"n": "Gobierno del Estado de Coahuila", "cat": "AAA", "hc": 50.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de envio de Mailing", "h": 50.0}], "tar": [{"id": "T51098", "t": "TI | Ajustes generales del mes de agosto", "e": "En proceso", "d": "--", "a": "Selene Briones", "f": "31/08/2026", "g": "web", "ca": "2026-08-07", "cb": "2026-08-07", "cm": "agosto", "v": "rez"}]}, {"n": "Futurite", "cat": "PYI", "hc": 60.0, "ht": 1.25, "dep": {"Contenido": 1.25}, "sv": {"Otros": 1.25}, "con": [{"s": "Administración de Google ADS", "h": 20.0}, {"s": "Administración de Redes Sociales", "h": 20.0}, {"s": "Inversión para Google ADS", "h": 20.0}], "tar": []}, {"n": "Citrofrut", "cat": "PY", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Cavazos Logistics", "cat": "A", "hc": 4.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Hípico La Silla", "cat": "PY", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "MACERO", "cat": "PYI", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Kodex", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Carfy", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Domingo S", "cat": "AAA", "hc": 8.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Steel Warehouse", "cat": "AA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Conversia", "cat": "PYI", "hc": 40.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Google ADS", "h": 20.0}, {"s": "Administración de Redes Sociales", "h": 20.0}], "tar": []}, {"n": "OnGoing", "cat": "PYI", "hc": 40.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración SEO", "h": 20.0}, {"s": "Administración de Google ADS", "h": 20.0}], "tar": []}, {"n": "Nexa", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Super Roma", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Proyectos 9", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Aqua Terra", "cat": "AA", "hc": 8.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "DISA JR", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Apetit", "cat": "A", "hc": 21.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Creaprac", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Alimentro", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Subestaciones Mx", "cat": "PYA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Inhomia", "cat": "A", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Aurelio", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Pedrera San Angel", "cat": "B", "hc": 12.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": [{"id": "S48537", "t": "Ajuste de Presupuesto", "e": "Abierta", "d": "Marketing", "a": "Danna Michelle Treviño Pardo", "f": "01/07/2026", "g": "pauta", "ca": "2026-06-30", "cb": "2026-07-03", "cm": "entre junio y julio", "v": "rez"}]}, {"n": "Mis Materiales Escolares", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "EDUX", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Indelpro", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "SUMINREGIOS INDUSTRIALES", "cat": "AA", "hc": 12.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": []}, {"n": "MANTTO", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Tecnocranes", "cat": "A", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Corven", "cat": "PYI", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Colegio Maranatha", "cat": "PY", "hc": 38.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Desarrollo de Página Web anticipo", "h": 38.0}], "tar": []}, {"n": "MONTGOMERY", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "DICRO DE MEXICO", "cat": "COMISION", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "INSTALACION E INGENIERIA FERROVIARIA", "cat": "COMISION", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "ENRIQUE FECTORY", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "YOMP (ARCA)", "cat": "PY", "hc": 160.0, "ht": 11.0, "dep": {"Sin asignar": 11.0}, "sv": {"Otros": 11.0}, "con": [{"s": "Pago Diseñador", "h": 160.0}], "tar": []}, {"n": "Medivía", "cat": "PYI", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "LUNANCO", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Marimar Arroyo", "cat": "PYAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "LR Recolectora", "cat": "B", "hc": 8.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Google ADS", "h": 8.0}], "tar": []}, {"n": "The Residences", "cat": "PYI", "hc": 20.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [{"s": "Administración de Redes Sociales", "h": 20.0}], "tar": []}, {"n": "Hospitales MAC - Diseño", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Admin", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Viaja Como Yo", "cat": "B", "hc": 0.0, "ht": 0.25, "dep": {"Marketing": 0.25}, "sv": {"Otros": 0.25}, "con": [], "tar": []}, {"n": "Tremet - Scrap", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Pink Burrito", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "YOLKVISUAL", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Conver Box", "cat": "PY", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Rinconada Colonial", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "BANCREA", "cat": "PY", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Izzi", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "NIDEC - Reclutamiento", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Rodeo Saltillo", "cat": "AAA", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Concurso de Salto La Silla", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Tecno Valvulas y Tubos", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "Comercial Treviño", "cat": "B", "hc": 0.0, "ht": 0.0, "dep": {}, "sv": {}, "con": [], "tar": []}, {"n": "INMEDI-K", "cat": "AA", "hc": 26.0, "ht": 0.08, "dep": {"Marketing": 0.08}, "sv": {"Revisión de Cuentas": 0.08}, "con": [{"s": "Administración de Google ADS", "h": 13.0}, {"s": "Administración de Redes Sociales", "h": 13.0}], "tar": []}, {"n": "FAMAPER", "cat": "AA", "hc": 28.0, "ht": 0.25, "dep": {"Marketing": 0.25}, "sv": {"Revisión de Cuentas": 0.25}, "con": [{"s": "Administración SEO", "h": 15.0}, {"s": "Administración de Google ADS", "h": 13.0}], "tar": [{"id": "S53059", "t": "Fotos galeria por producto", "e": "En revisión", "d": "TI", "a": "Alejandro Vargas Mendez", "f": "22/09/2026", "g": "web", "ca": "2026-09-22", "cb": "2026-09-23", "cm": "septiembre", "v": "rec"}, {"id": "T53033", "t": "Ajustes pt. 2 nueva landing", "e": "En revisión", "d": "TI", "a": "Alejandro Vargas Mendez", "f": "21/09/2026", "g": "web", "ca": "2026-09-21", "cb": "2026-09-21", "cm": "septiembre", "v": "rec"}, {"id": "T53068", "t": "Publicar landing nueva FMP Racks", "e": "En proceso", "d": "TI", "a": "Alejandro Vargas Mendez", "f": "23/09/2026", "g": "web", "ca": "2026-09-22", "cb": "2026-09-23", "cm": "septiembre", "v": "rec"}]}, {"n": "MAXIRent", "cat": "B", "hc": 8.0, "ht": 0.17, "dep": {"Marketing": 0.17}, "sv": {"Revisión de Cuentas": 0.17}, "con": [{"s": "Administración de Google ADS", "h": 8.0}], "tar": []}, {"n": "TAVILSA", "cat": "B", "hc": 12.0, "ht": 0.25, "dep": {"Marketing": 0.25}, "sv": {"Revisión de Cuentas": 0.25}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": []}, {"n": "Hamer Empaques", "cat": "AA", "hc": 12.0, "ht": 0.17, "dep": {"Marketing": 0.17}, "sv": {"Revisión de Cuentas": 0.17}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": []}, {"n": "Hospital San Vicente", "cat": "AA", "hc": 31.0, "ht": 1.33, "dep": {"Diseño": 1.33}, "sv": {"Otros": 1.33}, "con": [{"s": "Administración de Google ADS", "h": 13.0}, {"s": "Administración de Redes Sociales", "h": 18.0}], "tar": []}, {"n": "Financiera MEXI", "cat": "AA", "hc": 36.0, "ht": 0.42, "dep": {"Tráfico": 0.33, "Marketing": 0.08}, "sv": {"Revisión de Cuentas": 0.08, "Otros": 0.33}, "con": [{"s": "Administración SEO", "h": 36.0}], "tar": []}, {"n": "OEMT", "cat": "AA", "hc": 0.0, "ht": 0.5, "dep": {"TI": 0.5}, "sv": {"Otros": 0.5}, "con": [], "tar": []}, {"n": "CIA NEUMATICA INTERNACIONAL", "cat": "A", "hc": 15.0, "ht": 0.83, "dep": {"Tráfico": 0.5, "Marketing": 0.33}, "sv": {"Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 0.5}, "con": [{"s": "Administración de Google ADS", "h": 15.0}], "tar": []}, {"n": "Petrovim", "cat": "AA", "hc": 13.0, "ht": 1.33, "dep": {"Tráfico": 1.0, "Marketing": 0.33}, "sv": {"Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 1.0}, "con": [{"s": "Administración de Google ADS", "h": 13.0}], "tar": [{"id": "T48122", "t": "Presentación de reporte con cliente", "e": "En revisión", "d": "Marketing", "a": "Katia Montemayor Hernandez", "f": "21/07/2026", "g": "reportes", "ca": "2026-06-23", "cb": "2026-06-30", "cm": "junio", "v": "rez"}, {"id": "T48220", "t": "Google Analytics", "e": "Abierta", "d": "Marketing", "a": "Danna Michelle Treviño Pardo", "f": "01/07/2026", "g": "reportes", "ca": "2026-06-23", "cb": "2026-06-30", "cm": "junio", "v": "rez"}]}, {"n": "Covacsa", "cat": "B", "hc": 12.0, "ht": 1.0, "dep": {"Tráfico": 1.0}, "sv": {"Otros": 1.0}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": [{"id": "T53127", "t": "Google Ads", "e": "En revisión", "d": "TI", "a": "Alejandro Vargas Mendez", "f": "23/09/2026", "g": "web", "ca": "2026-09-23", "cb": "2026-09-23", "cm": "septiembre", "v": "rec"}]}, {"n": "The Paletas", "cat": "B", "hc": 5.0, "ht": 1.0, "dep": {"Tráfico": 1.0}, "sv": {"Otros": 1.0}, "con": [{"s": "Administración de Redes Sociales", "h": 5.0}], "tar": [{"id": "S48538", "t": "Ajuste de Presupuesto", "e": "Abierta", "d": "Tráfico", "a": "Danna Michelle Treviño Pardo", "f": "01/07/2026", "g": "pauta", "ca": "2026-06-30", "cb": "2026-07-03", "cm": "entre junio y julio", "v": "rez"}]}, {"n": "MAFRA LOGISTICS", "cat": "B", "hc": 0.0, "ht": 1.0, "dep": {"Tráfico": 1.0}, "sv": {"Otros": 1.0}, "con": [], "tar": []}, {"n": "Soluciones Pop", "cat": "B", "hc": 10.0, "ht": 1.42, "dep": {"Tráfico": 1.0, "Marketing": 0.33, "TI": 0.08}, "sv": {"Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 1.08}, "con": [{"s": "Administración de Google ADS", "h": 10.0}], "tar": []}, {"n": "Grupo Energeticos", "cat": "B", "hc": 0.0, "ht": 1.33, "dep": {"Tráfico": 1.0, "Marketing": 0.33}, "sv": {"Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 1.0}, "con": [], "tar": [{"id": "T48708", "t": "Formato de presentación para Estrategia de Arranque", "e": "En revisión", "d": "Marketing", "a": "Katia Montemayor Hernandez", "f": "06/07/2026", "g": "reportes", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}]}, {"n": "Leuman GMB", "cat": "B", "hc": 10.0, "ht": 1.67, "dep": {"Tráfico": 1.0, "Marketing": 0.67}, "sv": {"Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 1.0}, "con": [{"s": "Administración de Google ADS", "h": 10.0}], "tar": [{"id": "T49302", "t": "Revisar presupuesto", "e": "Abierta", "d": "Tráfico", "a": "Danna Michelle Treviño Pardo", "f": "13/07/2026", "g": "pauta", "ca": "2026-07-07", "cb": "2026-07-21", "cm": "julio", "v": "rez"}]}, {"n": "Argo de México", "cat": "A", "hc": 6.0, "ht": 1.67, "dep": {"Tráfico": 1.0, "Marketing": 0.67}, "sv": {"Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 1.0}, "con": [{"s": "Administración de Google ADS", "h": 6.0}], "tar": []}, {"n": "Kaffa Tisana", "cat": "B", "hc": 0.0, "ht": 1.5, "dep": {"Tráfico": 1.5}, "sv": {"Otros": 1.5}, "con": [], "tar": []}, {"n": "Dr. Christopher Manrique", "cat": "A", "hc": 29.0, "ht": 2.17, "dep": {"Tráfico": 2.0, "Marketing": 0.17}, "sv": {"Revisión de Cuentas": 0.17, "Seguimiento Mensual Google ADs": 1.0, "Otros": 1.0}, "con": [{"s": "Administración SEO", "h": 10.0}, {"s": "Administración de Google ADS", "h": 10.0}, {"s": "Inversión para generación de Backlinks", "h": 9.0}], "tar": []}, {"n": "ICCE", "cat": "B", "hc": 12.0, "ht": 2.67, "dep": {"Tráfico": 2.0, "Marketing": 0.67}, "sv": {"Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 2.0}, "con": [{"s": "Administración de Google ADS", "h": 12.0}], "tar": []}, {"n": "Materia", "cat": "AA", "hc": 27.0, "ht": 3.0, "dep": {"Tráfico": 2.0, "TI": 1.0}, "sv": {"Otros": 3.0}, "con": [{"s": "Administración de Google ADS", "h": 12.0}, {"s": "Administración de Redes Sociales", "h": 15.0}], "tar": [{"id": "S52213", "t": "Reporte mensual agosto sem SEP 2026 | Materia", "e": "Abierta", "d": "Marketing", "a": "Veronica Picon Colorado", "f": "07/09/2026", "g": "reportes", "ca": "2026-09-01", "cb": "2026-09-07", "cm": "septiembre", "v": "rec"}]}, {"n": "HVAC & VRF", "cat": "PYI", "hc": 0.0, "ht": 4.25, "dep": {"Tráfico": 4.0, "TI": 0.25}, "sv": {"Seguimiento Mensual Google ADs": 4.08, "Otros": 0.17}, "con": [], "tar": [{"id": "T52775", "t": "Leads y correo de leads", "e": "Abierta", "d": "TI", "a": "Selene Briones", "f": "11/09/2026", "g": "web", "ca": "2026-09-11", "cb": "2026-09-11", "cm": "septiembre", "v": "rec"}]}, {"n": "Radiology Advance", "cat": "B", "hc": 7.0, "ht": 3.67, "dep": {"Tráfico": 3.0, "Marketing": 0.67}, "sv": {"Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 3.0}, "con": [{"s": "Administración de Google ADS", "h": 7.0}], "tar": []}, {"n": "Nicholas plastics de Mexico", "cat": "A", "hc": 13.0, "ht": 4.83, "dep": {"Tráfico": 2.5, "Marketing": 2.33}, "sv": {"Seguimiento Mensual Google ADs": 2.33, "Otros": 2.5}, "con": [{"s": "Administración de Google ADS", "h": 13.0}], "tar": [{"id": "T52214", "t": "Actualizar y encender Campaña Google Ads SEP 2026 | Nicholas Plastics", "e": "Abierta", "d": "Tráfico", "a": "Fernando Cavazos", "f": "01/09/2026", "g": "pauta", "ca": "2026-09-01", "cb": "2026-09-07", "cm": "septiembre", "v": "rec"}]}, {"n": "Pinturas Philadelphia", "cat": "A", "hc": 13.0, "ht": 4.0, "dep": {"Marketing": 0.25, "Contenido": 3.0, "Diseño": 0.75}, "sv": {"PARRILLA MENSUAL DE RRSS": 3.75, "Revisión de Cuentas": 0.25}, "con": [{"s": "Administración de Redes Sociales", "h": 13.0}], "tar": [{"id": "T50914", "t": "Videos AGOSTO", "e": "En proceso", "d": "Marketing", "a": "Danna Michelle Treviño Pardo", "f": "06/08/2026", "g": "redes", "ca": "2026-07-31", "cb": "2026-08-05", "cm": "entre julio y agosto", "v": "rez"}]}, {"n": "Los Originales de Braulio Mtz", "cat": "B", "hc": 0.0, "ht": 4.75, "dep": {"Tráfico": 1.0, "Marketing": 0.58, "Contenido": 1.5, "Diseño": 1.67}, "sv": {"PARRILLA MENSUAL DE RRSS": 4.42, "Revisión de Cuentas": 0.33}, "con": [], "tar": []}, {"n": "Perforaciones y Anclajes Especiales", "cat": "B", "hc": 13.0, "ht": 5.0, "dep": {"Tráfico": 5.0}, "sv": {"Seguimiento Mensual Google ADs": 3.0, "Otros": 2.0}, "con": [], "tar": [{"id": "T52183", "t": "Reporte mensual Agosto SEM SEP 2026 | PyAE", "e": "Abierta", "d": "Marketing", "a": "Veronica Picon Colorado", "f": "02/09/2026", "g": "reportes", "ca": "2026-09-01", "cb": "2026-09-07", "cm": "septiembre", "v": "rec"}]}, {"n": "AutoTracking", "cat": "PYAA", "hc": 28.0, "ht": 6.33, "dep": {"Tráfico": 5.0, "Marketing": 0.33, "TI": 1.0}, "sv": {"Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 6.0}, "con": [{"s": "Administración de Google ADS", "h": 13.0}, {"s": "Administración de Redes Sociales", "h": 15.0}], "tar": [{"id": "T52636", "t": "Resultado de busqueda", "e": "Abierta", "d": "TI", "a": "Selene Briones", "f": "09/09/2026", "g": "web", "ca": "2026-09-07", "cb": "2026-09-09", "cm": "septiembre", "v": "rec"}]}, {"n": "kanan Servicios", "cat": "AA", "hc": 10.0, "ht": 5.33, "dep": {"Tráfico": 2.0, "Marketing": 0.17, "Contenido": 2.67, "Diseño": 0.5}, "sv": {"PARRILLA MENSUAL DE RRSS": 2.0, "Revisión de Cuentas": 0.17, "Otros": 3.17}, "con": [{"s": "Administración de Redes Sociales", "h": 10.0}], "tar": []}, {"n": "Funerales Gonzalez", "cat": "B", "hc": 0.0, "ht": 5.5, "dep": {"Contenido": 5.5}, "sv": {"Otros": 5.5}, "con": [], "tar": []}, {"n": "Prolamsa", "cat": "PY", "hc": 0.0, "ht": 15.92, "dep": {"Marketing": 2.42, "Contenido": 13.5}, "sv": {"Branding": 15.92}, "con": [], "tar": []}, {"n": "Propuestas Comerciales - Futurite", "cat": "PYI", "hc": 0.0, "ht": 6.75, "dep": {"Contenido": 0.75, "Diseño": 6.0}, "sv": {"Propuesta Comercial": 6.75}, "con": [], "tar": []}, {"n": "Inversión Educativa TEC", "cat": "AA", "hc": 36.0, "ht": 13.0, "dep": {"Tráfico": 5.0, "Contenido": 8.0}, "sv": {"Otros": 13.0}, "con": [{"s": "Administración de Redes Sociales", "h": 36.0}], "tar": []}, {"n": "INFINITI Monterrey", "cat": "A", "hc": 18.0, "ht": 7.08, "dep": {"Tráfico": 5.0, "Contenido": 0.75, "Diseño": 1.33}, "sv": {"Otros": 7.08}, "con": [{"s": "Administración de Redes Sociales", "h": 18.0}], "tar": []}, {"n": "Grupo Corda Arquitectos", "cat": "B", "hc": 7.0, "ht": 7.33, "dep": {"Tráfico": 5.0, "Marketing": 0.25, "Contenido": 0.58, "Diseño": 1.5}, "sv": {"PARRILLA MENSUAL DE RRSS": 3.08, "Revisión de Cuentas": 0.25, "Otros": 4.0}, "con": [{"s": "Administración de Redes Sociales", "h": 7.0}], "tar": []}, {"n": "TERZA", "cat": "AA", "hc": 40.0, "ht": 7.42, "dep": {"Marketing": 0.25, "TI": 3.67, "Contenido": 1.5, "Diseño": 2.0}, "sv": {"Revisión de Cuentas": 0.25, "Otros": 7.17}, "con": [{"s": "Administración SEO", "h": 21.0}, {"s": "Administración de Google ADS", "h": 12.0}, {"s": "Inversión para generación de Backlinks", "h": 7.0}], "tar": [{"id": "T45385", "t": "Rediseño [Quienes Somos]", "e": "Abierta", "d": "Marketing", "a": "Sofia Guerra", "f": "31/07/2026", "g": "web", "ca": "2026-05-11", "cb": "2026-05-28", "cm": "mayo", "v": "rez"}, {"id": "T48354", "t": "SEO | Publicar Backlink", "e": "Abierta", "d": "SEO", "a": "William Roberto Cuellar Ramirez", "f": "03/07/2026", "g": "seo", "ca": "2026-06-30", "cb": "2026-07-03", "cm": "entre junio y julio", "v": "rez"}, {"id": "T50421", "t": "SEO | Publicar Backlink", "e": "Abierta", "d": "SEO", "a": "William Roberto Cuellar Ramirez", "f": "31/07/2026", "g": "seo", "ca": "2026-07-28", "cb": "2026-07-31", "cm": "julio", "v": "rez"}, {"id": "T50911", "t": "TI | Modificar MADERAS", "e": "Abierta", "d": "TI", "a": "Sofia Guerra", "f": "31/08/2026", "g": "web", "ca": "2026-07-31", "cb": "2026-08-05", "cm": "entre julio y agosto", "v": "rez"}, {"id": "T53034", "t": "TI | Nueva categoría FLEXIROC terza.com", "e": "En revisión", "d": "Tráfico", "a": "Alejandro Vargas Mendez", "f": "21/09/2026", "g": "web", "ca": "2026-09-21", "cb": "2026-09-21", "cm": "septiembre", "v": "rec"}]}, {"n": "PHS", "cat": "AAA", "hc": 38.0, "ht": 7.67, "dep": {"Tráfico": 1.0, "Marketing": 0.25, "Contenido": 3.33, "Diseño": 3.08}, "sv": {"PARRILLA MENSUAL DE RRSS": 5.08, "Revisión de Cuentas": 0.25, "Otros": 2.33}, "con": [{"s": "Administración de Google ADS", "h": 13.0}, {"s": "Administración de Redes Sociales", "h": 25.0}], "tar": [{"id": "T46581", "t": "Diseño de parrilla mensual", "e": "Abierta", "d": "Marketing", "a": "Sofia Guerra", "f": "25/06/2026", "g": "redes", "ca": "2026-05-28", "cb": "2026-06-08", "cm": "entre mayo y junio", "v": "rez"}, {"id": "T48750", "t": "Diseño de parrilla mensual", "e": "Abierta", "d": "Diseño", "a": "Sofia Guerra", "f": "15/07/2026", "g": "redes", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T48755", "t": "Salidas y adaptaciones de parrilla", "e": "Abierta", "d": "Diseño", "a": "Sofia Guerra", "f": "29/07/2026", "g": "redes", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T50937", "t": "Actualizar campañas mensuales", "e": "Abierta", "d": "Tráfico", "a": "Fernando Cavazos", "f": "07/09/2026", "g": "pauta", "ca": "2026-08-05", "cb": "2026-08-07", "cm": "agosto", "v": "rez"}]}, {"n": "Elizondo", "cat": "AAA", "hc": 74.0, "ht": 7.67, "dep": {"Tráfico": 4.0, "Marketing": 0.17, "Contenido": 0.5, "Diseño": 1.5, "SEO": 1.5}, "sv": {"PARRILLA MENSUAL DE RRSS": 4.17, "Otros": 3.5}, "con": [{"s": "Administración SEO", "h": 16.0}, {"s": "Administración de Google ADS", "h": 28.0}, {"s": "Administración de Redes Sociales", "h": 22.0}, {"s": "Administración de TikTok", "h": 8.0}], "tar": []}, {"n": "CBN", "cat": "A", "hc": 16.0, "ht": 8.58, "dep": {"Tráfico": 1.5, "Marketing": 0.42, "Contenido": 1.67, "Diseño": 5.0}, "sv": {"PARRILLA MENSUAL DE RRSS": 7.75, "Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 0.5}, "con": [{"s": "Administración de Google ADS", "h": 8.0}, {"s": "Administración de Redes Sociales", "h": 8.0}], "tar": []}, {"n": "Grupo SAR", "cat": "B", "hc": 10.0, "ht": 8.75, "dep": {"Tráfico": 6.0, "Marketing": 1.75, "Contenido": 1.0}, "sv": {"Seguimiento Mensual Google ADs": 3.75, "Otros": 5.0}, "con": [{"s": "Administración de Google ADS", "h": 10.0}], "tar": []}, {"n": "Conext", "cat": "B", "hc": 0.0, "ht": 9.0, "dep": {"Contenido": 9.0}, "sv": {"Otros": 9.0}, "con": [], "tar": []}, {"n": "Anaerobia", "cat": "AA", "hc": 35.0, "ht": 79.42, "dep": {"Tráfico": 8.0, "Marketing": 1.25, "SEO": 1.17, "TI": 69.0}, "sv": {"SEO Etapa 2 - mensual": 0.67, "Seguimiento Mensual Google ADs": 3.25, "Otros": 75.5}, "con": [{"s": "Administración SEO", "h": 15.0}, {"s": "Administración de Google ADS", "h": 20.0}], "tar": [], "nota": "Incluye 69 h de la tarea T51582 “TI | Ajustes generales de Agosto”, creada el 17 de agosto y finalizada el 4 de septiembre, con entrega registrada el 31 de agosto. Se registró sin departamento y se asignó a TI. El cliente pidió ajustes y cambios durante todo el mes."}, {"n": "Family Meat Market", "cat": "B", "hc": 15.0, "ht": 11.5, "dep": {"Tráfico": 6.0, "Marketing": 1.33, "Contenido": 2.75, "Diseño": 1.42}, "sv": {"PARRILLA MENSUAL DE RRSS": 9.83, "Revisión de Cuentas": 0.67, "Otros": 1.0}, "con": [{"s": "Administración de Redes Sociales", "h": 15.0}], "tar": []}, {"n": "Paileria, Maquinados y productos Industriales SA", "cat": "PY", "hc": 0.0, "ht": 0.08, "dep": {"Diseño": 0.08}, "sv": {"Branding": 0.08}, "con": [], "tar": [{"id": "T45734", "t": "Programación de sitio web", "e": "Abierta", "d": "TI", "a": "Jose Enrique Sanchez Villanueva", "f": "07/07/2026", "g": "web", "ca": "2026-05-11", "cb": "2026-05-28", "cm": "mayo", "v": "rez"}]}, {"n": "MUGUERZA SUR", "cat": "AAA", "hc": 49.0, "ht": 16.58, "dep": {"Tráfico": 7.0, "Marketing": 0.17, "Contenido": 0.25, "Diseño": 9.17}, "sv": {"PARRILLA MENSUAL DE RRSS": 8.33, "Revisión de Cuentas": 0.17, "Otros": 8.08}, "con": [{"s": "Administración SEO", "h": 17.0}, {"s": "Administración de Redes Sociales", "h": 32.0}], "tar": [{"id": "T51705", "t": "ajustar presupuesto", "e": "En proceso", "d": "Tráfico", "a": "Daniela Rodriguez", "f": "20/08/2026", "g": "pauta", "ca": "2026-08-14", "cb": "2026-08-31", "cm": "agosto", "v": "unk"}]}, {"n": "Paxcon by Line-X", "cat": "A", "hc": 24.0, "ht": 13.25, "dep": {"Tráfico": 8.0, "Marketing": 0.58, "TI": 0.17, "Contenido": 2.5, "Diseño": 2.0}, "sv": {"PARRILLA MENSUAL DE RRSS": 8.75, "Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 4.17}, "con": [{"s": "Administración SEO", "h": 7.0}, {"s": "Administración de Google ADS", "h": 7.0}, {"s": "Administración de Redes Sociales", "h": 8.0}, {"s": "Servicio de Diseño Gráfico", "h": 2.0}], "tar": [{"id": "T48362", "t": "Ajuste implementacion de accionalbles tecnicos y de contenido", "e": "En revisión", "d": "SEO", "a": "Luis Espinosa", "f": "01/07/2026", "g": "seo", "ca": "2026-06-30", "cb": "2026-07-03", "cm": "entre junio y julio", "v": "rez"}, {"id": "T48877", "t": "Dirección de accionables Técnicos y de Contenido", "e": "En revisión", "d": "SEO", "a": "Luis Espinosa", "f": "10/07/2026", "g": "seo", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T48879", "t": "VoBo implementación de accionables de contenido", "e": "En revisión", "d": "SEO", "a": "Luis Espinosa", "f": "22/07/2026", "g": "seo", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T48884", "t": "Implementación y publicación de Accionables Técnicos y de Contenido", "e": "En revisión", "d": "TI", "a": "William Roberto Cuellar Ramirez", "f": "13/08/2026", "g": "seo", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T52831", "t": "Dirección de accionables Técnicos y de Contenido", "e": "En revisión", "d": "TI", "a": "Luis Espinosa", "f": "14/09/2026", "g": "seo", "ca": "2026-09-11", "cb": "2026-09-17", "cm": "septiembre", "v": "rec"}]}, {"n": "Crea Soluciones - Estudios de mercado", "cat": "A", "hc": 24.0, "ht": 16.67, "dep": {"Marketing": 0.17, "TI": 2.25, "Contenido": 4.0, "Diseño": 9.75, "SEO": 0.5}, "sv": {"Notas de blog Mensuales": 0.5, "PARRILLA MENSUAL DE RRSS": 9.25, "Revisión de Cuentas": 0.17, "Otros": 6.75}, "con": [{"s": "Administración de Google ADS", "h": 13.0}, {"s": "Administración de Redes Sociales", "h": 8.0}, {"s": "Desarrollo de nota de Blog", "h": 3.0}], "tar": []}, {"n": "DURATEX", "cat": "A", "hc": 18.0, "ht": 15.58, "dep": {"Tráfico": 6.0, "Marketing": 0.75, "Contenido": 1.83, "Diseño": 7.0}, "sv": {"PARRILLA MENSUAL DE RRSS": 11.25, "Revisión de Cuentas": 0.33, "Seguimiento Mensual Google ADs": 3.0, "Otros": 1.0}, "con": [{"s": "Administración de Google ADS", "h": 10.0}, {"s": "Administración de Redes Sociales", "h": 8.0}], "tar": []}, {"n": "BlackPixel", "cat": "AAA", "hc": 0.0, "ht": 15.5, "dep": {"Contenido": 13.5, "Sin asignar": 2.0}, "sv": {"Otros": 15.5}, "con": [], "tar": []}, {"n": "Raelsa", "cat": "B", "hc": 14.0, "ht": 20.0, "dep": {"Tráfico": 18.0, "Marketing": 0.67, "TI": 1.33}, "sv": {"Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 16.0, "Otros": 3.33}, "con": [{"s": "Administración de Google ADS", "h": 14.0}], "tar": []}, {"n": "Hospitales MAC", "cat": "AAA", "hc": 260.0, "ht": 48.03, "dep": {"Tráfico": 1.0, "Marketing": 43.28, "Contenido": 1.33, "Diseño": 2.42}, "sv": {"PARRILLA MENSUAL DE RRSS": 13.67, "Otros": 34.37}, "con": [{"s": "Administración de Redes Sociales", "h": 260.0}], "tar": []}, {"n": "TLE", "cat": "AAA", "hc": 37.0, "ht": 18.5, "dep": {"Marketing": 0.33, "TI": 1.92, "Contenido": 3.75, "Diseño": 12.5}, "sv": {"PARRILLA MENSUAL DE RRSS": 7.67, "Revisión de Cuentas": 0.25, "Otros": 10.58}, "con": [{"s": "Administración de Google ADS", "h": 12.0}, {"s": "Administración de Redes Sociales", "h": 25.0}], "tar": [{"id": "S53124", "t": "TI | Corregir script de formulario en LPs", "e": "En revisión", "d": "TI", "a": "Alejandro Vargas Mendez", "f": "23/09/2026", "g": "web", "ca": "2026-09-23", "cb": "2026-09-23", "cm": "septiembre", "v": "rec"}, {"id": "T48864", "t": "Diseño de parrilla mensual", "e": "Abierta", "d": "Diseño", "a": "Sofia Guerra", "f": "22/07/2026", "g": "redes", "ca": "2026-07-03", "cb": "2026-07-07", "cm": "julio", "v": "rez"}, {"id": "T51036", "t": "Contenido | LANDING PAGES", "e": "En proceso", "d": "Marketing", "a": "Sofia Guerra", "f": "31/08/2026", "g": "web", "ca": "2026-08-05", "cb": "2026-08-07", "cm": "agosto", "v": "rez"}]}, {"n": "InverCap", "cat": "AAA", "hc": 100.0, "ht": 19.83, "dep": {"Contenido": 12.75, "SEO": 7.08}, "sv": {"Notas de blog Mensuales": 5.5, "SEO Etapa 2 - mensual": 6.92, "Otros": 7.42}, "con": [{"s": "Administración SEO", "h": 60.0}, {"s": "Servicio de Diseño Gráfico", "h": 40.0}], "tar": []}, {"n": "COBERLUM", "cat": "AA", "hc": 19.0, "ht": 21.83, "dep": {"Tráfico": 7.0, "Contenido": 4.0, "Diseño": 9.5, "SEO": 1.33}, "sv": {"Notas de blog Mensuales": 1.75, "PARRILLA MENSUAL DE RRSS": 13.5, "Seguimiento Mensual Google ADs": 2.0, "Otros": 4.58}, "con": [{"s": "Administración SEO", "h": 4.0}, {"s": "Administración de Google ADS", "h": 7.0}, {"s": "Administración de Redes Sociales", "h": 8.0}], "tar": [{"id": "T52207", "t": "Reporte mensual agosto SEM SEP 2026 | Coberlum", "e": "Abierta", "d": "Marketing", "a": "Veronica Picon Colorado", "f": "07/09/2026", "g": "reportes", "ca": "2026-09-01", "cb": "2026-09-07", "cm": "septiembre", "v": "rec"}]}, {"n": "Gama Music", "cat": "AA", "hc": 30.0, "ht": 27.0, "dep": {"Tráfico": 17.0, "Marketing": 2.75, "Contenido": 3.25, "Diseño": 1.5, "SEO": 2.5}, "sv": {"Seguimiento Mensual Google ADs": 2.75, "Otros": 24.25}, "con": [{"s": "Administración SEO", "h": 13.0}, {"s": "Administración de Google ADS", "h": 17.0}], "tar": [{"id": "T53121", "t": "Realizar optimizaciones en campañas SEP 2026 | Gama Music", "e": "En proceso", "d": "Tráfico", "a": "Rubén Guadalupe Zúñiga Hernández", "f": "23/09/2026", "g": "pauta", "ca": "2026-09-23", "cb": "2026-09-23", "cm": "septiembre", "v": "rec"}]}, {"n": "Bark & Co.", "cat": "AA", "hc": 20.0, "ht": 29.67, "dep": {"Tráfico": 8.5, "Marketing": 1.42, "TI": 0.08, "Contenido": 4.58, "Diseño": 15.08}, "sv": {"PARRILLA MENSUAL DE RRSS": 23.42, "Revisión de Cuentas": 0.67, "Seguimiento Mensual Google ADs": 4.58, "Otros": 1.0}, "con": [{"s": "Administración de Redes Sociales", "h": 20.0}], "tar": [{"id": "T49308", "t": "Revisar presupuesto", "e": "Abierta", "d": "Tráfico", "a": "Danna Michelle Treviño Pardo", "f": "13/07/2026", "g": "pauta", "ca": "2026-07-07", "cb": "2026-07-21", "cm": "julio", "v": "rez"}]}, {"n": "Tecmilenio - Comunidades", "cat": "B", "hc": 13.0, "ht": 34.5, "dep": {"Contenido": 7.5, "Diseño": 27.0}, "sv": {"Otros": 34.5}, "con": [], "tar": []}];
+CUENTAS.forEach(c => { c.cur = c.tar.filter(t=>t.v==='rec'); c.rez = c.tar.filter(t=>t.v==='rez'); c.unk = c.tar.filter(t=>t.v==='unk'); });
+const CORTE = new Date('2026-09-24T00:00:00');
+const dias = s => Math.round((CORTE - new Date(s+'T00:00:00'))/86400000);
+
+const DEP = [
+  ['Tráfico','--d-trafico'],['Marketing','--d-marketing'],['TI','--d-ti'],['Contenido','--d-contenido'],
+  ['Diseño','--d-diseno'],['SEO','--d-seo'],['Sin asignar','--d-sin']
+];
+const SVC = [
+  ['PARRILLA MENSUAL DE RRSS','Parrilla mensual de redes','--d-contenido'],
+  ['Seguimiento Mensual Google ADs','Seguimiento mensual de Google Ads','--d-trafico'],
+  ['Branding','Branding','--d-diseno'],
+  ['SEO Etapa 2 - mensual','SEO etapa 2, mensual','--d-seo'],
+  ['Notas de blog Mensuales','Notas de blog mensuales','--d-marketing'],
+  ['Propuesta Comercial','Propuesta comercial','--d-ti'],
+  ['Revisión de Cuentas','Revisión de cuentas','--d-sin'],
+  ['Otros','Otros (sin servicio específico)','--s-otros']
+];
+const GRUPOS = {
+  web:{t:'Sitio web, landing pages y TI', p:'FAMAPER concentra 3 tareas alrededor de su nueva landing: ajustes, fotos de galería por producto y la publicación de la landing de FMP Racks. Las demás son ajustes puntuales: el script del formulario de las landing pages de TLE, una categoría nueva en el sitio de TERZA, leads y correo de HVAC & VRF, la tarea “Resultado de búsqueda” de AutoTracking y una tarea de Google Ads de Covacsa en TI. Seis de las ocho están asignadas a Alejandro Vargas.'},
+  reportes:{t:'Reportes, presentaciones y analítica', p:'Los reportes mensuales SEM de agosto siguen abiertos en COBERLUM, Materia y Perforaciones y Anclajes Especiales.'},
+  pauta:{t:'Campañas y presupuesto de pauta', p:'Nicholas Plastics tiene pendiente actualizar y encender su campaña de Google Ads, y Gama Music tiene en proceso optimizaciones a sus campañas de septiembre.'},
+  seo:{t:'SEO', p:'Paxcon by Line-X tiene en revisión la dirección de accionables técnicos y de contenido de septiembre.'},
+  redes:{t:'Contenido para redes', p:''}
+};
+const ORDEN_CAT = ['AAA','AA','A','B','PY','PYA','PYAA','PYI','COMISION'];
+
+const css = v => `var(${v})`;
+const nf1 = new Intl.NumberFormat('es-MX',{maximumFractionDigits:1, minimumFractionDigits:0});
+const nf0 = new Intl.NumberFormat('es-MX',{maximumFractionDigits:0});
+function horas(h){ if(h===0) return '0 h'; if(h<1) return Math.round(h*60)+' min'; return nf1.format(h)+' h'; }
+function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function unesc(s){ return s.replace(/&amp;/g,'&'); }
+function slug(s){ return 'c-'+s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+function plural(n, uno, varios){ return `${n} ${n===1?uno:varios}`; }
+function lista(arr){ return arr.length<2 ? arr.join('') : arr.slice(0,-1).join(', ')+' y '+arr[arr.length-1]; }
+const stClass = {'Abierta':'abierta','En proceso':'proceso','En revisión':'revision'};
+
+const activas = CUENTAS.filter(c => c.ht>0 || c.cur.length);
+const inactivas = CUENTAS.filter(c => !(c.ht>0 || c.cur.length));
+const esActiva = n => activas.some(a=>a.n===n);
+const totH = CUENTAS.reduce((a,c)=>a+c.ht,0);
+const totC = CUENTAS.reduce((a,c)=>a+c.hc,0);
+const conH = CUENTAS.filter(c=>c.ht>0).length;
+const tareas = CUENTAS.flatMap(c => c.cur.map(t => ({...t, cuenta:c.n})));
+const rezagadas = CUENTAS.flatMap(c => c.rez.map(t => ({...t, cuenta:c.n})));
+const ctasConT = CUENTAS.filter(c=>c.cur.length).length;
+const ctasConR = CUENTAS.filter(c=>c.rez.length).length;
+
+/* Encabezado */
+document.getElementById('lede').innerHTML =
+  `En las últimas 4 semanas se registraron <strong>${horas(totH)}</strong> en ${conH} cuentas. Hay <strong>${tareas.length} tareas activas</strong> creadas en las últimas 4 semanas, en ${ctasConT} cuentas.`;
+document.getElementById('facts').innerHTML = [
+  `Periodo: <b>28 de agosto al 24 de septiembre</b>`,
+  `Horas contratadas del mes: <b>${nf0.format(totC)} h</b>`,
+  `Cuentas registradas: <b>${CUENTAS.length}</b>`,
+  `Cuentas sin actividad: <b>${inactivas.length}</b>`,
+  `Tareas sin cerrar de más de 4 semanas: <a href="#h-rez"><b>${rezagadas.length}</b></a>`
+].map(x=>`<li>${x}</li>`).join('');
+
+/* Composición */
+function comp(barId, legId, items, total){
+  const bar = document.getElementById(barId), leg = document.getElementById(legId);
+  bar.innerHTML = items.map(i => `<span class="${i.hatch?'hatch':''}" style="width:${(i.h/total*100).toFixed(3)}%;background:${css(i.c)}" title="${esc(i.l)}: ${horas(i.h)}"></span>`).join('');
+  bar.setAttribute('aria-label', items.map(i=>`${i.l} ${horas(i.h)}`).join(', '));
+  leg.innerHTML = items.map(i => { const pc=i.h/total*100; return `<li><span class="sw ${i.hatch?'hatch':''}" style="background:${css(i.c)}"></span>${esc(i.l)}<span class="v"><b>${horas(i.h)}</b>, ${pc<1?'menos de 1':Math.round(pc)}%</span></li>`; }).join('');
+}
+const depItems = DEP.map(([k,c]) => ({l:k, c, h:CUENTAS.reduce((a,x)=>a+(x.dep[k]||0),0)})).filter(i=>i.h>0).sort((a,b)=>b.h-a.h);
+comp('bar-dep','leg-dep',depItems,totH);
+const svcItems = SVC.map(([k,l,c]) => ({l, c, k, h:CUENTAS.reduce((a,x)=>a+(x.sv[k]||0),0), hatch:k==='Otros'})).filter(i=>i.h>0);
+const otros = svcItems.find(i=>i.k==='Otros');
+const svcSorted = svcItems.filter(i=>i.k!=='Otros').sort((a,b)=>b.h-a.h).concat(otros?[otros]:[]);
+comp('bar-svc','leg-svc',svcSorted,totH);
+if(otros){
+  const top = CUENTAS.filter(c=>(c.sv.Otros||0)>0).sort((a,b)=>b.sv.Otros-a.sv.Otros).slice(0,3);
+  document.getElementById('note-otros').textContent =
+    `El ${Math.round(otros.h/totH*100)}% de las horas quedó en “Otros”: el registro no indica a qué servicio corresponde. Las cuentas con más horas así son ${lista(top.map(c=>`${c.n} (${horas(c.sv.Otros)})`))}.`;
+}
+const hRev = CUENTAS.reduce((a,x)=>a+(x.sv['Revisión de Cuentas']||0),0);
+document.getElementById('h-rev').textContent = horas(hRev);
+
+/* Qué está activo este mes */
+const est = e => tareas.filter(t=>t.e===e).length;
+document.getElementById('sub-activo').textContent =
+  `${plural(tareas.length,'tarea','tareas')} creadas en las últimas 4 semanas: ${est('Abierta')} abiertas, ${est('En proceso')} en proceso y ${est('En revisión')} en revisión. Agrupadas por el tipo de trabajo que describe su nombre.`;
+const gOrden = Object.keys(GRUPOS).map(g => ({g, ts:tareas.filter(t=>t.g===g)})).filter(x=>x.ts.length).sort((a,b)=>b.ts.length-a.ts.length);
+document.getElementById('groups').innerHTML = gOrden.map(({g,ts}) => {
+  const cts = [...new Set(ts.map(t=>t.cuenta))];
+  const cnt = cts.map(n => [n, ts.filter(t=>t.cuenta===n).length]).sort((a,b)=>b[1]-a[1] || a[0].localeCompare(b[0],'es'));
+  return `<div class="group"><h3>${GRUPOS[g].t}<span class="n">${plural(ts.length,'tarea','tareas')} en ${plural(cts.length,'cuenta','cuentas')}</span></h3>
+    <div><p>${esc(GRUPOS[g].p)}</p><ul class="chips">${cnt.map(([n,k])=>`<li><a class="chip" href="#${slug(n)}" data-go="${esc(n)}">${esc(n)}${k>1?` (${k})`:''}</a></li>`).join('')}</ul></div></div>`;
+}).join('');
+
+/* Señales */
+const over = CUENTAS.filter(c=>c.hc>0 && c.ht>c.hc).sort((a,b)=>b.ht/b.hc-a.ht/a.hc);
+const nocon = CUENTAS.filter(c=>c.hc===0 && c.ht>0).sort((a,b)=>b.ht-a.ht);
+const idleC = CUENTAS.filter(c=>c.hc>0 && c.ht===0).sort((a,b)=>b.hc-a.hc);
+function sigList(arr, fmt){ return `<ol>${arr.map(c=>`<li><button type="button" ${esActiva(c.n)?'data-go':'data-idle'}="${esc(c.n)}">${esc(c.n)}</button><span class="val">${fmt(c)}</span></li>`).join('')}</ol>`; }
+document.getElementById('signals').innerHTML = `
+  <div class="sig over"><h3>Sobretrabajadas</h3><p class="why">${over.length} cuentas ya registran más horas de las contratadas.</p>
+    ${sigList(over, c=>`<b>${horas(c.ht)}</b> de ${horas(c.hc)}`)}</div>
+  <div class="sig nocon"><h3>Horas trabajadas sin contrato</h3><p class="why">${nocon.length} cuentas con horas registradas y 0 horas en contrato, ${horas(nocon.reduce((a,c)=>a+c.ht,0))} en total.</p>
+    ${sigList(nocon, c=>`<b>${horas(c.ht)}</b>`)}</div>
+  <div class="sig idle"><h3>Cuentas con contrato sin actividad</h3><p class="why">${idleC.length} cuentas con horas contratadas y ninguna hora registrada en las 4 semanas, ${nf0.format(idleC.reduce((a,c)=>a+c.hc,0))} h contratadas en total.</p>
+    ${sigList(idleC, c=>`${horas(c.hc)} contratadas`)}</div>`;
+
+/* Lista de cuentas */
+const cats = ORDEN_CAT.filter(k => activas.some(c=>c.cat===k));
+document.getElementById('fcat').innerHTML = `<option value="">Todas</option>` + cats.map(k=>`<option>${k}</option>`).join('');
+const open = new Set();
+function pct(c){ return c.hc>0 ? c.ht/c.hc : null; }
+function row(c){
+  const p = pct(c), isOver = p!==null && p>1;
+  const w = p===null ? 0 : Math.min(p,1.5)/1.5*100;
+  const meter = p===null
+    ? `<span class="meter none" title="Sin horas contratadas"></span>`
+    : `<span class="meter ${isOver?'over':''}"><span class="fill" style="width:${w.toFixed(2)}%"></span><span class="mark"></span></span>`;
+  const hrs = p===null ? `<b>${horas(c.ht)}</b>, sin contrato` : `<b>${horas(c.ht)}</b> de ${horas(c.hc)}`;
+  const pc = p===null ? `<span class="pct none">n/a</span>` : `<span class="pct ${isOver?'over':''}">${Math.round(p*100)}%</span>`;
+  const tc = c.cur.length ? `<span class="tc has">${plural(c.cur.length,'tarea','tareas')}</span>` : `<span class="tc">0 tareas</span>`;
+  const id = slug(c.n), isOpen = open.has(c.n);
+  return `<article class="acct" id="${id}"><button class="acct-head" type="button" aria-expanded="${isOpen}" aria-controls="${id}-b" data-n="${esc(c.n)}">
+      <span class="who"><span class="nm">${esc(c.n)}</span><span class="cat">${esc(c.cat)}</span></span>${meter}<span class="hrs">${hrs}</span>${pc}${tc}</button>
+    <div class="acct-body" id="${id}-b" ${isOpen?'':'hidden'}>${isOpen?body(c):''}</div></article>`;
+}
+function body(c){
+  const deps = DEP.filter(([k])=>c.dep[k]).map(([k,v])=>({l:k,c:v,h:c.dep[k]})).sort((a,b)=>b.h-a.h);
+  const svs = SVC.filter(([k])=>c.sv[k]).map(([k,l,v])=>({l,c:v,h:c.sv[k],hatch:k==='Otros'})).sort((a,b)=>(a.hatch-b.hatch)||(b.h-a.h));
+  const left = c.ht>0 ? `
+    <h4>Horas por departamento</h4>
+    <div class="mini" role="img" aria-label="${deps.map(d=>`${d.l} ${horas(d.h)}`).join(', ')}">${deps.map(d=>`<span style="width:${(d.h/c.ht*100).toFixed(2)}%;background:${css(d.c)}"></span>`).join('')}</div>
+    <ul class="kv">${deps.map(d=>`<li><span class="sw" style="background:${css(d.c)}"></span>${d.l}<span class="v"><b>${horas(d.h)}</b></span></li>`).join('')}</ul>
+    <h4>Horas por servicio</h4>
+    <ul class="kv">${svs.map(s=>`<li><span class="sw ${s.hatch?'hatch':''}" style="background:${css(s.c)}"></span>${s.l}<span class="v"><b>${horas(s.h)}</b></span></li>`).join('')}</ul>`
+    : `<h4>Horas</h4><p class="empty">Sin horas registradas en las últimas 4 semanas.</p>`;
+  const con = c.con.length ? `<ul class="contracted">${c.con.map(s=>`<li>${esc(s.s)}, ${horas(s.h)}</li>`).join('')}</ul>` : `<p class="empty">El reporte de Dirección no detalla servicios para esta cuenta.</p>`;
+  const tasks = c.cur.length
+    ? `<ul class="tasks">${c.cur.map(t=>`<li class="task"><div class="tt"><span class="st ${stClass[t.e]}">${t.e}</span><span class="name">${esc(t.t)}</span></div>
+        <p class="meta">${t.d==='--'?'Sin departamento':esc(t.d)}, ${esc(t.a)}. Entrega registrada: ${t.f}. ${esc(t.id)}</p></li>`).join('')}</ul>`
+    : `<p class="empty">Sin tareas creadas en las últimas 4 semanas.</p>`;
+  const nota = c.nota ? `<p class="acct-note">${esc(c.nota)}</p>` : '';
+  return `<div>${nota}${left}<h4>Servicios contratados</h4>${con}</div><div><h4>Tareas</h4>${tasks}</div>`;
+}
+function render(){
+  const q = document.getElementById('q').value.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const fc = document.getElementById('fcat').value, s = document.getElementById('sort').value, ot = document.getElementById('onlyt').checked;
+  let arr = activas.filter(c => (!fc || c.cat===fc) && (!ot || c.cur.length) && (!q || c.n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(q)));
+  const cmp = {
+    ht:(a,b)=>b.ht-a.ht,
+    pct:(a,b)=>(pct(b)??-1)-(pct(a)??-1) || b.ht-a.ht,
+    tar:(a,b)=>b.cur.length-a.cur.length || b.ht-a.ht,
+    n:(a,b)=>a.n.localeCompare(b.n,'es')
+  }[s];
+  arr.sort(cmp);
+  document.getElementById('list').innerHTML = arr.length ? arr.map(row).join('') : `<p class="empty">Ninguna cuenta coincide con la búsqueda. Borra el texto o cambia la categoría.</p>`;
+  document.getElementById('count').textContent = `${arr.length} de ${activas.length} cuentas`;
+  document.getElementById('toggle-all').textContent = arr.length && arr.every(c=>open.has(c.n)) ? 'Cerrar todas' : 'Abrir todas';
+}
+document.getElementById('list').addEventListener('click', e => {
+  const b = e.target.closest('.acct-head'); if(!b) return;
+  const n = unesc(b.dataset.n), c = activas.find(x=>x.n===n), panel = document.getElementById(b.getAttribute('aria-controls'));
+  if(open.has(n)){ open.delete(n); panel.hidden = true; b.setAttribute('aria-expanded','false'); }
+  else { open.add(n); panel.innerHTML = body(c); panel.hidden = false; b.setAttribute('aria-expanded','true'); }
+});
+['q','fcat','sort','onlyt'].forEach(id => document.getElementById(id).addEventListener('input', render));
+document.getElementById('toggle-all').addEventListener('click', () => {
+  const vis = [...document.querySelectorAll('#list .acct-head')].map(b=>unesc(b.dataset.n));
+  const all = vis.every(n=>open.has(n));
+  vis.forEach(n => all ? open.delete(n) : open.add(n));
+  render();
+});
+function goTo(n){
+  document.getElementById('q').value=''; document.getElementById('fcat').value=''; document.getElementById('onlyt').checked=false;
+  open.add(n); render();
+  const el = document.getElementById(slug(n));
+  if(el){ const ctl=document.querySelector('.controls'); const y=el.getBoundingClientRect().top+window.scrollY-ctl.offsetHeight-14; window.scrollTo({top:y, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1400); el.querySelector('.acct-head').focus({preventScroll:true}); }
+}
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if(g){ e.preventDefault(); goTo(unesc(g.dataset.go)); return; }
+  const i = e.target.closest('[data-idle]'); if(i){ const el=document.getElementById('i-'+slug(unesc(i.dataset.idle))); if(el){ el.scrollIntoView({block:'center'}); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1600); } }
+});
+render();
+
+/* Tareas abiertas por cliente */
+const todasSep = tareas.every(t => t.ca >= '2026-09-01');
+document.getElementById('sub-abiertas').textContent =
+  `${plural(tareas.length,'tarea','tareas')} en ${plural(ctasConT,'cuenta','cuentas')}, creadas en las últimas 4 semanas${todasSep?' (todas en septiembre)':''}, que siguen abiertas, en proceso o en revisión al 24 de septiembre. No incluye revisiones de cuenta. Toca el nombre de la cuenta para ver su ficha completa.`;
+document.getElementById('abiertas').innerHTML = CUENTAS.filter(c=>c.cur.length)
+  .sort((a,b)=>b.cur.length-a.cur.length || a.n.localeCompare(b.n,'es'))
+  .map(c => `<div class="rez-acct open-acct"><h3><button type="button" data-go="${esc(c.n)}">${esc(c.n)}</button><span class="cat">${esc(c.cat)}</span><span class="n">${plural(c.cur.length,'tarea','tareas')}</span></h3>
+    <p class="hh">${c.hc>0?`${horas(c.ht)} registradas en 4 semanas, de ${horas(c.hc)} contratadas al mes`:`${horas(c.ht)} registradas en 4 semanas, sin horas contratadas`}</p>
+    <ul class="tasks">${c.cur.map(t=>`<li class="task"><div class="tt"><span class="st ${stClass[t.e]}">${t.e}</span><span class="name">${esc(t.t)}</span></div>
+      <p class="meta">${t.d==='--'?'Sin departamento':esc(t.d)}, ${esc(t.a)}. Entrega registrada: ${t.f}. ${esc(t.id)}</p></li>`).join('')}</ul></div>`).join('');
+
+/* Tareas sin cerrar de más de 4 semanas */
+const BANDAS = [
+  {k:'b1', t:'De 4 a 8 semanas', min:29, max:56},
+  {k:'b2', t:'De 2 a 3 meses', min:57, max:91},
+  {k:'b3', t:'Más de 3 meses', min:92, max:99999}
+];
+const banda = t => { const d = dias(t.cb); return BANDAS.find(b => d>=b.min && d<=b.max) || BANDAS[0]; };
+const porPersona = {};
+rezagadas.forEach(t => { porPersona[t.a] = (porPersona[t.a]||0)+1; });
+const porConfirmar = CUENTAS.flatMap(c => c.unk.map(t => ({...t, cuenta:c.n})));
+document.getElementById('sub-rez').textContent =
+  `${plural(rezagadas.length,'tarea','tareas')} creadas hace más de 4 semanas que siguen abiertas, en proceso o en revisión, en ${ctasConR} cuentas. Se agrupan por antigüedad para ubicar dónde se acumulan.`;
+document.getElementById('rez-resumen').innerHTML = `
+  <div><h3>Antigüedad</h3><ul class="kv">${BANDAS.map(b=>`<li>${b.t}<span class="v"><b>${rezagadas.filter(t=>banda(t)===b).length}</b></span></li>`).join('')}${porConfirmar.length?`<li>Por confirmar<span class="v"><b>${porConfirmar.length}</b></span></li>`:''}</ul></div>
+  <div><h3>Quién las tiene asignadas</h3><ul class="kv">${Object.entries(porPersona).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'es')).map(([p,n])=>`<li>${esc(p)}<span class="v"><b>${n}</b></span></li>`).join('')}</ul></div>`;
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const fechaLarga = s => { const d = new Date(s+'T00:00:00'); return `${d.getDate()} de ${MESES[d.getMonth()]}`; };
+function tarjetas(lista, meta){
+  const ctas = [...new Set(lista.map(t=>t.cuenta))].map(n => ({n, cat:CUENTAS.find(c=>c.n===n).cat, ts:lista.filter(t=>t.cuenta===n)}))
+    .sort((a,b)=>b.ts.length-a.ts.length || a.n.localeCompare(b.n,'es'));
+  return `<div class="rez">${ctas.map(c => `
+    <div class="rez-acct"><h3><button type="button" ${esActiva(c.n)?'data-go':'data-idle'}="${esc(c.n)}">${esc(c.n)}</button><span class="cat">${esc(c.cat)}</span><span class="n">${plural(c.ts.length,'tarea','tareas')}</span></h3>
+      <ul class="tasks">${c.ts.slice().sort((a,b)=>a.ca.localeCompare(b.ca)).map(t=>`<li class="task"><div class="tt"><span class="st ${stClass[t.e]}">${t.e}</span><span class="name">${esc(t.t)}</span></div>
+        <p class="meta">${meta(t)} ${t.d==='--'?'Sin departamento':esc(t.d)}, ${esc(t.a)}. ${esc(t.id)}</p></li>`).join('')}</ul></div>`).join('')}</div>`;
+}
+const creada = t => `Creada ${t.cm.startsWith('entre')?t.cm:'en '+t.cm} (estimado).`;
+let htmlRez = BANDAS.map(b => { const ts = rezagadas.filter(t=>banda(t)===b); return ts.length ? `<div class="rez-band"><h3 class="band-t">${b.t}<span class="n">${plural(ts.length,'tarea','tareas')}</span></h3>${tarjetas(ts, creada)}</div>` : ''; }).reverse().join('');
+if(porConfirmar.length){
+  htmlRez += `<div class="rez-band"><h3 class="band-t">Por confirmar<span class="n">${plural(porConfirmar.length,'tarea','tareas')}</span></h3>
+    <p class="note band-note">Se crearon entre el ${fechaLarga(porConfirmar[0].ca)} y el ${fechaLarga(porConfirmar[0].cb)}; con los datos disponibles no se puede saber si caen dentro de las últimas 4 semanas. No se cuentan en ningún total hasta confirmar su fecha de creación.</p>
+    ${tarjetas(porConfirmar, t => `Creada entre el ${fechaLarga(t.ca)} y el ${fechaLarga(t.cb)} (estimado).`)}</div>`;
+}
+document.getElementById('rez').innerHTML = htmlRez;
+
+/* Sin actividad */
+document.getElementById('sub-idle').textContent =
+  `${inactivas.length} cuentas sin horas registradas ni tareas creadas en las últimas 4 semanas. Se listan para que el panorama incluya todas las cuentas del reporte de Dirección.`;
+const idleSorted = inactivas.slice().sort((a,b)=>b.hc-a.hc || a.n.localeCompare(b.n,'es'));
+document.getElementById('idle').innerHTML = idleSorted.map(c=>`<li id="i-${slug(c.n)}"><span class="nm">${esc(c.n)}</span><span class="cat">${esc(c.cat)}</span><span class="h ${c.hc>0?'has':''}">${c.hc>0?horas(c.hc)+' contratadas':'Sin contrato'}</span></li>`).join('');
+document.getElementById('n-rev').textContent = '625';
+
+window.addEventListener('beforeprint',()=>document.querySelectorAll('.notes details').forEach(d=>d.open=true));
+</script>
+</body>
+</html>
